@@ -1,3 +1,5 @@
+const https = require('https');
+const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
@@ -6,16 +8,18 @@ const OpenAI = require('openai');
 const app = express();
 const port = 3001;
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://main.d21put265zxojq.amplifyapp.com', // Restrict to your Amplify frontend
+  credentials: true
+}));
 app.use(express.json({ limit: '10mb' }));
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-// REPLACE your existing caseStudyData object with this full and correctly structured version
-// REPLACE your existing caseStudyData object with this full and correctly structured version
+// Case study data
 const caseStudyData = {
     title: "The Vanishing Deals Dilemma",
-    background: "Crestone Technologies, a leading B2B SaaS company, has been experiencing a steep decline in sales performance over the past six months. The company, known for its enterprise automation solutions, primarily caters to mid-sized businesses and large corporations. However, despite a strong product-market fit and competitive pricing, the sales team has been unable to close key deals, leading to growing frustration at the leadership level. The issue is not just numbers-it's a complex mix of people, processes, and organizational culture.",
+    background: "Crestone Technologies, a leading B2B SaaS company, has been experiencing a steep decline in sales performance over the past six months. The company, known for its enterprise automation solutions, primarily caters to mid-sized businesses and large corporations. However, despite a strong product-market fit and competitive pricing, the sales team has been unable to close key deals, leading to growing frustration at the leadership level. The issue is not just numbers-it's a complex mix of people, processes, and organizational culture.", 
     characters: [
         { name: "Rajesh Mehta (Sales VP)", description: "A veteran in the industry, Rajesh has been pushing for aggressive sales targets, attributing the slump to a lack of motivation among sales reps. He believes HR's hiring and retention strategy is failing, and administrative inefficiencies are also affecting performance." },
         { name: "Aparna Sen (CHRO)", description: "A strategic HR leader who is focused on long-term talent development, but is caught between leadership's aggressive demands and her commitment to sustainable, people-first policies." },
@@ -72,9 +76,8 @@ const caseStudyData = {
         ]
     },
     questions: [
-        // Situational Judgment Test (SJT) – Sales VP Rajesh Mehta
         { id: 1, perspective: "Sales VP Rajesh Mehta", question: "A top-performing sales executive has suddenly resigned, citing burnout and lack of work-life balance. Rajesh Mehta demands an immediate replacement. How should HR respond?", options: [ { id: 'A', text: "Conduct exit interviews, analyze burnout causes, and propose role restructuring." }, { id: 'B', text: "Start recruitment immediately but request Rajesh to allow time for hiring quality talent." }, { id: 'C', text: "Quickly promote a junior employee without assessing readiness." }, { id: 'D', text: "Offer a counteroffer to retain the employee without addressing underlying issues." }, { id: 'E', text: "Blame workload expectations and advise Rajesh to reduce targets." }, { id: 'F', text: "Do nothing and let Rajesh manage the situation himself." } ], bestAnswer: 'A' },
-        { id: 2, perspective: "Sales VP Rajesh Mehta", question: "Sales performance has dropped 15% in the last quarter. Rajesh believes hiring more aggressive salespeople is the solution. What should HR do?", options: [ { id: 'A', text: "Conduct a root cause analysis to determine if training, workload, or processes are contributing factors." }, { id: 'B', text: "Start recruiting more salespeople immediately to increase manpower." }, { id: 'C', text: "Suggest firing underperformers before hiring new employees." }, { id: 'D', text: "Agree with Rajesh's perspective and focus only on hiring aggressive sales profiles." }, { id: 'E', text: "Recommend investing in technology-driven sales tools instead of hiring." }, { id: 'F', text: "Ignore Rajesh's concerns and let the sales team figure it out." } ], bestAnswer: 'A' },
+        { id: 2, perspective: "Sales VP Rajesh Mehta", question: "Sales performance has dropped 15% in the last quarter. Rajesh believes hiring more aggressive salespeople is the solution. What should HR do?", options: [ { id: 'A', text: "Conduct a root cause analysis to determine if training, workload, or processes are contributing factors." }, { id: 'B', text: "Start recruiting more salespeople immediately to increase manpower." }, { id: 'C', text: "Suggest firing underperformers before hiring new employees." }, { id: 'D', text: " Agree with Rajesh's perspective and focus only on hiring aggressive sales profiles." }, { id: 'E', text: "Recommend investing in technology-driven sales tools instead of hiring." }, { id: 'F', text: "Ignore Rajesh's concerns and let the sales team figure it out." } ], bestAnswer: 'A' },
         { id: 3, perspective: "Sales VP Rajesh Mehta", question: "The HR team has implemented a new incentive policy, but Rajesh complains that it is demotivating the team. How should HR handle this?", options: [ { id: 'A', text: "Conduct a pulse survey to gather feedback and refine the incentive structure." }, { id: 'B', text: "Ask Rajesh to communicate the benefits of the new structure better." }, { id: 'C', text: "Modify the policy without data, based solely on Rajesh's feedback." }, { id: 'D', text: "Keep the policy unchanged and tell Rajesh that adjustments will be reviewed in a year." }, { id: 'E', text: "Scrap the new policy and revert to the previous model to avoid complaints." }, { id: 'F', text: "Ignore Rajesh's concerns and let the dissatisfaction persist." } ], bestAnswer: 'A' },
         { id: 4, perspective: "Sales VP Rajesh Mehta", question: "A major B2B client has complained about inconsistent service due to high employee turnover. Rajesh blames HR for not retaining top sales talent. What is the best HR response?", options: [ { id: 'A', text: "Analyze exit interview data, identify turnover reasons, and propose retention strategies." }, { id: 'B', text: "Increase salaries for top salespeople without reviewing other retention factors." }, { id: 'C', text: "Shift blame to Rajesh's leadership style and avoid HR involvement." }, { id: 'D', text: "Ask Rajesh to resolve the issue directly with the client while HR works on hiring." }, { id: 'E', text: "Implement a stay interview process for existing employees to prevent further exits." }, { id: 'F', text: "Ignore the client complaint as an isolated issue." } ], bestAnswer: 'A' },
         { id: 5, perspective: "Sales VP Rajesh Mehta", question: "Rajesh wants to fire a sales employee for underperformance without following HR policies. How should HR respond?", options: [ { id: 'A', text: "Enforce performance management processes and offer coaching before termination." }, { id: 'B', text: "Allow Rajesh to fire the employee but offer severance to avoid legal issues." }, { id: 'C', text: "Fast-track termination to avoid team disruption." }, { id: 'D', text: "Suggest transferring the employee to a different sales role instead." }, { id: 'E', text: "Delay the decision and observe the employee's performance for another quarter." }, { id: 'F', text: "Approve the termination without following due process." } ], bestAnswer: 'A' },
@@ -101,7 +104,6 @@ app.get('/api/case-study', (req, res) => {
     res.json({ ...caseStudyData, questions: questionsForFrontend });
 });
 
-// THIS IS THE ONLY FUNCTION THAT HAS CHANGED
 app.post('/api/evaluate', async (req, res) => {
     const { answers } = req.body;
     const userChoices = caseStudyData.questions.filter(q => answers[q.id]).map(q => {
@@ -120,15 +122,13 @@ app.post('/api/evaluate', async (req, res) => {
         
         const rawContent = response.choices[0].message.content;
 
-        // THIS IS THE NEW, ROBUST LOGIC
-        // We will now try to parse the AI's response, but if it fails, we won't crash.
         try {
             const report = JSON.parse(rawContent);
-            res.json(report); // Success! Send the report to the frontend.
+            res.json(report);
         } catch (parseError) {
             console.error("FAILED TO PARSE JSON FROM OPENAI. The AI returned malformed data.", parseError);
             console.error("--- RAW AI RESPONSE THAT FAILED ---");
-            console.log(rawContent); // Log the broken data so we can see it
+            console.log(rawContent);
             console.log("---------------------------------");
             res.status(500).json({ error: "AI returned a response that was not valid JSON." });
         }
@@ -138,6 +138,13 @@ app.post('/api/evaluate', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
-    console.log(`Backend server listening at http://localhost:${3001}`);
+// SSL certificate
+const options = {
+  key: fs.readFileSync('/etc/letsencrypt/live/api.majormod.xyz/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/api.majormod.xyz/fullchain.pem')
+};
+
+// Start HTTPS server
+https.createServer(options, app).listen(port, () => {
+  console.log(`HTTPS server listening at https://localhost:${port}`);
 });
