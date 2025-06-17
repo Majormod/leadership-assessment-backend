@@ -21,886 +21,491 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // --- Competency Map for all 160 Questions ---
+// --- Competency Map for the new Case Study ---
 const competencyMap = {
-    // Sales VP Rajesh Mehta (1-20)
-    1: "Talent Acquisition & Retention", 2: "Strategic HR Leadership", 3: "People & Stakeholder Management", 4: "Talent Acquisition & Retention", 5: "Ethical & Compliance Judgment", 6: "Strategic HR Leadership", 7: "Interdepartmental Collaboration", 8: "Talent Acquisition & Retention", 9: "Ethical & Compliance Judgment", 10: "Strategic HR Leadership", 11: "Ethical & Compliance Judgment", 12: "People & Stakeholder Management", 13: "Talent Acquisition & Retention", 14: "Talent Acquisition & Retention", 15: "Talent Acquisition & Retention", 16: "Interdepartmental Collaboration", 17: "Strategic HR Leadership", 18: "People & Stakeholder Management", 19: "People & Stakeholder Management", 20: "Strategic HR Leadership",
-    // CHRO (21-40)
-    21: "Interdepartmental Collaboration", 22: "Decision-Making & Crisis Handling", 23: "Talent Acquisition & Retention", 24: "People & Stakeholder Management", 25: "Ethical & Compliance Judgment", 26: "Ethical & Compliance Judgment", 27: "People & Stakeholder Management", 28: "Decision-Making & Crisis Handling", 29: "Strategic HR Leadership", 30: "Strategic HR Leadership", 31: "Strategic HR Leadership", 32: "People & Stakeholder Management", 33: "Interdepartmental Collaboration", 34: "Interdepartmental Collaboration", 35: "Strategic HR Leadership", 36: "Ethical & Compliance Judgment", 37: "People & Stakeholder Management", 38: "Ethical & Compliance Judgment", 39: "Strategic HR Leadership", 40: "Strategic HR Leadership",
-    // HR Professional (41-60)
-    41: "Talent Acquisition & Retention", 42: "People & Stakeholder Management", 43: "Ethical & Compliance Judgment", 44: "Strategic HR Leadership", 45: "Decision-Making & Crisis Handling", 46: "Ethical & Compliance Judgment", 47: "People & Stakeholder Management", 48: "Talent Acquisition & Retention", 49: "Talent Acquisition & Retention", 50: "Decision-Making & Crisis Handling", 51: "Ethical & Compliance Judgment", 52: "People & Stakeholder Management", 53: "Ethical & Compliance Judgment", 54: "Strategic HR Leadership", 55: "Ethical & Compliance Judgment", 56: "People & Stakeholder Management", 57: "Decision-Making & Crisis Handling", 58: "Decision-Making & Crisis Handling", 59: "People & Stakeholder Management", 60: "Talent Acquisition & Retention",
-    // Admin Manager (61-80)
-    61: "Decision-Making & Crisis Handling", 62: "Interdepartmental Collaboration", 63: "People & Stakeholder Management", 64: "Decision-Making & Crisis Handling", 65: "Ethical & Compliance Judgment", 66: "Decision-Making & Crisis Handling", 67: "Interdepartmental Collaboration", 68: "People & Stakeholder Management", 69: "Interdepartmental Collaboration", 70: "People & Stakeholder Management", 71: "People & Stakeholder Management", 72: "Decision-Making & Crisis Handling", 73: "Strategic HR Leadership", 74: "Decision-Making & Crisis Handling", 75: "Ethical & Compliance Judgment", 76: "Ethical & Compliance Judgment", 77: "Interdepartmental Collaboration", 78: "Ethical & Compliance Judgment", 79: "Interdepartmental Collaboration", 80: "Interdepartmental Collaboration",
-    // HR Manager (81-100)
-    81: "Talent Acquisition & Retention", 82: "Ethical & Compliance Judgment", 83: "Talent Acquisition & Retention", 84: "Talent Acquisition & Retention", 85: "People & Stakeholder Management", 86: "Strategic HR Leadership", 87: "Decision-Making & Crisis Handling", 88: "People & Stakeholder Management", 89: "Ethical & Compliance Judgment", 90: "Ethical & Compliance Judgment", 91: "People & Stakeholder Management", 92: "People & Stakeholder Management", 93: "People & Stakeholder Management", 94: "Strategic HR Leadership", 95: "People & Stakeholder Management", 96: "Ethical & Compliance Judgment", 97: "Talent Acquisition & Retention", 98: "Interdepartmental Collaboration", 99: "Ethical & Compliance Judgment", 100: "Talent Acquisition & Retention",
-    // Talent Acquisition Manager (101-120)
-    101: "Interdepartmental Collaboration", 102: "Decision-Making & Crisis Handling", 103: "Talent Acquisition & Retention", 104: "Ethical & Compliance Judgment", 105: "Talent Acquisition & Retention", 106: "Talent Acquisition & Retention", 107: "Ethical & Compliance Judgment", 108: "Ethical & Compliance Judgment", 109: "People & Stakeholder Management", 110: "Decision-Making & Crisis Handling", 111: "Talent Acquisition & Retention", 112: "Strategic HR Leadership", 113: "Ethical & Compliance Judgment", 114: "Strategic HR Leadership", 115: "People & Stakeholder Management", 116: "People & Stakeholder Management", 117: "Strategic HR Leadership", 118: "Interdepartmental Collaboration", 119: "Ethical & Compliance Judgment", 120: "Strategic HR Leadership",
-    // Managing Director (121-140)
-    121: "Strategic HR Leadership", 122: "Interdepartmental Collaboration", 123: "Decision-Making & Crisis Handling", 124: "Talent Acquisition & Retention", 125: "Decision-Making & Crisis Handling", 126: "Talent Acquisition & Retention", 127: "Strategic HR Leadership", 128: "People & Stakeholder Management", 129: "Strategic HR Leadership", 130: "People & Stakeholder Management", 131: "Strategic HR Leadership", 132: "Strategic HR Leadership", 133: "Decision-Making & Crisis Handling", 134: "People & Stakeholder Management", 135: "Talent Acquisition & Retention", 136: "People & Stakeholder Management", 137: "Decision-Making & Crisis Handling", 138: "Decision-Making & Crisis Handling", 139: "Decision-Making & Crisis Handling", 140: "People & Stakeholder Management",
-    // External B2B Customer (141-160)
-    141: "Interdepartmental Collaboration", 142: "Interdepartmental Collaboration", 143: "Interdepartmental Collaboration", 144: "Decision-Making & Crisis Handling", 145: "Interdepartmental Collaboration", 146: "Decision-Making & Crisis Handling", 147: "Interdepartmental Collaboration", 148: "Interdepartmental Collaboration", 149: "Decision-Making & Crisis Handling", 150: "Decision-Making & Crisis Handling", 151: "Interdepartmental Collaboration", 152: "Decision-Making & Crisis Handling", 153: "Strategic HR Leadership", 154: "Decision-Making & Crisis Handling", 155: "Ethical & Compliance Judgment", 156: "People & Stakeholder Management", 157: "Interdepartmental Collaboration", 158: "Strategic HR Leadership", 159: "Ethical & Compliance Judgment", 160: "People & Stakeholder Management"
+    // Rohan's Perspective (1-20)
+    1: "Emotional Intelligence", 2: "Strategic Judgment", 3: "Conflict Resolution & Influence", 4: "Accountability & Ownership", 5: "Resilience & Crisis Leadership", 6: "Stakeholder Alignment", 7: "Accountability & Ownership", 8: "Customer-Centricity", 9: "Team Empowerment & Inclusion", 10: "Self-Regulation & Composure", 11: "Team Empowerment & Inclusion", 12: "Ethical & Values-Based Leadership", 13: "Conflict Resolution & Influence", 14: "Innovation Orientation", 15: "Resilience & Crisis Leadership", 16: "Team Empowerment & Inclusion", 17: "Stakeholder Alignment", 18: "Ethical & Values-Based Leadership", 19: "Communication Clarity", 20: "Conflict Resolution & Influence",
+    // Aarav's Perspective (21-40)
+    21: "Courage & Constructive Dissent", 22: "Conflict Resolution & Influence", 23: "Collaboration & Cross-Functional Orientation", 24: "Stakeholder Alignment", 25: "Conflict Resolution & Influence", 26: "Innovation Orientation", 27: "Ethical & Values-Based Leadership", 28: "Accountability & Ownership", 29: "Change Leadership", 30: "Customer-Centricity", 31: "Resilience & Crisis Leadership", 32: "Change Leadership", 33: "Team Empowerment & Inclusion", 34: "Resilience & Crisis Leadership", 35: "Decision-Making Under Ambiguity", 36: "Agility & Learning Mindset", 37: "Accountability & Ownership", 38: "Courage & Constructive Dissent", 39: "Ethical & Values-Based Leadership", 40: "Innovation Orientation",
+    // Nikhil's Perspective (41-60)
+    41: "Self-Regulation & Composure", 42: "Courage & Constructive Dissent", 43: "Self-Regulation & Composure", 44: "Team Empowerment & Inclusion", 45: "Ethical & Values-Based Leadership", 46: "Customer-Centricity", 47: "Accountability & Ownership", 48: "Courage & Constructive Dissent", 49: "Agility & Learning Mindset", 50: "Team Empowerment & Inclusion", 51: "Conflict Resolution & Influence", 52: "Accountability & Ownership", 53: "Agility & Learning Mindset", 54: "Resilience & Crisis Leadership", 55: "Stakeholder Alignment", 56: "Accountability & Ownership", 57: "Stakeholder Alignment", 58: "Agility & Learning Mindset", 59: "Ethical & Values-Based Leadership", 60: "Emotional Intelligence",
+    // Meera's Perspective (61-80)
+    61: "Conflict Resolution & Influence", 62: "Strategic Judgment", 63: "Emotional Intelligence", 64: "Resilience & Crisis Leadership", 65: "Collaboration & Cross-Functional Orientation", 66: "Team Empowerment & Inclusion", 67: "Change Leadership", 68: "Ethical & Values-Based Leadership", 69: "Stakeholder Alignment", 70: "Emotional Intelligence", 71: "Team Empowerment & Inclusion", 72: "Decision-Making Under Ambiguity", 73: "Team Empowerment & Inclusion", 74: "Collaboration & Cross-Functional Orientation", 75: "Stakeholder Alignment", 76: "Resilience & Crisis Leadership", 77: "Stakeholder Alignment", 78: "Team Empowerment & Inclusion", 79: "Resilience & Crisis Leadership", 80: "Innovation Orientation",
+    // Rajiv's Perspective (81-100)
+    81: "Strategic Judgment", 82: "Decision-Making Under Ambiguity", 83: "Collaboration & Cross-Functional Orientation", 84: "Stakeholder Alignment", 85: "Strategic Judgment", 86: "Conflict Resolution & Influence", 87: "Customer-Centricity", 88: "Resilience & Crisis Leadership", 89: "Collaboration & Cross-Functional Orientation", 90: "Emotional Intelligence", 91: "Prioritization & Focus", 92: "Decision-Making Under Ambiguity", 93: "Change Leadership", 94: "Resilience & Crisis Leadership", 95: "Decision-Making Under Ambiguity", 96: "Emotional Intelligence", 97: "Accountability & Ownership", 98: "Customer-Centricity", 99: "Strategic Judgment", 100: "Strategic Judgment",
+    // Anika's Perspective (101-120)
+    101: "Collaboration & Cross-Functional Orientation", 102: "Change Leadership", 103: "Decision-Making Under Ambiguity", 104: "Stakeholder Alignment", 105: "Decision-Making Under Ambiguity", 106: "Resilience & Crisis Leadership", 107: "Decision-Making Under Ambiguity", 108: "Stakeholder Alignment", 109: "Strategic Judgment", 110: "Customer-Centricity", 111: "Ethical & Values-Based Leadership", 112: "Innovation Orientation", 113: "Collaboration & Cross-Functional Orientation", 114: "Accountability & Ownership", 115: "Strategic Judgment", 116: "Collaboration & Cross-Functional Orientation", 117: "Ethical & Values-Based Leadership", 118: "Accountability & Ownership", 119: "Prioritization & Focus", 120: "Emotional Intelligence",
+    // Candidate's Perspective (121-140)
+    121: "Resilience & Crisis Leadership", 122: "Conflict Resolution & Influence", 123: "Ethical & Values-Based Leadership", 124: "Emotional Intelligence", 125: "Resilience & Crisis Leadership", 126: "Innovation Orientation", 127: "Team Empowerment & Inclusion", 128: "Prioritization & Focus", 129: "Customer-Centricity", 130: "Conflict Resolution & Influence", 131: "Strategic Judgment", 132: "Conflict Resolution & Influence", 133: "Change Leadership", 134: "Emotional Intelligence", 135: "Team Empowerment & Inclusion", 136: "Change Leadership", 137: "Ethical & Values-Based Leadership", 138: "Change Leadership", 139: "Conflict Resolution & Influence", 140: "Resilience & Crisis Leadership"
 };
 
-// --- Your Application Data ---
 const caseStudyData = {
-    title: "The Vanishing Deals Dilemma",
-    background: "Crestone Technologies, a leading B2B SaaS company, has been experiencing a steep decline in sales performance over the past six months. The company, known for its enterprise automation solutions, primarily caters to mid-sized businesses and large corporations. However, despite a strong product-market fit and competitive pricing, the sales team has been unable to close key deals, leading to growing frustration at the leadership level. The issue is not just numbers-it's a complex mix of people, processes, and organizational culture.",
+    title: "Leadership Assessment Case Study: The CodeCraft Crisis",
+    background: "The air in the Pune office of CodeCraft Systems crackled with a strange mix of energy and tension. Floor-to-ceiling windows framed the monsoon-gray sky, while inside, clusters of software engineers tapped furiously at keyboards, their screens filled with lines of code and dashboards tracking customer engagement from New York to Frankfurt.",
     characters: [
-        { name: "Rajesh Mehta (Sales VP)", description: "A veteran in the industry, pushing for aggressive sales targets and attributing the slump to a lack of motivation among sales reps. He believes HR's hiring and retention strategy is failing, and administrative inefficiencies are also affecting performance." },
-        { name: "Aparna Sen (CHRO)", description: "A strategic HR leader who is focused on long-term talent development, but is caught between leadership's aggressive demands and her commitment to sustainable, people-first policies." },
-        { name: "Sandeep Varma (Admin Manager)", description: "Responsible for office operations and support functions. He's been receiving complaints about increased absenteeism and lower morale among sales team members." },
-        { name: "Neha Khanna (HR Manager)", description: "Directly involved with employee engagement, performance appraisals, and workplace policies. She has noticed a pattern of high attrition in the sales team, but her attempts to raise alarms with leadership have not been taken seriously." },
-        { name: "Nishant Kapoor (Talent Acquisition Manager)", description: "Struggling to fill sales roles fast enough due to an increasing number of resignations and a shrinking talent pool. His concern is that many high-performing candidates are rejecting offers due to negative Glassdoor reviews and industry rumors about the company's 'toxic' sales culture." },
-        { name: "Vikram Nair (Managing Director)", description: "The ultimate decision-maker. Concerned about the company's reputation and bottom line, he wants a rapid turnaround strategy that balances employee well-being with business results." },
-        { name: "Arvind Saxena (External B2B Customer)", description: "A key decision-maker at a large corporation that was close to signing a long-term contract with Crestone Technologies but backed out at the last moment due to concerns about the sales team's follow-up and consistency." }
+        { name: "Rohan", description: "The Team Lead, who prides himself on holding the line and is feeling immense pressure from flat growth figures." },
+        { name: "Aarav", description: "The genius coder, known as 'the brain behind the engine,' who believes in long-term solutions and innovation." },
+        { name: "Nikhil", description: "A talented but cynical engineer, known as the 'troublemaker,' who thrives on pushing buttons and challenging the status quo." },
+        { name: "Meera", description: "The Manager, skilled at defusing tense situations and focusing on people-centric solutions." },
+        { name: "Rajiv", description: "The AVP of Product, trying to navigate competitive pressures and find the company's next strategic play." },
+        { name: "Anika", description: "The VP of Sales, based in London, who is focused on the immediate need for sellable features to combat a drying pipeline." }
     ],
-    crisis: "Crestone Technologies is facing a critical business challenge: three major deals, collectively worth millions, have collapsed in the last quarter. These deals were in the final stages, and their failure has sent shockwaves throughout the organization. The immediate impact is a severe revenue shortfall, but the deeper problem is the growing perception that the company is unreliable. Clients have cited inconsistent communication, frequent changes in account managers, and a general sense of internal chaos as key reasons for walking away.\n\nTensions are escalating between departments. The Sales VP, Rajesh Mehta, has aggressively blamed HR, arguing that the high attrition rate is the primary cause of sales instability. He insists that HR has failed to hire and retain strong salespeople, which has led to constant turnover and disrupted client relationships. He also believes that administrative inefficiencies, such as delays in processing travel reimbursements and inadequate operational support, have lowered morale and slowed deal closures.\n\nOn the HR side, Neha Khanna, the HR Manager, sees a different picture. She has been tracking employee exit interviews, and the data reveals a troubling trend: the sales team is overworked, underappreciated, and struggling with an unsustainable culture of high-pressure targets. Many employees cite burnout, lack of career development, and toxic management practices as their reasons for leaving.\n\nThe Talent Acquisition Manager, Nishant Kapoor, is also facing an uphill battle. His recruitment efforts are yielding fewer results as word spreads about the company's harsh work environment. High-performing candidates are declining offers, and existing employees are leaving faster than he can replace them. The company's Glassdoor ratings are deteriorating, and some former employees have publicly criticized Crestone's leadership on LinkedIn, further damaging employer branding.\n\nAdding to the complexity, the Admin Manager, Sandeep Varma, has received multiple reports of increased sick leaves, disengagement, and unproductive work habits among sales team members. Some salespeople have expressed frustration over delayed commission payouts, poor administrative support, and constant changes in team structures. These operational gaps are compounding the already fragile work environment.\n\nMeanwhile, Managing Director Vikram Nair is under immense pressure from investors and the board. He has demanded an urgent, comprehensive solution to stabilize the company before it suffers lasting reputational damage. He wants an aggressive turnaround strategy but expects it to be executed without alienating the workforce or compromising future growth.\n\nFinally, Arvind Saxena, the external B2B customer who backed out of a major contract, has provided feedback that exposes a deeper issue: he lost confidence in Crestone's ability to provide a seamless customer experience. His company dealt with three different sales reps within a short span, all of whom had different negotiation styles and varying levels of understanding about his business. The lack of continuity and professionalism led him to take his business elsewhere.\n\nThe internal discord at Crestone Technologies is reaching a boiling point. HR is now at the center of this crisis, expected to fix a workforce problem that has spiralled into a full-scale business challenge. But with conflicting demands from sales leadership, employee dissatisfaction, and declining employer reputation, how can the HR team find a path forward?",
+    crisis: `Rohan's voice rose above the low hum of the open-plan office. "I don't care if you have to pull an all-nighter. We can't let TechSpark beat us to that update!"\n\nAarav, the genius coder, barely looked up. "We've already optimized the module, Rohan. We're chasing diminishing returns here. What we need is..."\n\n"What we need is to ship on time," Rohan interrupted. From a nearby desk, Nikhil smirked. "Maybe Aarav can invent a time machine and send us all back to when this company still innovated," he said loudly.\n\nBefore Rohan could respond, Meera, the manager, appeared. "Rohan, can I borrow you for a minute?" In a meeting room, she said, "I know you're under pressure. But riding the team harder isn't going to make the numbers look better. Nikhil's attitude is getting worse because he's frustrated, not because he's lazy. And Aarav's ideas - maybe they're what we need."\n\nAn emergency meeting was called by Rajiv, the AVP of Product. "We're being squeezed from all sides. What's our play?" Aarav suggested pivoting toward custom enterprise solutions, leveraging the platform's flexibility. Anika, the VP of Sales, immediately countered from London, "The sales cycles are longer. We'll starve. I need something I can sell now."\n\nRohan found himself caught between the two visions. "Maybe there's a middle path," he suggested. "Could we build custom value fast for niche clients, like fintech or enhancing data privacy for Europe?"\n\nMeera noted the conflict: "It feels like Product, Sales, and Delivery are pulling in different directions. Someone's got to lead this cross-functionally. Rohan, could that be you?"\n\nRohan accepted the challenge. "I'll take it on. But I'll need everyone's support. And we need to decide fast which niche we're going after." As the meeting ended, Meera offered quiet advice: "Leadership isn't about doing it all yourself. It's about getting the best from everyone."`,
+        // PASTE THE NEW CHALLENGES OBJECT BELOW
     challenges: {
-        intro: "The HR team is now faced with one of the most complex crises in the company's history, where the issues extend beyond hiring and retention to touch nearly every aspect of business performance. Addressing this crisis requires a multi-pronged approach that balances immediate action with long-term strategy.",
+        intro: "Rohan has accepted the cross-functional leadership challenge, but the path forward is filled with complex hurdles that will test his leadership abilities from every angle.",
         areas: [
             {
-                title: "1. Talent Acquisition & Retention Challenges",
-                points: ["How can HR quickly attract and retain high-quality sales talent when the company's employer brand is deteriorating?", "How can the recruitment process be streamlined to address the urgent hiring needs while maintaining quality?", "Can internal mobility programs be leveraged to redeploy talent from other departments?"]
+                title: "1. Strategic & Product Alignment",
+                points: ["How can Rohan bridge the gap between Aarav's long-term innovation vision and Anika's urgent need for short-term sales wins?", "What process can be established to prioritize features that satisfy both market demands and the core product strategy?", "How can the team pivot to a niche strategy without alienating existing customers or destabilizing the current product?"]
             },
             {
-                title: "2. Workplace Culture & Employee Morale",
-                points: ["Sales professionals cite burnout and high-pressure targets as key reasons for leaving. How can HR introduce realistic performance expectations while keeping the business competitive?", "What role does leadership play in shaping a culture that fosters engagement rather than fear-driven productivity?", "Can HR design and implement a structured employee feedback loop that ensures concerns are heard and acted upon?"]
+                title: "2. Team Dynamics & Culture",
+                points: ["What is the best way to address Nikhil's cynicism and convert his disruptive energy into constructive contributions?", "How can Rohan manage Aarav's potential frustration if his innovative ideas are constantly deferred for short-term fixes?", "How can he address team burnout and pressure while still meeting the non-negotiable deadlines and competitive threats?"]
             },
             {
-                title: "3. Leadership Alignment & Conflict Resolution",
-                points: ["The Sales VP is blaming HR, while HR is pointing out deeper systemic issues. How can HR mediate this conflict and bring both sides to a constructive resolution?", "How can HR help sales leadership transition from a short-term, numbers-driven approach to a more sustainable, people-focused strategy?", "What training programs can be introduced to enhance leadership skills among managers and team leads?"]
-            },
-            {
-                title: "4. Operational & Administrative Gaps",
-                points: ["Sales team members complain about delayed commissions and poor administrative support. How can HR and Admin collaborate to resolve these bottlenecks?", "Can HR influence policies around compensation, recognition, and rewards to ensure timely incentives for salespeople?", "Can HR introduce technology-driven solutions to streamline internal operations and reduce inefficiencies?"]
-            },
-            {
-                title: "5. External Perception & Customer Experience",
-                points: ["The external customer who backed out highlighted inconsistencies in sales interactions. How can HR influence customer experience when it's not a direct HR function?", "Can HR partner with the sales team to provide training on relationship management and communication skills?", "Should HR implement a more structured onboarding program to ensure new sales hires are well-prepared to represent the company professionally?"]
+                title: "3. Cross-Functional Leadership",
+                points: ["Now that Rohan is in a cross-functional role, how can he influence peers like Anika and Rajiv without having formal authority over them?", "What communication framework can he set up to ensure Sales, Product, and Engineering are aligned on commitments and timelines?", "How does he manage expectations with senior leadership while navigating the conflicts within the teams?"]
             }
         ]
     },
-    questions: [
-      {
-        "id": 1, "perspective": "Sales VP Rajesh Mehta", "question": "A top-performing sales executive has suddenly resigned, citing burnout and lack of work-life balance. Rajesh Mehta demands an immediate replacement. How should HR respond?",
-        "options": [
-          { "id": "A", "text": "Conduct exit interviews, analyze burnout causes, and propose role restructuring." }, { "id": "B", "text": "Start recruitment immediately but request Rajesh to allow time for hiring quality talent." }, { "id": "C", "text": "Quickly promote a junior employee without assessing readiness." }, { "id": "D", "text": "Offer a counteroffer to retain the employee without addressing underlying issues." }, { "id": "E", "text": "Blame workload expectations and advise Rajesh to reduce targets." }, { "id": "F", "text": "Do nothing and let Rajesh manage the situation himself." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 2, "perspective": "Sales VP Rajesh Mehta", "question": "Sales performance has dropped 15% in the last quarter. Rajesh believes hiring more aggressive salespeople is the solution. What should HR do?",
-        "options": [
-          { "id": "A", "text": "Conduct a root cause analysis to determine if training, workload, or processes are contributing factors." }, { "id": "B", "text": "Start recruiting more salespeople immediately to increase manpower." }, { "id": "C", "text": "Suggest firing underperformers before hiring new employees." }, { "id": "D", "text": "Agree with Rajesh's perspective and focus only on hiring aggressive sales profiles." }, { "id": "E", "text": "Recommend investing in technology-driven sales tools instead of hiring." }, { "id": "F", "text": "Ignore Rajesh's concerns and let the sales team figure it out." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 3, "perspective": "Sales VP Rajesh Mehta", "question": "The HR team has implemented a new incentive policy, but Rajesh complains that it is demotivating the team. How should HR handle this?",
-        "options": [
-          { "id": "A", "text": "Conduct a pulse survey to gather feedback and refine the incentive structure." }, { "id": "B", "text": "Ask Rajesh to communicate the benefits of the new structure better." }, { "id": "C", "text": "Modify the policy without data, based solely on Rajesh's feedback." }, { "id": "D", "text": "Keep the policy unchanged and tell Rajesh that adjustments will be reviewed in a year." }, { "id": "E", "text": "Scrap the new policy and revert to the previous model to avoid complaints." }, { "id": "F", "text": "Ignore Rajesh's concerns and let the dissatisfaction persist." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 4, "perspective": "Sales VP Rajesh Mehta", "question": "A major B2B client has complained about inconsistent service due to high employee turnover. Rajesh blames HR for not retaining top sales talent. What is the best HR response?",
-        "options": [
-          { "id": "A", "text": "Analyze exit interview data, identify turnover reasons, and propose retention strategies." }, { "id": "B", "text": "Increase salaries for top salespeople without reviewing other retention factors." }, { "id": "C", "text": "Shift blame to Rajesh's leadership style and avoid HR involvement." }, { "id": "D", "text": "Ask Rajesh to resolve the issue directly with the client while HR works on hiring." }, { "id": "E", "text": "Implement a stay interview process for existing employees to prevent further exits." }, { "id": "F", "text": "Ignore the client complaint as an isolated issue." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 5, "perspective": "Sales VP Rajesh Mehta", "question": "Rajesh wants to fire a sales employee for underperformance without following HR policies. How should HR respond?",
-        "options": [
-          { "id": "A", "text": "Enforce performance management processes and offer coaching before termination." }, { "id": "B", "text": "Allow Rajesh to fire the employee but offer severance to avoid legal issues." }, { "id": "C", "text": "Fast-track termination to avoid team disruption." }, { "id": "D", "text": "Suggest transferring the employee to a different sales role instead." }, { "id": "E", "text": "Delay the decision and observe the employee's performance for another quarter." }, { "id": "F", "text": "Approve the termination without following due process." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 6, "perspective": "Sales VP Rajesh Mehta", "question": "The HR team is proposing a new flexible work policy, but Rajesh argues that sales teams must be in-office for maximum productivity. What should HR do?",
-        "options": [
-          { "id": "A", "text": "Conduct a pilot test for flexibility with clear performance tracking." }, { "id": "B", "text": "Implement full flexibility despite Rajesh's concerns." }, { "id": "C", "text": "Reject the proposal and mandate full office presence." }, { "id": "D", "text": "Offer flexibility only for non-client-facing sales roles." }, { "id": "E", "text": "Let Rajesh decide and adjust policies only for the sales team." }, { "id": "F", "text": "Ignore the debate and keep existing policies unchanged." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 7, "perspective": "Sales VP Rajesh Mehta", "question": "Rajesh is struggling with a lack of collaboration between sales and marketing, leading to weak lead conversions. How should HR support this?",
-        "options": [
-          { "id": "A", "text": "Organize cross-functional workshops to improve alignment." }, { "id": "B", "text": "Hold a meeting with marketing to adjust their KPIs to fit sales objectives." }, { "id": "C", "text": "Advise Rajesh to manage the conflict internally without HR involvement." }, { "id": "D", "text": "Suggest hiring a third-party consultant to mediate the issue." }, { "id": "E", "text": "Shift blame to the marketing team and escalate the issue to the MD." }, { "id": "F", "text": "Ignore the issue and let the teams sort it out over time." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 8, "perspective": "Sales VP Rajesh Mehta", "question": "Rajesh has requested urgent hiring for three senior sales roles. However, the HR team is struggling with finding the right candidates. What is the best course of action?",
-        "options": [
-          { "id": "A", "text": "Communicate realistic timelines and offer interim solutions like internal promotions." }, { "id": "B", "text": "Expedite hiring even if it means compromising on quality." }, { "id": "C", "text": "Delay hiring and tell Rajesh to manage with the existing team." }, { "id": "D", "text": "Suggest outsourcing part of the recruitment process to speed up results." }, { "id": "E", "text": "Hire candidates without proper cultural fit assessment to meet the deadline." }, { "id": "F", "text": "Stop prioritizing these roles and focus on other HR initiatives." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 9, "perspective": "Sales VP Rajesh Mehta", "question": "A junior salesperson has filed an HR complaint against Rajesh for excessive pressure and unrealistic expectations. How should HR proceed?",
-        "options": [
-          { "id": "A", "text": "Conduct a fair investigation, ensuring Rajesh's perspective is also considered." }, { "id": "B", "text": "Dismiss the complaint as sales naturally involves pressure." }, { "id": "C", "text": "Take immediate action against Rajesh without investigating." }, { "id": "D", "text": "Transfer the salesperson to another team to avoid confrontation." }, { "id": "E", "text": "Ask Rajesh to have a one-on-one discussion with the employee instead of HR intervening." }, { "id": "F", "text": "Ignore the complaint to maintain leadership harmony." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 10, "perspective": "Sales VP Rajesh Mehta", "question": "Rajesh is pushing for an aggressive sales hiring target, but HR warns of budget constraints. What is the best way forward?",
-        "options": [
-          { "id": "A", "text": "Optimize current resources and explore upskilling for the existing team." }, { "id": "B", "text": "Increase hiring despite the budget constraints." }, { "id": "C", "text": "Reduce Rajesh's hiring targets without discussing alternatives." }, { "id": "D", "text": "Ask finance to increase the budget to accommodate Rajesh's needs." }, { "id": "E", "text": "Prioritize quality hires over quantity and extend the hiring timeline." }, { "id": "F", "text": "Ignore the budget issue and let Rajesh handle cost overruns later." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 11, "perspective": "Sales VP Rajesh Mehta", "question": "A key client has raised concerns about unethical sales tactics being used by Rajesh's team. How should HR handle this?",
-        "options": [
-          { "id": "A", "text": "Launch an internal ethics audit and reinforce compliance training." }, { "id": "B", "text": "Ignore the complaint unless legal action is threatened." }, { "id": "C", "text": "Publicly penalize the sales team to set an example." }, { "id": "D", "text": "Ask Rajesh to handle the issue internally without HR involvement." }, { "id": "E", "text": "Shift blame to individual employees rather than addressing systemic issues." }, { "id": "F", "text": "Defend the sales team without investigating further." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 12, "perspective": "Sales VP Rajesh Mehta", "question": "Rajesh believes that incentives should be entirely commission-based, while HR prefers a balanced salary-incentive model. What should HR do?",
-        "options": [
-          { "id": "A", "text": "Benchmark industry practices and propose a data-backed hybrid model." }, { "id": "B", "text": "Let Rajesh decide the structure for the sales team." }, { "id": "C", "text": "Implement HR's preference without consulting sales." }, { "id": "D", "text": "Fully shift to commission-based pay, as Rajesh suggests." }, { "id": "E", "text": "Conduct an employee survey before finalizing the model." }, { "id": "F", "text": "Avoid making changes and keep the current structure." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 13, "perspective": "Sales VP Rajesh Mehta", "question": "Sales managers are resigning due to lack of career progression. Rajesh is unaware of their frustrations. How should HR proceed?",
-        "options": [
-          { "id": "A", "text": "Conduct stay interviews and propose a structured career development plan." }, { "id": "B", "text": "Let Rajesh figure out why his managers are leaving." }, { "id": "C", "text": "Offer salary hikes to managers to retain them." }, { "id": "D", "text": "Ignore the resignations as a normal part of sales turnover." }, { "id": "E", "text": "Encourage Rajesh to provide informal mentorship instead of a formal growth plan." }, { "id": "F", "text": "Delay action and monitor the trend for a few more months." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 14, "perspective": "Sales VP Rajesh Mehta", "question": "Rajesh is frustrated with HR's slow hiring process and wants to bypass formal protocols. What is the best response?",
-        "options": [
-          { "id": "A", "text": "Streamline hiring without compromising quality, setting clear SLAs." }, { "id": "B", "text": "Allow Rajesh to make direct hiring decisions without HR involvement." }, { "id": "C", "text": "Keep hiring timelines unchanged, regardless of business urgency." }, { "id": "D", "text": "Push back against Rajesh's request without offering alternative solutions." }, { "id": "E", "text": "Accept delays as necessary to ensure compliance." }, { "id": "F", "text": "Use only internal referrals to speed up hiring." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 15, "perspective": "Sales VP Rajesh Mehta", "question": "A high-performing sales leader has received an offer from a competitor. Rajesh wants HR to counter-offer aggressively. What is the best way forward?",
-        "options": [
-          { "id": "A", "text": "Conduct a retention discussion focusing on long-term career growth." }, { "id": "B", "text": "Immediately match the competitor's offer." }, { "id": "C", "text": "Let the employee leave without discussion." }, { "id": "D", "text": "Create a counteroffer package without understanding the employee's concerns." }, { "id": "E", "text": "Conduct an exit interview but make no effort to retain." }, { "id": "F", "text": "Push the employee to decide quickly without further negotiation." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 16, "perspective": "Sales VP Rajesh Mehta", "question": "Sales and Product teams are in conflict—Sales wants quick feature releases, but Product insists on quality. Rajesh blames Product for lost deals. How should HR mediate?",
-        "options": [
-          { "id": "A", "text": "Set up a structured collaboration process with clear expectations." }, { "id": "B", "text": "Take Rajesh's side and pressure Product to release features faster." }, { "id": "C", "text": "Advise Rajesh to manage the conflict himself." }, { "id": "D", "text": "Ignore the issue and let the teams resolve it over time." }, { "id": "E", "text": "Suggest hiring more engineers to speed up product releases." }, { "id": "F", "text": "Allow Sales to make direct feature requests without involving Product." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 17, "perspective": "Sales VP Rajesh Mehta", "question": "A pattern emerges where only aggressive, extroverted employees are promoted in Rajesh's team. Introverts feel overlooked. How should HR address this?",
-        "options": [
-          { "id": "A", "text": "Develop a fair, competency-based promotion framework." }, { "id": "B", "text": "Let Rajesh continue using his current selection process." }, { "id": "C", "text": "Enforce quotas to ensure introverts are promoted." }, { "id": "D", "text": "Ask Rajesh to mentor introverted employees instead of changing promotion policies." }, { "id": "E", "text": "Conduct an anonymous feedback survey before making any changes." }, { "id": "F", "text": "Ignore the complaints and let team culture evolve naturally." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 18, "perspective": "Sales VP Rajesh Mehta", "question": "Rajesh's top-performing sales reps show signs of burnout—long hours, health issues, declining morale. How should HR intervene?",
-        "options": [
-          { "id": "A", "text": "Implement workload balancing and well-being initiatives." }, { "id": "B", "text": "Tell Rajesh that burnout is normal in high-performance teams." }, { "id": "C", "text": "Offer unlimited paid leave without adjusting targets." }, { "id": "D", "text": "Ignore the issue unless sales numbers drop significantly." }, { "id": "E", "text": "Replace overworked employees with fresh hires." }, { "id": "F", "text": "Reduce targets without discussing with Rajesh." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 19, "perspective": "Sales VP Rajesh Mehta", "question": "Rajesh has fostered a hyper-competitive culture—sales reps sabotage each other to win incentives. Team trust is low. What should HR do?",
-        "options": [
-          { "id": "A", "text": "Redesign incentives to encourage teamwork." }, { "id": "B", "text": "Let Rajesh continue with the current system since it drives results." }, { "id": "C", "text": "Assign HR mentors to guide new sales reps in handling competition." }, { "id": "D", "text": "Ban all sales incentives to eliminate unhealthy competition." }, { "id": "E", "text": "Conduct one-on-one coaching but keep incentives unchanged." }, { "id": "F", "text": "Let the situation play out naturally without interference." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 20, "perspective": "Sales VP Rajesh Mehta", "question": "Rajesh resists hiring diverse talent, arguing that past hires from the same demographic background have performed best. How should HR respond?",
-        "options": [
-          { "id": "A", "text": "Provide data-driven insights on the benefits of diversity." }, { "id": "B", "text": "Let Rajesh continue hiring as per his preferences." }, { "id": "C", "text": "Impose a strict diversity hiring quota." }, { "id": "D", "text": "Allow diversity hiring but only in non-revenue roles." }, { "id": "E", "text": "Conduct bias-awareness training but take no further action." }, { "id": "F", "text": "Ignore the issue since hiring decisions rest with Rajesh." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 21, "perspective": "CHRO", "question": "Rajesh Mehta (Sales VP) blames high attrition in his team on HR's hiring process, claiming new hires are not resilient enough for sales pressure. How should CHRO respond?",
-        "options": [
-          { "id": "A", "text": "Push back on Rajesh and state that attrition is a leadership issue, not an HR problem." }, { "id": "B", "text": "Agree with Rajesh and revamp the hiring process to prioritize aggressive sales professionals." }, { "id": "C", "text": "Initiate a deeper analysis of attrition trends before making changes." }, { "id": "D", "text": "Introduce resilience training and coaching programs for new hires." }, { "id": "E", "text": "Conduct exit interviews and gather feedback to validate Rajesh's claims before acting." }, { "id": "F", "text": "Do nothing-sales is a tough role, and attrition is expected." }
-        ], "bestAnswer": "C"
-      },
-      {
-        "id": 22, "perspective": "CHRO", "question": "The Managing Director (MD) demands an immediate 15% workforce reduction across all departments due to cost pressures. What is the best course of action?",
-        "options": [
-          { "id": "A", "text": "Execute the layoffs immediately as per the MD's directive." }, { "id": "B", "text": "Negotiate with the MD to explore alternative cost-cutting measures first." }, { "id": "C", "text": "Ask department heads to nominate employees for termination based on performance." }, { "id": "D", "text": "Analyze business impact and propose a phased workforce optimization plan." }, { "id": "E", "text": "Recommend a hiring freeze and salary restructuring instead of layoffs." }, { "id": "F", "text": "Refuse to implement the layoffs and challenge the MD's decision." }
-        ], "bestAnswer": "B"
-      },
-      {
-        "id": 23, "perspective": "CHRO", "question": "The Talent Acquisition Manager reports that top candidates are rejecting job offers due to compensation mismatches. How should CHRO address this?",
-        "options": [
-          { "id": "A", "text": "Increase salary offers to match market rates immediately." }, { "id": "B", "text": "Investigate if non-monetary benefits could attract candidates." }, { "id": "C", "text": "Benchmark competitor salaries and revise compensation strategy accordingly." }, { "id": "D", "text": "Ignore the issue-hiring will improve when the economy stabilizes." }, { "id": "E", "text": "Train recruiters to sell the company's culture and long-term growth instead of compensation." }, { "id": "F", "text": "Lower hiring standards to fill roles quickly." }
-        ], "bestAnswer": "C"
-      },
-      {
-        "id": 24, "perspective": "CHRO", "question": "HR's new performance management system is being resisted by senior managers who prefer the old methods. What should CHRO do?",
-        "options": [
-          { "id": "A", "text": "Enforce the new system strictly, regardless of manager resistance." }, { "id": "B", "text": "Gather feedback and make minor adjustments while keeping the core system intact." }, { "id": "C", "text": "Provide training sessions to help managers understand the benefits of the new system." }, { "id": "D", "text": "Allow teams to choose between the old and new systems." }, { "id": "E", "text": "Scale back implementation and only roll it out to receptive teams first." }, { "id": "F", "text": "Scrap the new system and revert to the old one to avoid conflict." }
-        ], "bestAnswer": "C"
-      },
-      {
-        "id": 25, "perspective": "CHRO", "question": "A senior executive is accused of misconduct by multiple employees, but they fear retaliation if they come forward. What should CHRO do?",
-        "options": [
-          { "id": "A", "text": "Launch an investigation while ensuring employee anonymity." }, { "id": "B", "text": "Inform the executive and ask them to explain their side." }, { "id": "C", "text": "Ignore the complaints unless formal reports are filed." }, { "id": "D", "text": "Recommend suspension of the executive pending investigation." }, { "id": "E", "text": "Discuss with legal and compliance teams before taking action." }, { "id": "F", "text": "Assume the complaints are politically motivated and take no action." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 26, "perspective": "CHRO", "question": "The Admin Manager has been repeatedly accused of favoritism in promotions. How should CHRO respond?",
-        "options": [
-          { "id": "A", "text": "Investigate the claims and ensure promotion decisions are transparent." }, { "id": "B", "text": "Conduct bias-awareness training for all managers." }, { "id": "C", "text": "Dismiss the complaints unless there is hard evidence." }, { "id": "D", "text": "Implement structured promotion criteria with cross-functional input." }, { "id": "E", "text": "Rotate promotion decisions to different teams to reduce bias risks." }, { "id": "F", "text": "Let the Admin Manager handle the issue independently." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 27, "perspective": "CHRO", "question": "Employee surveys indicate low engagement in the Sales team, despite competitive compensation. How should CHRO respond?",
-        "options": [
-          { "id": "A", "text": "Conduct focus groups to understand deeper engagement issues." }, { "id": "B", "text": "Increase monetary incentives to boost morale." }, { "id": "C", "text": "Ask Sales leadership to take ownership of engagement efforts." }, { "id": "D", "text": "Introduce non-monetary benefits like flexible work policies." }, { "id": "E", "text": "Provide leadership coaching for sales managers." }, { "id": "F", "text": "Ignore the survey results, as high turnover is normal in sales." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 28, "perspective": "CHRO", "question": "Rajesh Mehta wants HR to terminate a high-performing employee for 'not being a team player.' How should CHRO respond?",
-        "options": [
-          { "id": "A", "text": "Agree with Rajesh and process the termination." }, { "id": "B", "text": "Investigate and seek 360-degree feedback before deciding." }, { "id": "C", "text": "Transfer the employee to another department instead." }, { "id": "D", "text": "Counsel Rajesh on better conflict resolution instead of termination." }, { "id": "E", "text": "Challenge Rajesh's reasoning and insist on clear performance metrics." }, { "id": "F", "text": "Ignore the request unless legal risks are involved." }
-        ], "bestAnswer": "B"
-      },
-      {
-        "id": 29, "perspective": "CHRO", "question": "The company's DEI (Diversity, Equity, and Inclusion) initiatives have stalled due to leadership indifference. What should CHRO do?",
-        "options": [
-          { "id": "A", "text": "Make DEI initiatives voluntary for managers." }, { "id": "B", "text": "Create accountability metrics tied to leadership performance." }, { "id": "C", "text": "Focus on internal advocacy and education before making policy changes." }, { "id": "D", "text": "Drop the DEI program since leadership is not interested." }, { "id": "E", "text": "Enforce DEI hiring quotas across all departments." }, { "id": "F", "text": "Engage external consultants to drive DEI programs." }
-        ], "bestAnswer": "B"
-      },
-      {
-        "id": 30, "perspective": "CHRO", "question": "The Managing Director wants HR to reduce training budgets significantly. How should CHRO respond?",
-        "options": [
-          { "id": "A", "text": "Cut training programs as per the directive." }, { "id": "B", "text": "Demonstrate ROI of training programs with data." }, { "id": "C", "text": "Move training programs to low-cost virtual platforms." }, { "id": "D", "text": "Prioritize only leadership training while cutting other areas." }, { "id": "E", "text": "Reduce training in non-revenue departments only." }, { "id": "F", "text": "Resist the cuts, arguing employee development is non-negotiable." }
-        ], "bestAnswer": "B"
-      },
-      {
-        "id": 31, "perspective": "CHRO", "question": "The Sales VP argues that HR's policies on work-from-home (WFH) are making sales teams less productive.",
-        "options": [
-          { "id": "A", "text": "Remove WFH for the sales team and mandate full office presence." }, { "id": "B", "text": "Analyze performance data and consult sales managers for feedback." }, { "id": "C", "text": "Maintain the current WFH policy, as flexibility improves employee satisfaction." }, { "id": "D", "text": "Allow only senior sales executives to work remotely while restricting others." }
-        ], "bestAnswer": "B"
-      },
-      {
-        "id": 32, "perspective": "CHRO", "question": "A top-performing sales manager has received multiple complaints about toxic leadership behavior.",
-        "options": [
-          { "id": "A", "text": "Ignore the complaints since the manager is delivering strong results." }, { "id": "B", "text": "Offer leadership coaching and set behavioral improvement goals." }, { "id": "C", "text": "Immediately demote the manager to set an example." }, { "id": "D", "text": "Conduct a company-wide survey to understand if the issue is widespread." }
-        ], "bestAnswer": "B"
-      },
-      {
-        "id": 33, "perspective": "CHRO", "question": "The Admin Manager is pushing for stricter biometric attendance policies, but employees feel micromanaged.",
-        "options": [
-          { "id": "A", "text": "Implement the policy without discussion, as compliance is important." }, { "id": "B", "text": "Gather employee feedback and explore alternative attendance tracking methods." }, { "id": "C", "text": "Allow only certain teams to bypass biometric tracking." }, { "id": "D", "text": "Remove biometric tracking completely to avoid friction." }
-        ], "bestAnswer": "B"
-      },
-      {
-        "id": 34, "perspective": "CHRO", "question": "A client has refused to work with the sales team due to a past dispute with an employee.",
-        "options": [
-          { "id": "A", "text": "Support the sales team in fighting back and defending the employee." }, { "id": "B", "text": "Mediate a discussion between the client and relevant stakeholders." }, { "id": "C", "text": "Immediately reassign the employee to another role." }, { "id": "D", "text": "Ask the employee to issue a public apology." }
-        ], "bestAnswer": "B"
-      },
-      {
-        "id": 35, "perspective": "CHRO", "question": "The Managing Director is pushing for an aggressive hiring spree despite HR's concerns about talent availability.",
-        "options": [
-          { "id": "A", "text": "Follow orders and start mass hiring." }, { "id": "B", "text": "Present market hiring trends and propose a phased hiring strategy." }, { "id": "C", "text": "Delay hiring until a proper strategy is in place, regardless of business urgency." }, { "id": "D", "text": "Only hire from existing competitor companies to reduce risk." }
-        ], "bestAnswer": "B"
-      },
-      {
-        "id": 36, "perspective": "CHRO", "question": "An anonymous whistleblower report alleges unethical behavior by a senior leader.",
-        "options": [
-          { "id": "A", "text": "Conduct a discreet investigation while maintaining confidentiality." }, { "id": "B", "text": "Immediately confront the senior leader and demand an explanation." }, { "id": "C", "text": "Ignore the report unless more evidence emerges." }, { "id": "D", "text": "Publicly announce an internal probe to ensure transparency." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 37, "perspective": "CHRO", "question": "A long-term employee has been underperforming, but has strong internal relationships and is well-liked.",
-        "options": [
-          { "id": "A", "text": "Ignore performance issues to maintain team harmony." }, { "id": "B", "text": "Provide performance improvement support while maintaining fairness." }, { "id": "C", "text": "Transfer the employee to another department instead of addressing the issue." }, { "id": "D", "text": "Terminate the employee to maintain overall performance standards." }
-        ], "bestAnswer": "B"
-      },
-      {
-        "id": 38, "perspective": "CHRO", "question": "The Sales VP suggests bypassing standard hiring protocols to onboard a senior candidate quickly.",
-        "options": [
-          { "id": "A", "text": "Approve the exception since it's a senior hire." }, { "id": "B", "text": "Evaluate the urgency and see if adjustments can be made within ethical limits." }, { "id": "C", "text": "Reject the request outright to maintain strict hiring discipline." }, { "id": "D", "text": "Proceed with the hire and backfill compliance paperwork later." }
-        ], "bestAnswer": "B"
-      },
-      {
-        "id": 39, "perspective": "CHRO", "question": "Employees are disengaged with HR's training programs, citing outdated content.",
-        "options": [
-          { "id": "A", "text": "Continue with the existing programs, as training is mandatory." }, { "id": "B", "text": "Redesign training with real-world case studies and interactive formats." }, { "id": "C", "text": "Make training optional to avoid forcing participation." }, { "id": "D", "text": "Reduce training efforts and focus only on technical upskilling." }
-        ], "bestAnswer": "B"
-      },
-      {
-        "id": 40, "perspective": "CHRO", "question": "The company's leadership pipeline is weak, with few internal promotions happening.",
-        "options": [
-          { "id": "A", "text": "Increase external hiring to fill leadership gaps." }, { "id": "B", "text": "Implement a structured leadership development program." }, { "id": "C", "text": "Encourage employees to seek leadership certifications on their own." }, { "id": "D", "text": "Delay promotions until stronger candidates emerge." }
-        ], "bestAnswer": "B"
-      },
-      {
-        "id": 41, "perspective": "HR Professional", "question": "A top sales executive resigns unexpectedly, citing burnout and lack of career growth. How should HR respond?",
-        "options": [
-          { "id": "A", "text": "Conduct an exit interview to understand key issues and improve retention strategies." }, { "id": "B", "text": "Offer a counteroffer with a higher salary to retain the executive." }, { "id": "C", "text": "Ignore the resignation, as attrition is normal." }, { "id": "D", "text": "Announce an internal vacancy to fill the role as quickly as possible." }, { "id": "E", "text": "Convince the executive to stay for a transition period before leaving." }, { "id": "F", "text": "Launch a company-wide well-being initiative immediately." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 42, "perspective": "HR Professional", "question": "A senior leader consistently cancels 1:1 meetings with employees, citing a busy schedule.",
-        "options": [
-          { "id": "A", "text": "Address the issue privately, emphasizing leadership accountability." }, { "id": "B", "text": "Mandate all senior leaders to hold 1:1s as part of their performance review." }, { "id": "C", "text": "Send anonymous employee feedback to the leader without direct confrontation." }, { "id": "D", "text": "Reassign HR business partners to bridge communication gaps." }, { "id": "E", "text": "Accept that senior leaders have priorities and cannot always accommodate meetings." }, { "id": "F", "text": "Organize a leadership workshop on employee engagement." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 43, "perspective": "HR Professional", "question": "A junior HR professional has leaked confidential salary data to employees.",
-        "options": [
-          { "id": "A", "text": "Investigate the incident thoroughly before deciding on disciplinary action." }, { "id": "B", "text": "Terminate the employee immediately for breach of confidentiality." }, { "id": "C", "text": "Ignore the issue to avoid creating panic in the organization." }, { "id": "D", "text": "Publicly reinforce the importance of confidentiality in HR." }, { "id": "E", "text": "Suspend the employee without pay and conduct an internal review." }, { "id": "F", "text": "Issue a formal warning but allow the employee to continue working." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 44, "perspective": "HR Professional", "question": "A new policy on flexible work hours is facing resistance from some managers. What should HR do?",
-        "options": [
-          { "id": "A", "text": "Train managers on the benefits of flexible work models." }, { "id": "B", "text": "Revert to the old working hours to maintain stability." }, { "id": "C", "text": "Give managers discretion to opt out of the policy if they prefer." }, { "id": "D", "text": "Enforce strict compliance without room for discussion." }, { "id": "E", "text": "Conduct an employee pulse survey to assess concerns." }, { "id": "F", "text": "Allow teams to vote on whether they want flexibility or not." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 45, "perspective": "HR Professional", "question": "A client refuses to work with a salesperson based on personal bias. How should HR handle this?",
-        "options": [
-          { "id": "A", "text": "Mediate a conversation between the client and sales team." }, { "id": "B", "text": "Replace the salesperson to protect business interests." }, { "id": "C", "text": "File a legal complaint against the client." }, { "id": "D", "text": "Ask leadership to decide how to handle the client's concerns." }, { "id": "E", "text": "Address internal bias training but take no direct action." }, { "id": "F", "text": "Accept the client's decision and move on." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 46, "perspective": "HR Professional", "question": "An employee complains about a toxic work environment, but their manager dismisses it.",
-        "options": [
-          { "id": "A", "text": "Investigate the complaint through confidential interviews." }, { "id": "B", "text": "Trust the manager's judgment and take no further action." }, { "id": "C", "text": "Instruct the employee to adjust their expectations." }, { "id": "D", "text": "Issue a general memo on workplace culture without singling anyone out." }, { "id": "E", "text": "Encourage the employee to escalate to leadership directly." }, { "id": "F", "text": "Assign a mentor to the employee instead of investigating." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 47, "perspective": "HR Professional", "question": "A department has high turnover, and exit interviews suggest poor leadership is the cause.",
-        "options": [
-          { "id": "A", "text": "Implement leadership coaching and track improvements." }, { "id": "B", "text": "Replace the department head to solve the issue quickly." }, { "id": "C", "text": "Disregard exit feedback since turnover is inevitable." }, { "id": "D", "text": "Change hiring criteria to bring in more adaptable employees." }, { "id": "E", "text": "Offer retention bonuses to reduce further attrition." }, { "id": "F", "text": "Allow employees to transfer to other departments if they are unhappy." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 48, "perspective": "HR Professional", "question": "A high-potential employee resigns due to a lack of career development. How should HR act?",
-        "options": [
-          { "id": "A", "text": "Implement a structured career growth framework across teams." }, { "id": "B", "text": "Counteroffer with a promotion to make them stay." }, { "id": "C", "text": "Accept the resignation without addressing underlying concerns." }, { "id": "D", "text": "Introduce mandatory leadership training for managers." }, { "id": "E", "text": "Request the employee to stay longer for knowledge transfer." }, { "id": "F", "text": "Conduct an internal skills-mapping exercise to identify gaps." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 49, "perspective": "HR Professional", "question": "A new hire is struggling to integrate with their team and seems disengaged.",
-        "options": [
-          { "id": "A", "text": "Assign a mentor and conduct regular HR check-ins." }, { "id": "B", "text": "Allow the employee time to adjust naturally." }, { "id": "C", "text": "Discuss concerns with the manager and take no further action." }, { "id": "D", "text": "Move the employee to a different team." }, { "id": "E", "text": "Reduce the employee's workload to lower pressure." }, { "id": "F", "text": "Offer a professional development program to engage them." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 50, "perspective": "HR Professional", "question": "Employees report excessive workload and stress due to an unrealistic project deadline.",
-        "options": [
-          { "id": "A", "text": "Work with leadership to adjust project expectations." }, { "id": "B", "text": "Instruct employees to prioritize work-life balance independently." }, { "id": "C", "text": "Offer wellness programs but avoid interfering with project deadlines." }, { "id": "D", "text": "Encourage employees to work harder and manage stress better." }, { "id": "E", "text": "Reassign tasks to distribute workload more evenly." }, { "id": "F", "text": "Escalate the issue to senior leadership with data-driven evidence." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 51, "perspective": "HR Professional", "question": "A top performer in the sales team has engaged in unethical sales practices to close deals. How should HR respond?",
-        "options": [
-          { "id": "A", "text": "Conduct an investigation and, if found guilty, take disciplinary action." }, { "id": "B", "text": "Ignore the issue since the employee is bringing in high revenue." }, { "id": "C", "text": "Issue a general ethics training for all employees rather than singling anyone out." }, { "id": "D", "text": "Transfer the employee to another department to avoid legal complications." }, { "id": "E", "text": "Reward the employee for results but warn them informally." }, { "id": "F", "text": "Let the manager handle the situation without HR involvement." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 52, "perspective": "HR Professional", "question": "A senior manager frequently gives negative feedback in a way that demotivates employees.",
-        "options": [
-          { "id": "A", "text": "Provide leadership coaching to the manager on giving constructive feedback." }, { "id": "B", "text": "Instruct employees to ignore the manager's harsh tone." }, { "id": "C", "text": "Transfer dissatisfied employees to different teams." }, { "id": "D", "text": "Implement a company-wide policy on positive reinforcement." }, { "id": "E", "text": "Allow the manager to continue, as tough feedback is necessary for growth." }, { "id": "F", "text": "Ask employees to document incidents but take no immediate action." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 53, "perspective": "HR Professional", "question": "A female employee reports gender-based discrimination but refuses to file a formal complaint.",
-        "options": [
-          { "id": "A", "text": "Investigate the matter while protecting her confidentiality." }, { "id": "B", "text": "Respect her decision and take no action." }, { "id": "C", "text": "Announce a general diversity and inclusion training instead." }, { "id": "D", "text": "Encourage her to report it formally or drop the issue." }, { "id": "E", "text": "Discuss the matter with her manager but take no formal steps." }, { "id": "F", "text": "Allow HR to monitor the situation but not intervene proactively." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 54, "perspective": "HR Professional", "question": "Your company is implementing AI-driven recruitment, and employees fear job losses.",
-        "options": [
-          { "id": "A", "text": "Communicate transparently about how AI will enhance, not replace, jobs." }, { "id": "B", "text": "Ignore employee concerns since automation is inevitable." }, { "id": "C", "text": "Reassure employees without making any structural changes." }, { "id": "D", "text": "Delay AI implementation to ease resistance." }, { "id": "E", "text": "Offer upskilling programs to future-proof employees' roles." }, { "id": "F", "text": "Avoid addressing the concerns and proceed with AI adoption." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 55, "perspective": "HR Professional", "question": "A manager favors certain employees for promotions, causing resentment in the team.",
-        "options": [
-          { "id": "A", "text": "Implement a clear, data-driven promotion framework." }, { "id": "B", "text": "Let the manager continue, as favoritism is a normal part of leadership." }, { "id": "C", "text": "Conduct a team discussion to address concerns but take no action." }, { "id": "D", "text": "Rotate team members to reduce favoritism perception." }, { "id": "E", "text": "Address the issue with the manager in a coaching session." }, { "id": "F", "text": "Announce an open feedback mechanism for promotion decisions." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 56, "perspective": "HR Professional", "question": "A long-serving employee is underperforming but has strong relationships within the company.",
-        "options": [
-          { "id": "A", "text": "Provide a structured Performance Improvement Plan (PIP)." }, { "id": "B", "text": "Allow the employee to continue due to their history with the company." }, { "id": "C", "text": "Immediately terminate their contract to set a standard." }, { "id": "D", "text": "Reassign them to a less critical role without addressing performance issues." }, { "id": "E", "text": "Offer mentorship to help them regain productivity." }, { "id": "F", "text": "Ask their manager to handle it independently." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 57, "perspective": "HR Professional", "question": "An external consultant criticizes your company's HR policies on LinkedIn, causing reputational damage.",
-        "options": [
-          { "id": "A", "text": "Address the feedback professionally with factual responses." }, { "id": "B", "text": "Ignore the criticism to avoid giving it attention." }, { "id": "C", "text": "Threaten legal action for defamation." }, { "id": "D", "text": "Ask employees to defend the company online." }, { "id": "E", "text": "Launch a positive PR campaign to shift focus." }, { "id": "F", "text": "Block the consultant's access to any future collaborations." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 58, "perspective": "HR Professional", "question": "The company needs to reduce headcount due to financial difficulties. What approach should HR take?",
-        "options": [
-          { "id": "A", "text": "Develop a transparent layoff strategy with clear communication." }, { "id": "B", "text": "Conduct immediate layoffs without prior notice to avoid panic." }, { "id": "C", "text": "Reduce salaries across the board instead of layoffs." }, { "id": "D", "text": "Outsource the layoff process to external agencies." }, { "id": "E", "text": "Offer voluntary exit packages before deciding on layoffs." }, { "id": "F", "text": "Delay action and hope financial conditions improve." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 59, "perspective": "HR Professional", "question": "Employees are resisting a major cultural shift initiated by the leadership team.",
-        "options": [
-          { "id": "A", "text": "Involve employees in the change process through structured discussions." }, { "id": "B", "text": "Push the changes forcefully to ensure compliance." }, { "id": "C", "text": "Fire employees who resist, as they are not aligned with company vision." }, { "id": "D", "text": "Conduct a one-time training session and move forward." }, { "id": "E", "text": "Allow employees to opt out of cultural changes." }, { "id": "F", "text": "Conduct a pulse survey but proceed without major adjustments." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 60, "perspective": "HR Professional", "question": "A potential hire has outstanding skills but a history of frequent job changes.",
-        "options": [
-          { "id": "A", "text": "Assess their long-term commitment before hiring." }, { "id": "B", "text": "Reject them immediately due to high attrition risk." }, { "id": "C", "text": "Offer a short-term contract instead of a full-time role." }, { "id": "D", "text": "Ignore their job history and hire based on skill alone." }, { "id": "E", "text": "Discuss their job changes during the interview for deeper insight." }, { "id": "F", "text": "Have HR conduct a thorough background check before making a decision." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 61, "perspective": "Admin Manager, Sandeep Verma", "question": "The sales team is facing a crisis, and the VP Sales requests urgent logistical support for an emergency meeting with clients in another city. However, your budget is already stretched for the quarter. What do you do?",
-        "options": [
-          { "id": "A", "text": "Decline the request due to budget constraints." }, { "id": "B", "text": "Approve the request immediately, as supporting sales is a priority." }, { "id": "C", "text": "Suggest reallocating funds from another department to cover the costs." }, { "id": "D", "text": "Find a cost-effective alternative and negotiate with vendors." }, { "id": "E", "text": "Request approval from the CHRO before proceeding." }, { "id": "F", "text": "Delay the decision and ask the VP Sales to justify the expense." }
-        ], "bestAnswer": "D"
-      },
-      {
-        "id": 62, "perspective": "Admin Manager, Sandeep Verma", "question": "An external B2B customer is scheduled for a visit, but your team is short-staffed. The HR Manager asks you to ensure a seamless experience. What is your best response?",
-        "options": [
-          { "id": "A", "text": "Personally handle the logistics and assign temporary resources." }, { "id": "B", "text": "Tell HR it's their responsibility to arrange manpower." }, { "id": "C", "text": "Hire temporary staff for the day." }, { "id": "D", "text": "Inform the MD that additional support is needed." }, { "id": "E", "text": "Focus only on security and let the sales team handle hospitality." }, { "id": "F", "text": "Cancel other admin tasks and focus only on the visit." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 63, "perspective": "Admin Manager, Sandeep Verma", "question": "Due to the crisis, employee morale is low, and people are requesting better office amenities (snacks, transport, etc.). What should you do?",
-        "options": [
-          { "id": "A", "text": "Approve requests selectively based on cost-effectiveness." }, { "id": "B", "text": "Deny all requests due to budget issues." }, { "id": "C", "text": "Escalate the issue to the CHRO without taking action." }, { "id": "D", "text": "Implement only low-cost improvements immediately." }, { "id": "E", "text": "Conduct a survey and prioritize the most essential amenities." }, { "id": "F", "text": "Ignore the requests, as operations take precedence." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 64, "perspective": "Admin Manager, Sandeep Verma", "question": "A key supplier threatens to delay deliveries due to unpaid invoices. The finance team is unresponsive. What is your best course of action?",
-        "options": [
-          { "id": "A", "text": "Negotiate partial payments to maintain supply flow." }, { "id": "B", "text": "Escalate the issue to the Managing Director immediately." }, { "id": "C", "text": "Put pressure on Finance to release the payments." }, { "id": "D", "text": "Arrange an emergency alternative vendor." }, { "id": "E", "text": "Allow the supplier to delay deliveries and inform stakeholders." }, { "id": "F", "text": "Ask the sales team to manage without these supplies." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 65, "perspective": "Admin Manager, Sandeep Verma", "question": "A senior executive requests personal admin support (chauffeur, assistant), but company policy restricts this. How do you respond?",
-        "options": [
-          { "id": "A", "text": "Politely explain the policy and decline the request." }, { "id": "B", "text": "Approve it to maintain goodwill with leadership." }, { "id": "C", "text": "Seek CHRO's approval before deciding." }, { "id": "D", "text": "Approve it discreetly and adjust budgets later." }, { "id": "E", "text": "Suggest an external service at their own cost." }, { "id": "F", "text": "Escalate the issue to the MD." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 66, "perspective": "Admin Manager, Sandeep Verma", "question": "A major office maintenance issue arises on the same day as an important client visit. How do you handle this?",
-        "options": [
-          { "id": "A", "text": "Prioritize the client visit and arrange temporary fixes." }, { "id": "B", "text": "Delay the client visit until the issue is resolved." }, { "id": "C", "text": "Split your team to handle both situations effectively." }, { "id": "D", "text": "Call for emergency repairs, regardless of cost." }, { "id": "E", "text": "Assign the responsibility to HR and focus on daily tasks." }, { "id": "F", "text": "Ignore the maintenance issue for now." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 67, "perspective": "Admin Manager, Sandeep Verma", "question": "The HR Manager informs you that a new company-wide policy change affects workspace management. What's your best response?",
-        "options": [
-          { "id": "A", "text": "Work closely with HR to ensure smooth implementation." }, { "id": "B", "text": "Push back, citing operational constraints." }, { "id": "C", "text": "Implement changes without questioning the policy." }, { "id": "D", "text": "Ask employees for feedback before acting." }, { "id": "E", "text": "Escalate concerns to the CHRO before making changes." }, { "id": "F", "text": "Delay the implementation to assess its impact." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 68, "perspective": "Admin Manager, Sandeep Verma", "question": "Your team is overwhelmed due to increased admin workload. What do you do?",
-        "options": [
-          { "id": "A", "text": "Reallocate tasks based on priority." }, { "id": "B", "text": "Demand HR for more hires immediately." }, { "id": "C", "text": "Encourage overtime to meet demands." }, { "id": "D", "text": "Ask leadership for additional budget support." }, { "id": "E", "text": "Train existing employees for better efficiency." }, { "id": "F", "text": "Ignore the issue and let employees manage on their own." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 69, "perspective": "Admin Manager, Sandeep Verma", "question": "A conflict arises between your team and the sales team over shared office resources. How do you mediate?",
-        "options": [
-          { "id": "A", "text": "Facilitate a discussion and find a fair resolution." }, { "id": "B", "text": "Give priority to the sales team since they drive revenue." }, { "id": "C", "text": "Enforce strict policies and do not allow exceptions." }, { "id": "D", "text": "Escalate the issue to the VP Sales and CHRO." }, { "id": "E", "text": "Avoid getting involved, as it's not your concern." }, { "id": "F", "text": "Split resources equally without consulting anyone." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 70, "perspective": "Admin Manager, Sandeep Verma", "question": "A team member wants a transfer due to high pressure in admin operations. What do you do?",
-        "options": [
-          { "id": "A", "text": "Discuss concerns and try to find solutions." }, { "id": "B", "text": "Approve the transfer immediately." }, { "id": "C", "text": "Deny the request due to team workload." }, { "id": "D", "text": "Escalate the request to HR for a decision." }, { "id": "E", "text": "Suggest they find another job if they're unhappy." }, { "id": "F", "text": "Ignore the request and focus on work." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 71, "perspective": "Admin Manager, Sandeep Verma", "question": "Your admin staff is complaining about unfair workload distribution, with some employees working longer hours than others. How do you address this?",
-        "options": [
-          { "id": "A", "text": "Reevaluate workloads and ensure fair distribution." }, { "id": "B", "text": "Tell them that long hours are part of the job." }, { "id": "C", "text": "Ask HR to intervene and resolve the issue." }, { "id": "D", "text": "Offer incentives only to the hardworking employees." }, { "id": "E", "text": "Delay addressing the issue until the crisis is over." }, { "id": "F", "text": "Dismiss their complaints as normal workplace concerns." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 72, "perspective": "Admin Manager, Sandeep Verma", "question": "A key vendor provides office supplies but has raised prices unexpectedly. What is your best course of action?",
-        "options": [
-          { "id": "A", "text": "Negotiate better pricing based on long-term partnership." }, { "id": "B", "text": "Accept the new pricing and adjust budgets accordingly." }, { "id": "C", "text": "Look for alternative vendors immediately." }, { "id": "D", "text": "Cut down on other admin expenses to accommodate the change." }, { "id": "E", "text": "Escalate the issue to the Finance team and let them decide." }, { "id": "F", "text": "Reduce orders to minimize the impact of the price increase." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 73, "perspective": "Admin Manager, Sandeep Verma", "question": "The Managing Director asks you to reduce operational costs by 15%. How do you approach this?",
-        "options": [
-          { "id": "A", "text": "Identify inefficiencies and suggest smart cost-cutting measures." }, { "id": "B", "text": "Immediately lay off admin staff to save costs." }, { "id": "C", "text": "Cut costs in all areas without evaluating impact." }, { "id": "D", "text": "Negotiate better deals with vendors and service providers." }, { "id": "E", "text": "Request the CHRO for guidance before making any cuts." }, { "id": "F", "text": "Ignore the request as the current costs are justified." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 74, "perspective": "Admin Manager, Sandeep Verma", "question": "A sudden IT system failure disrupts office operations, and IT support is unavailable. What should you do?",
-        "options": [
-          { "id": "A", "text": "Implement a temporary manual workaround." }, { "id": "B", "text": "Wait until IT support becomes available." }, { "id": "C", "text": "Escalate the issue to the CHRO for intervention." }, { "id": "D", "text": "Ask employees to continue working without IT support." }, { "id": "E", "text": "Bring in an external IT consultant at an additional cost." }, { "id": "F", "text": "Assign random employees to fix the issue themselves." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 75, "perspective": "Admin Manager, Sandeep Verma", "question": "An employee repeatedly violates office cleanliness policies despite warnings. How do you handle this?",
-        "options": [
-          { "id": "A", "text": "Issue a formal warning and involve HR if needed." }, { "id": "B", "text": "Ignore it since it's a minor issue." }, { "id": "C", "text": "Confront the employee in front of the team." }, { "id": "D", "text": "Enforce stricter office rules for all employees." }, { "id": "E", "text": "Escalate the issue directly to the Managing Director." }, { "id": "F", "text": "Assign them cleaning responsibilities as a punishment." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 76, "perspective": "Admin Manager, Sandeep Verma", "question": "There is a fire safety audit next week, but your team has not been trained recently. What do you do?",
-        "options": [
-          { "id": "A", "text": "Arrange an urgent training session before the audit." }, { "id": "B", "text": "Hope that employees remember past training." }, { "id": "C", "text": "Delay the audit until training is completed." }, { "id": "D", "text": "Assign only a few key employees to attend the audit." }, { "id": "E", "text": "Brief employees informally instead of a full training session." }, { "id": "F", "text": "Let the HR team handle the audit without your involvement." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 77, "perspective": "Admin Manager, Sandeep Verma", "question": "The Sales VP asks for admin support beyond standard work hours, but your team is already stretched thin. How do you respond?",
-        "options": [
-          { "id": "A", "text": "Discuss alternatives, such as rotating shifts." }, { "id": "B", "text": "Refuse, stating that admin staff are not responsible for sales." }, { "id": "C", "text": "Approve overtime for all admin staff without concern for cost." }, { "id": "D", "text": "Hire temporary support to manage the extra workload." }, { "id": "E", "text": "Escalate to the CHRO before making a decision." }, { "id": "F", "text": "Ignore the request and let the sales team handle it themselves." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 78, "perspective": "Admin Manager, Sandeep Verma", "question": "A new HR policy requires employees to swipe in and out, but senior employees are refusing to comply. What's your best course of action?",
-        "options": [
-          { "id": "A", "text": "Enforce the policy for everyone and explain its importance." }, { "id": "B", "text": "Allow senior employees to bypass the rule to maintain goodwill." }, { "id": "C", "text": "Ask HR to directly confront senior employees." }, { "id": "D", "text": "Let it go and focus on enforcing the policy for junior staff." }, { "id": "E", "text": "Suggest a flexible approach to HR that allows exceptions." }, { "id": "F", "text": "Delay implementation until you have full leadership support." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 79, "perspective": "Admin Manager, Sandeep Verma", "question": "Your team is struggling to coordinate with the Talent Acquisition Manager due to unclear responsibilities. How do you resolve this?",
-        "options": [
-          { "id": "A", "text": "Arrange a meeting to clarify roles and responsibilities." }, { "id": "B", "text": "Ask the HR Manager to intervene and fix the problem." }, { "id": "C", "text": "Assign all hiring-related admin tasks to your team." }, { "id": "D", "text": "Refuse to work on any recruitment-related tasks." }, { "id": "E", "text": "Send an email to the CHRO asking for guidance." }, { "id": "F", "text": "Ignore the issue and let things run their course." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 80, "perspective": "Admin Manager, Sandeep Verma", "question": "There is a miscommunication between the security team and HR regarding visitor access policies, causing frequent delays. What should you do?",
-        "options": [
-          { "id": "A", "text": "Conduct a joint meeting to streamline the process." }, { "id": "B", "text": "Let HR handle the issue on their own." }, { "id": "C", "text": "Set new rules for security without consulting HR." }, { "id": "D", "text": "Ignore the complaints since security takes priority." }, { "id": "E", "text": "Ask employees to manage visitor access themselves." }, { "id": "F", "text": "Propose removing visitor restrictions altogether." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 81, "perspective": "HR Manager, Neha Khanna", "question": "A senior sales manager consistently fails to meet hiring deadlines, leading to lost business opportunities. How should you handle this?",
-        "options": [
-          { "id": "A", "text": "Discuss the delays with the manager and collaborate on a better hiring timeline." }, { "id": "B", "text": "Escalate the issue to the CHRO without informing the sales manager." }, { "id": "C", "text": "Push the Talent Acquisition team to work faster without changing the process." }, { "id": "D", "text": "Ignore the delays as they are not under your direct control." }, { "id": "E", "text": "Reduce hiring requirements to speed up recruitment." }, { "id": "F", "text": "Reassign hiring responsibilities to the Admin Manager." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 82, "perspective": "HR Manager, Neha Khanna", "question": "An employee files a complaint about their manager's aggressive behavior, but there is no concrete evidence. How should you proceed?",
-        "options": [
-          { "id": "A", "text": "Conduct a confidential inquiry by speaking to the employee and other team members." }, { "id": "B", "text": "Immediately reprimand the manager based on the complaint." }, { "id": "C", "text": "Ignore the complaint since no proof is available." }, { "id": "D", "text": "Suggest the employee look for another department to work in." }, { "id": "E", "text": "Ask the manager to apologize without verifying the claim." }, { "id": "F", "text": "Forward the complaint to senior leadership without investigation." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 83, "perspective": "HR Manager, Neha Khanna", "question": "A top-performing salesperson threatens to resign unless they receive an immediate raise. What is your best response?",
-        "options": [
-          { "id": "A", "text": "Analyze their performance data and market salary trends before discussing options." }, { "id": "B", "text": "Approve the raise immediately to retain them." }, { "id": "C", "text": "Reject their demand, stating that salary increases follow a schedule." }, { "id": "D", "text": "Advise them to speak directly with the Managing Director." }, { "id": "E", "text": "Ignore their request, as retention is not your direct responsibility." }, { "id": "F", "text": "Offer non-monetary perks instead of a salary increase." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 84, "perspective": "HR Manager, Neha Khanna", "question": "Sales VP Rajesh Mehta is pressuring HR to recruit quickly, but quality candidates are hard to find. What should you do?",
-        "options": [
-          { "id": "A", "text": "Work with Talent Acquisition to find a balance between speed and quality." }, { "id": "B", "text": "Hire anyone available to meet the deadline." }, { "id": "C", "text": "Delay hiring and wait for better candidates, regardless of pressure." }, { "id": "D", "text": "Ask the Sales VP to handle recruitment independently." }, { "id": "E", "text": "Offer financial incentives to recruiters for faster hiring." }, { "id": "F", "text": "Reduce hiring criteria to make recruitment faster." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 85, "perspective": "HR Manager, Neha Khanna", "question": "The company is losing employees due to poor work-life balance. How can you address this issue?",
-        "options": [
-          { "id": "A", "text": "Conduct an employee engagement survey and propose work-life balance initiatives." }, { "id": "B", "text": "Ignore the issue, as work-life balance is subjective." }, { "id": "C", "text": "Reduce working hours for all employees without discussing it with leadership." }, { "id": "D", "text": "Suggest HR stop enforcing leave policies to avoid resignations." }, { "id": "E", "text": "Offer additional salaries instead of improving work-life balance." }, { "id": "F", "text": "Encourage employees to work from home without formal policies." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 86, "perspective": "HR Manager, Neha Khanna", "question": "You notice that administrative bottlenecks are slowing down HR processes. What should you do?",
-        "options": [
-          { "id": "A", "text": "Identify inefficiencies and propose process automation or simplifications." }, { "id": "B", "text": "Assign more HR staff to handle the workload manually." }, { "id": "C", "text": "Escalate the issue to the Managing Director." }, { "id": "D", "text": "Ignore it and accept that HR processes are slow." }, { "id": "E", "text": "Ask employees to be patient with the system." }, { "id": "F", "text": "Implement an entirely new HR system without approval." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 87, "perspective": "HR Manager, Neha Khanna", "question": "During a restructuring, employees are anxious about potential layoffs. How do you communicate effectively?",
-        "options": [
-          { "id": "A", "text": "Be transparent about decisions while reassuring employees where possible." }, { "id": "B", "text": "Keep all information confidential to avoid panic." }, { "id": "C", "text": "Tell employees they will not be affected, even if it's uncertain." }, { "id": "D", "text": "Ask managers to handle all employee concerns on their own." }, { "id": "E", "text": "Avoid addressing the issue and let employees speculate." }, { "id": "F", "text": "Suggest that employees look for other jobs proactively." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 88, "perspective": "HR Manager, Neha Khanna", "question": "A new policy is unpopular with employees, and you receive strong pushback. What's your next step?",
-        "options": [
-          { "id": "A", "text": "Gather feedback, communicate concerns to leadership, and suggest modifications." }, { "id": "B", "text": "Enforce the policy strictly, no matter the resistance." }, { "id": "C", "text": "Ignore employee concerns, assuming they will adjust over time." }, { "id": "D", "text": "Scrap the policy entirely to maintain employee morale." }, { "id": "E", "text": "Let the Talent Acquisition team handle objections." }, { "id": "F", "text": "Escalate the issue to the Managing Director without employee input." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 89, "perspective": "HR Manager, Neha Khanna", "question": "A department head is hiring friends and family members without a transparent process. How do you respond?",
-        "options": [
-          { "id": "A", "text": "Enforce a strict recruitment policy and ensure fairness." }, { "id": "B", "text": "Ignore the situation to avoid conflict." }, { "id": "C", "text": "Allow the hiring to continue but increase oversight." }, { "id": "D", "text": "Report the issue to the CHRO without investigating." }, { "id": "E", "text": "Only intervene if performance issues arise." }, { "id": "F", "text": "Let the department head make hiring decisions independently." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 90, "perspective": "HR Manager, Neha Khanna", "question": "A senior employee refuses to attend mandatory diversity and inclusion training. How do you handle this?",
-        "options": [
-          { "id": "A", "text": "Explain the importance and enforce participation." }, { "id": "B", "text": "Allow them to skip the training due to their seniority." }, { "id": "C", "text": "Ignore their refusal and let them decide for themselves." }, { "id": "D", "text": "Ask their manager to convince them instead." }, { "id": "E", "text": "Remove the training requirement for all employees." }, { "id": "F", "text": "Offer alternative training options tailored to senior staff." }
-        ], "bestAnswer": "A"
-      },
-      {
-        "id": 91, "perspective": "HR Manager, Neha Khanna", "question": "An employee claims their promotion was unfairly denied. How do you investigate?",
-        "options": [{ "id": "A", "text": "Review performance records and discuss with the manager." }], "bestAnswer": "A"
-      },
-      {
-        "id": 92, "perspective": "HR Manager, Neha Khanna", "question": "A manager is not providing performance feedback to their team. What's your action?",
-        "options": [{ "id": "A", "text": "Implement structured feedback sessions for all managers." }], "bestAnswer": "A"
-      },
-      {
-        "id": 93, "perspective": "HR Manager, Neha Khanna", "question": "A toxic work culture is emerging in one department. What should HR do?",
-        "options": [{ "id": "A", "text": "Conduct an anonymous survey and take corrective action." }], "bestAnswer": "A"
-      },
-      {
-        "id": 94, "perspective": "HR Manager, Neha Khanna", "question": "Employees resist a new HR tech system. What's your best approach?",
-        "options": [{ "id": "A", "text": "Offer training and highlight benefits of the system." }], "bestAnswer": "A"
-      },
-      {
-        "id": 95, "perspective": "HR Manager, Neha Khanna", "question": "An employee frequently underperforms, but the manager is reluctant to act. How do you handle it?",
-        "options": [{ "id": "A", "text": "Work with the manager to create a performance improvement plan." }], "bestAnswer": "A"
-      },
-      {
-        "id": 96, "perspective": "HR Manager, Neha Khanna", "question": "An employee lodges a harassment complaint but wants to keep it confidential. How do you proceed?",
-        "options": [{ "id": "A", "text": "Follow protocol while maintaining confidentiality." }], "bestAnswer": "A"
-      },
-      {
-        "id": 97, "perspective": "HR Manager, Neha Khanna", "question": "One department faces extremely high attrition. What's the first step?",
-        "options": [{ "id": "A", "text": "Conduct exit interviews to understand the reasons." }], "bestAnswer": "A"
-      },
-      {
-        "id": 98, "perspective": "HR Manager, Neha Khanna", "question": "A new HR policy is causing conflicts between departments. How do you fix this?",
-        "options": [{ "id": "A", "text": "Mediate discussions and adjust the policy where necessary." }], "bestAnswer": "A"
-      },
-      {
-        "id": 99, "perspective": "HR Manager, Neha Khanna", "question": "A manager bypasses HR and makes hiring decisions independently. How do you respond?",
-        "options": [{ "id": "A", "text": "Reinforce HR policies and retrain managers." }], "bestAnswer": "A"
-      },
-      {
-        "id": 100, "perspective": "HR Manager, Neha Khanna", "question": "An employee wants to transition to a different role within the company. What's HR's role?",
-        "options": [{ "id": "A", "text": "Assess their skills and facilitate the transition where possible." }], "bestAnswer": "A"
-      },
-      {
-        "id": 101, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "A hiring manager keeps rejecting candidates without providing clear reasons. How do you address this?",
-        "options": [{ "id": "A", "text": "Request specific feedback on rejections and align hiring criteria accordingly." }], "bestAnswer": "A"
-      },
-      {
-        "id": 102, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "A critical position has been open for over 90 days, and internal stakeholders are frustrated. What should you do?",
-        "options": [{ "id": "A", "text": "Reevaluate job requirements, explore alternate talent sources, and set realistic hiring timelines." }], "bestAnswer": "A"
-      },
-      {
-        "id": 103, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "The company has been losing top candidates due to slow hiring processes. How do you fix this?",
-        "options": [{ "id": "A", "text": "Streamline the interview process by reducing unnecessary steps and improving decision-making speed." }], "bestAnswer": "A"
-      },
-      {
-        "id": 104, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "A hiring manager wants to hire an overqualified candidate at a lower salary. How do you handle this?",
-        "options": [{ "id": "A", "text": "Advise against potential retention risks and negotiate fair compensation." }], "bestAnswer": "A"
-      },
-      {
-        "id": 105, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "A candidate receives a competing offer but prefers your company. How do you respond?",
-        "options": [{ "id": "A", "text": "Engage in a proactive counteroffer discussion and emphasize long-term career growth." }], "bestAnswer": "A"
-      },
-      {
-        "id": 106, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "Your organization is struggling to attract diverse talent. What's your next step?",
-        "options": [{ "id": "A", "text": "Implement targeted sourcing strategies, partner with diversity-focused organizations, and adjust hiring biases." }], "bestAnswer": "A"
-      },
-      {
-        "id": 107, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "A candidate provides misleading experience details but excels in interviews. What's your decision?",
-        "options": [{ "id": "A", "text": "Verify details through background checks and reject if dishonesty is confirmed." }], "bestAnswer": "A"
-      },
-      {
-        "id": 108, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "A department head insists on hiring a personal connection without proper evaluation. What do you do?",
-        "options": [{ "id": "A", "text": "Ensure an unbiased selection process with standardized assessments." }], "bestAnswer": "A"
-      },
-      {
-        "id": 109, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "A recruiter on your team is consistently missing hiring targets. How do you address this?",
-        "options": [{ "id": "A", "text": "Identify performance gaps, provide training, and set clear accountability measures." }], "bestAnswer": "A"
-      },
-      {
-        "id": 110, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "The CEO wants to speed up executive hiring, but proper vetting takes time. How do you respond?",
-        "options": [{ "id": "A", "text": "Balance urgency with thorough assessment to ensure leadership quality." }], "bestAnswer": "A"
-      },
-      {
-        "id": 111, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "A strong candidate is hesitant to join due to negative company Glassdoor reviews. What's your approach?",
-        "options": [{ "id": "A", "text": "Acknowledge concerns, share internal improvements, and provide direct leadership engagement." }], "bestAnswer": "A"
-      },
-      {
-        "id": 112, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "The company wants to expand into a new market but lacks local hiring expertise. What's your first step?",
-        "options": [{ "id": "A", "text": "Research market talent trends, engage local recruiters, and adapt hiring strategies." }], "bestAnswer": "A"
-      },
-      {
-        "id": 113, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "A hiring manager bypasses HR and directly hires a candidate without approvals. How do you handle it?",
-        "options": [{ "id": "A", "text": "Enforce hiring policies and ensure compliance while maintaining a constructive discussion." }], "bestAnswer": "A"
-      },
-      {
-        "id": 114, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "A department demands immediate mass hiring, but workforce planning isn't aligned. What do you do?",
-        "options": [{ "id": "A", "text": "Assess long-term workforce needs before approving rapid hiring." }], "bestAnswer": "A"
-      },
-      {
-        "id": 115, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "A candidate negotiates aggressively beyond the salary range. How do you respond?",
-        "options": [{ "id": "A", "text": "Justify the salary range based on market benchmarks and total rewards package." }], "bestAnswer": "A"
-      },
-      {
-        "id": 116, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "An internal candidate is overlooked for an external hire, causing dissatisfaction. What's your response?",
-        "options": [{ "id": "A", "text": "Ensure transparency in selection criteria and provide development feedback." }], "bestAnswer": "A"
-      },
-      {
-        "id": 117, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "Your cost-per-hire is rising, and leadership is concerned. What's your next step?",
-        "options": [{ "id": "A", "text": "Optimize sourcing channels, reduce reliance on agencies, and improve employer branding." }], "bestAnswer": "A"
-      },
-      {
-        "id": 118, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "A hiring manager consistently changes role requirements mid-process. How do you manage this?",
-        "options": [{ "id": "A", "text": "Set clear expectations and freeze role requirements before initiating hiring." }], "bestAnswer": "A"
-      },
-      {
-        "id": 119, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "A senior leader pressures you to hire a candidate who is a poor cultural fit. How do you respond?",
-        "options": [{ "id": "A", "text": "Provide data-backed insights on culture fit and potential risks before finalizing the hire." }], "bestAnswer": "A"
-      },
-      {
-        "id": 120, "perspective": "Talent Acquisition Manager, Nishant Kapoor", "question": "Your competitors are attracting talent away from your company. What's your strategy?",
-        "options": [{ "id": "A", "text": "Enhance employer branding, improve candidate experience, and offer competitive benefits." }], "bestAnswer": "A"
-      },
-      {
-        "id": 121, "perspective": "Managing Director, Vikram Nair", "question": "Your company's sales have declined for two consecutive quarters. What should be your primary action?",
-        "options": [{ "id": "A", "text": "Analyze sales performance data, identify root causes, and align leadership on a strategic recovery plan." }], "bestAnswer": "A"
-      },
-      {
-        "id": 122, "perspective": "Managing Director, Vikram Nair", "question": "Your Sales VP and CHRO disagree on the cause of high attrition in the sales team. How do you resolve the conflict?",
-        "options": [{ "id": "A", "text": "Encourage them to collaborate on data-driven insights and propose a joint action plan." }], "bestAnswer": "A"
-      },
-      {
-        "id": 123, "perspective": "Managing Director, Vikram Nair", "question": "A key B2B customer threatens to shift business to a competitor due to poor service. What do you do?",
-        "options": [{ "id": "A", "text": "Engage the customer personally, address concerns, and implement service improvements immediately." }], "bestAnswer": "A"
-      },
-      {
-        "id": 124, "perspective": "Managing Director, Vikram Nair", "question": "Your company is struggling to hire senior talent despite aggressive recruitment efforts. What's your approach?",
-        "options": [{ "id": "A", "text": "Enhance employer branding, evaluate leadership culture, and explore new sourcing strategies." }], "bestAnswer": "A"
-      },
-      {
-        "id": 125, "perspective": "Managing Director, Vikram Nair", "question": "Your CHRO proposes a high-budget employee wellness program, but CFO raises concerns. How do you decide?",
-        "options": [{ "id": "A", "text": "Assess long-term ROI and employee impact before approving or adjusting the proposal." }], "bestAnswer": "A"
-      },
-      {
-        "id": 126, "perspective": "Managing Director, Vikram Nair", "question": "Your Sales VP suggests relaxing hiring criteria to quickly fill vacant roles. How do you respond?",
-        "options": [{ "id": "A", "text": "Maintain quality standards while streamlining the hiring process to reduce time-to-fill." }], "bestAnswer": "A"
-      },
-      {
-        "id": 127, "perspective": "Managing Director, Vikram Nair", "question": "One of your business units consistently underperforms. What is your first step?",
-        "options": [{ "id": "A", "text": "Evaluate leadership effectiveness, market conditions, and internal inefficiencies before making changes." }], "bestAnswer": "A"
-      },
-      {
-        "id": 128, "perspective": "Managing Director, Vikram Nair", "question": "A high-performing but toxic senior leader is causing employee dissatisfaction. What do you do?",
-        "options": [{ "id": "A", "text": "Address behavioral concerns through coaching and set clear expectations for cultural alignment." }], "bestAnswer": "A"
-      },
-      {
-        "id": 129, "perspective": "Managing Director, Vikram Nair", "question": "Your competitor launches an aggressive pricing strategy, and your team panics. How do you handle it?",
-        "options": [{ "id": "A", "text": "Conduct a competitive analysis and adjust strategy while maintaining brand value." }], "bestAnswer": "A"
-      },
-      {
-        "id": 130, "perspective": "Managing Director, Vikram Nair", "question": "Your company is planning an acquisition, but employees fear job cuts. How do you manage communication?",
-        "options": [{ "id": "A", "text": "Be transparent, address concerns proactively, and highlight growth opportunities." }], "bestAnswer": "A"
-      },
-      {
-        "id": 131, "perspective": "Managing Director, Vikram Nair", "question": "The HR team proposes a hybrid work model, but some senior leaders resist. How do you proceed?",
-        "options": [{ "id": "A", "text": "Evaluate data on productivity and employee preferences before making a balanced decision." }], "bestAnswer": "A"
-      },
-      {
-        "id": 132, "perspective": "Managing Director, Vikram Nair", "question": "Your CHRO suggests increasing L&D budgets, but ROI on past training programs is unclear. What do you do?",
-        "options": [{ "id": "A", "text": "Ensure measurable impact through structured training programs before approving increased budgets." }], "bestAnswer": "A"
-      },
-      {
-        "id": 133, "perspective": "Managing Director, Vikram Nair", "question": "A senior executive publicly criticizes company policies, causing reputational damage. How do you respond?",
-        "options": [{ "id": "A", "text": "Engage privately to understand concerns and reinforce company values professionally." }], "bestAnswer": "A"
-      },
-      {
-        "id": 134, "perspective": "Managing Director, Vikram Nair", "question": "You notice declining employee engagement scores across departments. What's your next step?",
-        "options": [{ "id": "A", "text": "Identify key drivers of disengagement and implement targeted initiatives." }], "bestAnswer": "A"
-      },
-      {
-        "id": 135, "perspective": "Managing Director, Vikram Nair", "question": "Your top talent is being poached by competitors. How do you respond?",
-        "options": [{ "id": "A", "text": "Review retention strategies, conduct stay interviews, and enhance career growth opportunities." }], "bestAnswer": "A"
-      },
-      {
-        "id": 136, "perspective": "Managing Director, Vikram Nair", "question": "The CHRO suggests revising performance evaluation methods, but managers resist. What do you do?",
-        "options": [{ "id": "A", "text": "Ensure stakeholder alignment and pilot the new method before full implementation." }], "bestAnswer": "A"
-      },
-      {
-        "id": 137, "perspective": "Managing Director, Vikram Nair", "question": "A long-time client demands preferential pricing that would impact margins. How do you handle this?",
-        "options": [{ "id": "A", "text": "Negotiate value-added offerings instead of unsustainable discounts." }], "bestAnswer": "A"
-      },
-      {
-        "id": 138, "perspective": "Managing Director, Vikram Nair", "question": "A media report misrepresents your company's hiring practices, causing reputational damage. What's your response?",
-        "options": [{ "id": "A", "text": "Issue a public clarification while strengthening internal policies." }], "bestAnswer": "A"
-      },
-      {
-        "id": 139, "perspective": "Managing Director, Vikram Nair", "question": "A key department head suddenly resigns, causing leadership instability. What's your first step?",
-        "options": [{ "id": "A", "text": "Ensure business continuity by appointing interim leadership while identifying a successor." }], "bestAnswer": "A"
-      },
-      {
-        "id": 140, "perspective": "Managing Director, Vikram Nair", "question": "Your HR team reports a sudden spike in employee grievances. How do you address it?",
-        "options": [{ "id": "A", "text": "Investigate underlying causes, improve internal communication, and implement corrective actions." }], "bestAnswer": "A"
-      },
-      {
-        "id": 141, "perspective": "External B2B Customer, Arvind Saxena", "question": "Your company has experienced frequent delays in order fulfillment from the vendor. How do you address the issue?",
-        "options": [{ "id": "A", "text": "Escalate concerns to senior leadership and request a concrete action plan for improvement." }], "bestAnswer": "A"
-      },
-      {
-        "id": 142, "perspective": "External B2B Customer, Arvind Saxena", "question": "A new sales representative from the vendor is unresponsive and does not follow up on key requests. What do you do?",
-        "options": [{ "id": "A", "text": "Contact the vendor's Sales VP or Account Manager to resolve the issue and ensure proactive service." }], "bestAnswer": "A"
-      },
-      {
-        "id": 143, "perspective": "External B2B Customer, Arvind Saxena", "question": "You have received inconsistent pricing quotes from different sales representatives of the vendor. What is your approach?",
-        "options": [{ "id": "A", "text": "Seek clarity on pricing policies from senior management to ensure transparency and consistency." }], "bestAnswer": "A"
-      },
-      {
-        "id": 144, "perspective": "External B2B Customer, Arvind Saxena", "question": "Your vendor suddenly changes their payment terms, negatively impacting your cash flow. What is the best response?",
-        "options": [{ "id": "A", "text": "Negotiate revised terms that balance both parties' interests while maintaining a strong partnership." }], "bestAnswer": "A"
-      },
-      {
-        "id": 145, "perspective": "External B2B Customer, Arvind Saxena", "question": "The vendor has made a commitment to improve service levels, but you see no actual change. What should you do?",
-        "options": [{ "id": "A", "text": "Request a formal service-level agreement (SLA) and track performance against agreed benchmarks." }], "bestAnswer": "A"
-      },
-      {
-        "id": 146, "perspective": "External B2B Customer, Arvind Saxena", "question": "A competing vendor offers similar products at a significantly lower price. How should you handle this?",
-        "options": [{ "id": "A", "text": "Assess overall value beyond pricing, including service, reliability, and long-term relationship benefits." }], "bestAnswer": "A"
-      },
-      {
-        "id": 147, "perspective": "External B2B Customer, Arvind Saxena", "question": "Your vendor introduces a new product that could benefit your business, but there's a learning curve. What should you do?",
-        "options": [{ "id": "A", "text": "Request training and trial support before full adoption to minimize disruption." }], "bestAnswer": "A"
-      },
-      {
-        "id": 148, "perspective": "External B2B Customer, Arvind Saxena", "question": "You experience frequent turnover in the vendor's sales and account management teams. What is your primary concern?",
-        "options": [{ "id": "A", "text": "Ensure continuity of service and relationship stability by engaging senior leadership." }], "bestAnswer": "A"
-      },
-      {
-        "id": 149, "perspective": "External B2B Customer, Arvind Saxena", "question": "A vendor's competitor reaches out with a better proposal. How do you handle this?",
-        "options": [{ "id": "A", "text": "Evaluate objectively and engage your current vendor to discuss improvements before making a decision." }], "bestAnswer": "A"
-      },
-      {
-        "id": 150, "perspective": "External B2B Customer, Arvind Saxena", "question": "Your vendor misses a major delivery deadline, causing disruption in your supply chain. What is the best course of action?",
-        "options": [{ "id": "A", "text": "Demand immediate corrective action and reassess contingency plans for future reliability." }], "bestAnswer": "A"
-      },
-      {
-        "id": 151, "perspective": "External B2B Customer, Arvind Saxena", "question": "You notice a decline in product quality from the vendor. What is your next step?",
-        "options": [{ "id": "A", "text": "Raise concerns formally and request a root-cause analysis with corrective measures." }], "bestAnswer": "A"
-      },
-      {
-        "id": 152, "perspective": "External B2B Customer, Arvind Saxena", "question": "The vendor increases prices unexpectedly without prior communication. What should you do?",
-        "options": [{ "id": "A", "text": "Request justification for the increase and explore negotiations or alternative suppliers." }], "bestAnswer": "A"
-      },
-      {
-        "id": 153, "perspective": "External B2B Customer, Arvind Saxena", "question": "The vendor offers additional discounts if you increase your order quantity. What is the best response?",
-        "options": [{ "id": "A", "text": "Analyze demand forecasts and financial impact before committing to a larger order." }], "bestAnswer": "A"
-      },
-      {
-        "id": 154, "perspective": "External B2B Customer, Arvind Saxena", "question": "You hear from industry peers that the vendor is struggling financially. What is the best approach?",
-        "options": [{ "id": "A", "text": "Assess their financial health and have contingency plans in place while maintaining open dialogue." }], "bestAnswer": "A"
-      },
-      {
-        "id": 155, "perspective": "External B2B Customer, Arvind Saxena", "question": "A dispute arises over contract terms due to differing interpretations. How do you handle it?",
-        "options": [{ "id": "A", "text": "Refer to the signed agreement and engage legal counsel if necessary to resolve ambiguities." }], "bestAnswer": "A"
-      },
-      {
-        "id": 156, "perspective": "External B2B Customer, Arvind Saxena", "question": "Your vendor's customer service team frequently fails to provide timely resolutions. What should you do?",
-        "options": [{ "id": "A", "text": "Escalate the issue and request a dedicated account manager for faster resolution." }], "bestAnswer": "A"
-      },
-      {
-        "id": 157, "perspective": "External B2B Customer, Arvind Saxena", "question": "Your company wants to expand the partnership with the vendor, but past performance has been inconsistent. How do you proceed?",
-        "options": [{ "id": "A", "text": "Set clear performance metrics and improvement expectations before scaling the relationship." }], "bestAnswer": "A"
-      },
-      {
-        "id": 158, "perspective": "External B2B Customer, Arvind Saxena", "question": "The vendor proposes a joint innovation project that requires significant investment from your side. What do you do?",
-        "options": [{ "id": "A", "text": "Evaluate ROI, strategic benefits, and risk factors before committing resources." }], "bestAnswer": "A"
-      },
-      {
-        "id": 159, "perspective": "External B2B Customer, Arvind Saxena", "question": "A compliance issue arises with the vendor that could impact your business. What is your best course of action?",
-        "options": [{ "id": "A", "text": "Address compliance concerns immediately and ensure all regulatory standards are met." }], "bestAnswer": "A"
-      },
-      {
-        "id": 160, "perspective": "External B2B Customer, Arvind Saxena", "question": "You receive complaints from your customers about the vendor's product performance. What is your responsibility?",
-        "options": [{ "id": "A", "text": "Investigate customer feedback, hold the vendor accountable, and demand improvements." }], "bestAnswer": "A"
-      }
-    ]
+    // This is the full list of 140 questions.
+// Replace the existing 'questions' array in server.js with this one.
+questions: [
+    // --- Rohan's Perspective (1-20) ---
+    { id: 1, perspective: "Rohan's Perspective", question: "The team is feeling the pressure of tight deadlines and rising competition. What is the best way for me to set the tone as their leader?", options: [
+        { id: "A", text: "Acknowledge the pressure but redirect focus toward small, immediate wins that build momentum and morale." }, { id: "B", text: "Make it clear that failure isn't an option and that I expect nothing less than full commitment at any cost." }, { id: "C", text: "Schedule daily status checks and question delays aggressively to keep everyone accountable and moving faster." }, { id: "D", text: "Meet with each team member individually and ask how they're coping, adjusting expectations where needed." }, { id: "E", text: "Remind the team of past successes and encourage them to dig deep and stay the course until we meet the deadline." }, { id: "F", text: "Share openly that I'm equally stressed, so they see we're all in this together and it's normal to feel the strain." }
+    ], bestAnswer: "A" },
+    { id: 2, perspective: "Rohan's Perspective", question: "Aarav keeps suggesting longer-term solutions, but Anika is demanding quick wins. How should I respond to these competing needs?", options: [
+        { id: "A", text: "Listen to both and push back on Aarav, asking him to set aside long-term ideas and focus purely on short-term fixes." }, { id: "B", text: "Propose a middle ground - develop quick prototypes of Aarav's ideas that we can market-test in weeks, not months." }, { id: "C", text: "Privately tell Aarav to keep working on his vision while publicly committing only to Anika's immediate asks." }, { id: "D", text: "Let Product and Sales battle it out and follow whichever side wins the leadership team's support." }, { id: "E", text: "Champion Aarav's vision fully, even if it means risking tension with Sales in the short run." }, { id: "F", text: "Arrange a workshop where Aarav and Anika co-design features that balance speed and differentiation." }
+    ], bestAnswer: "F" },
+    { id: 3, perspective: "Rohan's Perspective", question: "Nikhil's cynicism is affecting the team mood. What is the best leadership action I can take?", options: [
+        { id: "A", text: "Ask Nikhil to present constructive suggestions to the team so he channels his energy productively." }, { id: "B", text: "Call him out in front of the team to show that this negativity won't be tolerated anymore." }, { id: "C", text: "Assign Nikhil to a low-visibility task so his attitude causes less disruption." }, { id: "D", text: "Have a private conversation with Nikhil, seeking to understand the root cause of his frustrations." }, { id: "E", text: "Ignore him for now - he'll tire himself out eventually, and I can't afford distractions." }, { id: "F", text: "Suggest the team take a break together to reset the mood and reduce tensions overall." }
+    ], bestAnswer: "D" },
+    { id: 4, perspective: "Rohan's Perspective", question: "The AVP of Product (Rajiv) asks me to lead a cross-functional initiative that feels huge and risky. How should I handle this?", options: [
+        { id: "A", text: "Say yes but set very clear conditions about the support and resources I'll need to succeed." }, { id: "B", text: "Agree right away to show I'm a team player, and figure out the details later as things unfold." }, { id: "C", text: "Ask Rajiv for time to think it over before making a decision, so I can assess the risk." }, { id: "D", text: "Decline politely, explaining that my plate is full and I don't want to overpromise and underdeliver." }, { id: "E", text: "Say yes but keep my head down, quietly trying to manage without raising expectations." }, { id: "F", text: "Accept and immediately ask for a coach or mentor to guide me on managing cross-functional work." }
+    ], bestAnswer: "A" },
+    { id: 5, perspective: "Rohan's Perspective", question: "The team is burning out, but deadlines are non-negotiable. What's my best move as a leader?", options: [
+        { id: "A", text: "Organize a team-wide reset session, acknowledging burnout and co-creating a recovery plan while staying on track." }, { id: "B", text: "Increase monitoring and ask for more frequent progress updates to ensure no one slacks off." }, { id: "C", text: "Reward those who put in extra hours, to motivate the team through example." }, { id: "D", text: "Be transparent about the situation and ask for voluntary extra effort, showing appreciation for any help." }, { id: "E", text: "Shift tasks so those with more energy right now carry a bit more weight, balancing the load temporarily." }, { id: "F", text: "Double down on pushing the team harder, reminding them that we don't have the luxury of slowing down." }
+    ], bestAnswer: "A" },
+    { id: 6, perspective: "Rohan's Perspective", question: "Rajiv and Anika are disagreeing publicly in meetings. What should I do as the leader of the delivery team?", options: [
+        { id: "A", text: "Stay neutral and let them resolve their differences - I'm not in charge of either function." }, { id: "B", text: "Step in to summarize both points and suggest we take the debate offline to preserve meeting productivity." }, { id: "C", text: "Take Anika's side because Sales drives revenue, and that's our immediate priority." }, { id: "D", text: "Highlight how both views are valuable and propose a structured discussion to align on goals." }, { id: "E", text: "Push Rajiv's view because product innovation is our way out of this flat growth." }, { id: "F", text: "Stay silent - better not to get involved in politics beyond my role." }
+    ], bestAnswer: "D" },
+    { id: 7, perspective: "Rohan's Perspective", question: "There's a risk we will miss the current delivery milestone. How do I best handle communication with senior leadership?", options: [
+        { id: "A", text: "Proactively communicate the risk with a recovery plan and specific asks for support." }, { id: "B", text: "Delay informing leadership until I'm certain the milestone is at risk - I don't want to raise alarms unnecessarily." }, { id: "C", text: "Sugarcoat the situation to maintain confidence, promising the team will pull through." }, { id: "D", text: "Bring the team together, align on the recovery plan, and then jointly present it to leadership." }, { id: "E", text: "Escalate immediately, asking leadership for guidance and intervention." }, { id: "F", text: "Focus on solving the problem quietly - I'll inform leadership only if things get worse." }
+    ], bestAnswer: "A" },
+    { id: 8, perspective: "Rohan's Perspective", question: "A critical client raises concerns about the product's roadmap. How do I best lead the response?", options: [
+        { id: "A", text: "Invite the client to a collaborative session to better understand their concerns and refine our plans." }, { id: "B", text: "Reassure the client that everything is under control, even if we still have work to do internally." }, { id: "C", text: "Ask Rajiv to handle it, as Product owns the roadmap, and I should focus on delivery." }, { id: "D", text: "Escalate the issue to the CEO to get top-down support for addressing the client's concerns." }, { id: "E", text: "Propose a joint call with Sales, Product, and Delivery to present a united front to the client." }, { id: "F", text: "Promise the client rapid fixes without fully consulting Product or Sales to keep them happy short-term." }
+    ], bestAnswer: "E" },
+    { id: 9, perspective: "Rohan's Perspective", question: "I notice that some quieter team members are disengaging during meetings. What leadership action is most effective?", options: [
+        { id: "A", text: "Make time to speak with them individually, asking how they're feeling and what might re-engage them." }, { id: "B", text: "Ignore it for now - maybe they're just introverted and prefer to contribute in other ways." }, { id: "C", text: "Restructure meetings so everyone has to share updates, ensuring equal participation." }, { id: "D", text: "Call on them directly in meetings so they're forced to speak up and stay engaged." }, { id: "E", text: "Pair them with stronger communicators who can help draw them out." }, { id: "F", text: "Send a message reminding the whole team that engagement is expected during meetings." }
+    ], bestAnswer: "A" },
+    { id: 10, perspective: "Rohan's Perspective", question: "My own stress levels are rising. What's the best way to manage this without impacting my leadership?", options: [
+        { id: "A", text: "Be open with the team about my stress so they see I'm human and can relate." }, { id: "B", text: "Seek support from a mentor or coach to help me process the pressure productively." }, { id: "C", text: "Double down on working longer hours to stay ahead of the pressure." }, { id: "D", text: "Delegate more, trusting my team to share the load so I can focus on what matters most." }, { id: "E", text: "Keep it to myself - I'm the leader, and it's my job to absorb the pressure." }, { id: "F", text: "Schedule short breaks to recharge, modeling good self-care for the team." }
+    ], bestAnswer: "B" },
+    { id: 11, perspective: "Rohan's Perspective", question: "The team is split between those pushing for innovation and those worried about delivery risks. How do I best unify them?", options: [
+        { id: "A", text: "Organize a session where both sides present their views, helping us co-create a balanced path forward." }, { id: "B", text: "Side with the cautious team members to ensure we don't overreach and miss delivery." }, { id: "C", text: "Push the innovation agenda firmly - it's what we need to break out of this plateau." }, { id: "D", text: "Avoid taking a stance, hoping the team will resolve the tension on its own over time." }, { id: "E", text: "Ask Meera or Rajiv to step in and help me mediate so I don't appear biased." }, { id: "F", text: "Frame the debate as healthy, encouraging both sides to continue challenging each other openly." }
+    ], bestAnswer: "A" },
+    { id: 12, perspective: "Rohan's Perspective", question: "Anika pressures me for delivery dates I know are unrealistic. How should I handle this?", options: [
+        { id: "A", text: "Agree to the dates, knowing I'll figure out a way to hit them under pressure." }, { id: "B", text: "Propose alternative dates with clear reasoning and impacts, showing I've thought it through." }, { id: "C", text: "Push the team harder, hoping we can just about meet the deadline." }, { id: "D", text: "Tell Anika that Delivery isn't the problem - Sales overpromises too often." }, { id: "E", text: "Stay silent, then work privately with my team to make the dates happen somehow." }, { id: "F", text: "Escalate to Rajiv or senior leadership, asking them to help manage Sales' expectations." }
+    ], bestAnswer: "B" },
+    { id: 13, perspective: "Rohan's Perspective", question: "Nikhil's negativity has started influencing newer team members. What's the most effective step I can take?", options: [
+        { id: "A", text: "Give Nikhil a formal warning so it's clear that attitude matters as much as technical skill." }, { id: "B", text: "Set up a coaching conversation with Nikhil, focused on solutions and ownership rather than blame." }, { id: "C", text: "Ask Meera to handle Nikhil since she's better at these tricky interpersonal issues." }, { id: "D", text: "Move Nikhil to work remotely or offsite to limit his influence on the team." }, { id: "E", text: "Let things run their course - the newer team members will learn to ignore him over time." }, { id: "F", text: "Create a culture-building initiative so positivity outweighs individual negativity." }
+    ], bestAnswer: "B" },
+    { id: 14, perspective: "Rohan's Perspective", question: "Senior leadership asks for 'radical ideas' to break flat growth. How should I respond?", options: [
+        { id: "A", text: "Organize a hackathon or innovation sprint to harness team creativity quickly." }, { id: "B", text: "Submit my own ideas first, to show leadership I can think strategically." }, { id: "C", text: "Ask Aarav privately for his ideas - he's the most innovative person on the team." }, { id: "D", text: "Wait and see what others propose before offering anything, to gauge the mood." }, { id: "E", text: "Downplay the need for radical ideas, focusing on executing what we already have planned." }, { id: "F", text: "Ask for more clarity on what leadership means by 'radical' before engaging the team." }
+    ], bestAnswer: "A" },
+    { id: 15, perspective: "Rohan's Perspective", question: "The team misses a delivery commitment. What's my best move as a leader?", options: [
+        { id: "A", text: "Take full ownership with leadership and shield my team from blame." }, { id: "B", text: "Ask the team to write a detailed post-mortem so we can learn from it together." }, { id: "C", text: "Downplay the miss and focus on how we'll hit the next target." }, { id: "D", text: "Identify the weak performers and hold them accountable individually." }, { id: "E", text: "Escalate, asking for additional resources so it doesn't happen again." }, { id: "F", text: "Focus on motivating the team with praise for their effort despite the miss." }
+    ], bestAnswer: "B" },
+    { id: 16, perspective: "Rohan's Perspective", question: "Aarav is frustrated that his ideas aren't getting traction. What's my best step as his leader?", options: [
+        { id: "A", text: "Give him a dedicated time slot in team meetings to showcase his ideas." }, { id: "B", text: "Tell him gently to stay focused on delivery - there's no bandwidth for experimentation now." }, { id: "C", text: "Assign him a special project where he can explore his ideas in a low-risk setting." }, { id: "D", text: "Encourage him to document his proposals and send them directly to Rajiv." }, { id: "E", text: "Ask Meera to mentor him so he learns how to position ideas better." }, { id: "F", text: "Remind him that the business comes first, and innovation can wait for calmer times." }
+    ], bestAnswer: "C" },
+    { id: 17, perspective: "Rohan's Perspective", question: "The client unexpectedly asks for scope changes close to delivery. How should I handle this?", options: [
+        { id: "A", text: "Push back firmly, explaining the impact on timelines and quality." }, { id: "B", text: "Agree immediately - we need to keep the client happy at all costs." }, { id: "C", text: "Ask the client for clarity on priorities so we can assess trade-offs together." }, { id: "D", text: "Escalate to leadership, asking for strategic direction before responding." }, { id: "E", text: "Accept the change and work with the team to figure out how to deliver without delay." }, { id: "F", text: "Stay non-committal for now, buying time to work out what's feasible." }
+    ], bestAnswer: "C" },
+    { id: 18, perspective: "Rohan's Perspective", question: "Some team members are performing below expectations. What is the best leadership action?", options: [
+        { id: "A", text: "Set clear, measurable goals for them and coach them regularly toward improvement." }, { id: "B", text: "Reassign them to simpler tasks to minimize delivery risk." }, { id: "C", text: "Speak with HR about starting a formal performance improvement plan." }, { id: "D", text: "Publicly highlight high performers so underperformers feel more pressure to step up." }, { id: "E", text: "Give them more time - people improve when they're not micromanaged." }, { id: "F", text: "Ignore it for now, focusing instead on keeping the stronger members motivated." }
+    ], bestAnswer: "A" },
+    { id: 19, perspective: "Rohan's Perspective", question: "We're about to present our plan to leadership. How can I ensure the team's work shines?", options: [
+        { id: "A", text: "Involve the team in crafting and rehearsing the presentation so they feel ownership." }, { id: "B", text: "Polish the plan myself and present it solo for maximum clarity and control." }, { id: "C", text: "Focus on making it visually impressive so leadership is wowed by the polish." }, { id: "D", text: "Delegate the presentation to Aarav and Rajiv - they know the details best." }, { id: "E", text: "Stay brief and high-level to respect leadership's time." }, { id: "F", text: "Focus on selling the plan's potential, downplaying gaps or risks for now." }
+    ], bestAnswer: "A" },
+    { id: 20, perspective: "Rohan's Perspective", question: "I sense tension between two of my senior engineers that's starting to affect collaboration. What should I do?", options: [
+        { id: "A", text: "Mediate a conversation where they air concerns and we agree on how to move forward." }, { id: "B", text: "Separate them onto different projects so the tension no longer disrupts work." }, { id: "C", text: "Wait and see if the issue resolves itself - they're adults and should handle it." }, { id: "D", text: "Ask Meera or HR to step in and run a formal conflict resolution process." }, { id: "E", text: "Remind the team publicly that professionalism is non-negotiable." }, { id: "F", text: "Let them know in private that their tension is noticed and must stop immediately." }
+    ], bestAnswer: "A" },
+
+    // --- Aarav's Perspective (21-40) ---
+    { id: 21, perspective: "Aarav's Perspective", question: "The team is under tight pressure, and my ideas keep getting sidelined in meetings. What should I do as Aarav?", options: [
+        { id: "A", text: "Ask Rohan privately for feedback on how to present my ideas so they're heard better." }, { id: "B", text: "Stop contributing ideas for now and focus only on my assigned coding tasks." }, { id: "C", text: "Raise my hand in the next meeting and insist the team listens to my suggestions." }, { id: "D", text: "Document my ideas in detail and email them to the entire leadership group." }, { id: "E", text: "Vent my frustration to Nikhil and see if he feels the same way." }, { id: "F", text: "Wait for the pressure to ease before bringing up my suggestions again." }
+    ], bestAnswer: "A" },
+    { id: 22, perspective: "Aarav's Perspective", question: "Nikhil is openly criticizing management decisions, and it's affecting team morale. What could I do?", options: [
+        { id: "A", text: "Have a direct, private conversation with Nikhil and ask him to tone it down." }, { id: "B", text: "Join in with Nikhil's criticism to express my frustrations too." }, { id: "C", text: "Quietly focus on my work and avoid getting involved in the negativity." }, { id: "D", text: "Raise my concerns about Nikhil's behavior with Rohan or Meera." }, { id: "E", text: "Try to change the subject or shift conversations to something positive." }, { id: "F", text: "Post my own views on our internal chat to balance out his negativity." }
+    ], bestAnswer: "D" },
+    { id: 23, perspective: "Aarav's Perspective", question: "Rohan seems overloaded and distracted lately, and it's slowing our team down. How can I respond?", options: [
+        { id: "A", text: "Offer to take ownership of a small part of the project to ease his load." }, { id: "B", text: "Ignore it and just focus on my part of the work." }, { id: "C", text: "Complain to Meera that Rohan isn't leading the team properly." }, { id: "D", text: "Talk to my peers about how poorly things are being managed." }, { id: "E", text: "Wait - maybe things will improve once this deadline passes." }, { id: "F", text: "Propose a short team huddle to help Rohan and the team re-focus." }
+    ], bestAnswer: "A" },
+    { id: 24, perspective: "Aarav's Perspective", question: "Anika keeps changing requirements mid-sprint, causing extra rework. What should I do as Aarav?", options: [
+        { id: "A", text: "Suggest to Rohan that we agree on firmer scope control with Sales." }, { id: "B", text: "Quietly do the extra work without raising concerns." }, { id: "C", text: "Email Anika directly and explain how the changes are affecting delivery." }, { id: "D", text: "Tell the team we should push back harder on Sales' requests." }, { id: "E", text: "Log the extra hours but not say anything further." }, { id: "F", text: "Ask Rohan for clarity on how to handle such requests going forward." }
+    ], bestAnswer: "F" },
+    { id: 25, perspective: "Aarav's Perspective", question: "There's conflict between two colleagues that's starting to impact code quality. What's the best thing I can do?", options: [
+        { id: "A", text: "Encourage both of them to sit down and work things out directly." }, { id: "B", text: "Stay out of it; it's not my responsibility to solve their issues." }, { id: "C", text: "Flag the situation to Rohan before it affects our delivery further." }, { id: "D", text: "Speak to each person separately and see if I can help ease the tension." }, { id: "E", text: "Quietly adjust my own work so their conflict doesn't block me." }, { id: "F", text: "Mention the tension casually in a team meeting to surface the issue." }
+    ], bestAnswer: "C" },
+    { id: 26, perspective: "Aarav's Perspective", question: "The company is asking for ideas to break through flat growth. What's my best response as Aarav?", options: [
+        { id: "A", text: "Set aside time to think through ideas and submit them formally." }, { id: "B", text: "Wait - ideas should come from leaders, not from coders like me." }, { id: "C", text: "Talk to a few teammates to brainstorm and share a group proposal." }, { id: "D", text: "Suggest improvements in technical processes that might drive efficiency." }, { id: "E", text: "Stay focused on my coding and let others handle the strategy." }, { id: "F", text: "Send my ideas directly to Rajiv so they aren't filtered by layers of management." }
+    ], bestAnswer: "A" },
+    { id: 27, perspective: "Aarav's Perspective", question: "I notice that code reviews are rushed, leading to bugs in production. What action should I take?", options: [
+        { id: "A", text: "Propose we block dedicated time for more thorough code reviews." }, { id: "B", text: "Quietly double-check my own code more carefully to avoid issues." }, { id: "C", text: "Raise it in the next team meeting and offer solutions to improve the process." }, { id: "D", text: "Ignore it; fixing bugs later is just part of the job sometimes." }, { id: "E", text: "Inform Rohan or Meera that quality is slipping so they can act." }, { id: "F", text: "Leave anonymous feedback in the next team survey about this problem." }
+    ], bestAnswer: "C" },
+    { id: 28, perspective: "Aarav's Perspective", question: "The team celebrates when Aarav delivers critical fixes, but I feel underappreciated otherwise. What could I do?", options: [
+        { id: "A", text: "Share my contributions more openly during team updates." }, { id: "B", text: "Keep my head down - recognition isn't why I do this work." }, { id: "C", text: "Ask Rohan for feedback and guidance on growing my visibility." }, { id: "D", text: "Wait for others to notice my consistent contributions over time." }, { id: "E", text: "Discuss with Meera how I might take on more visible responsibilities." }, { id: "F", text: "Look for external opportunities where I might be valued more." }
+    ], bestAnswer: "C" },
+    { id: 29, perspective: "Aarav's Perspective", question: "A new tool has been introduced that could improve efficiency, but no one is adopting it. How could I help?", options: [
+        { id: "A", text: "Create a simple guide or demo to help teammates get started with it." }, { id: "B", text: "Talk to Rohan about making it mandatory for certain tasks." }, { id: "C", text: "Quietly use it myself without pushing others." }, { id: "D", text: "Wait and see if adoption improves on its own." }, { id: "E", text: "Propose we drop the tool if no one wants it." }, { id: "F", text: "Offer to run an informal session to show how it adds value." }
+    ], bestAnswer: "F" },
+    { id: 30, perspective: "Aarav's Perspective", question: "The client gives sudden feedback that our solution is missing a critical feature. What should I do?", options: [
+        { id: "A", text: "Alert Rohan right away and offer to help brainstorm fixes." }, { id: "B", text: "Quietly start coding the feature without waiting for instructions." }, { id: "C", text: "Email the client for clarification before we take action." }, { id: "D", text: "Tell the team that this isn't our fault and shouldn't derail us." }, { id: "E", text: "Raise the issue in the next meeting and discuss next steps collectively." }, { id: "F", text: "Let Rohan handle it it's above my level to intervene with clients." }
+    ], bestAnswer: "A" },
+    { id: 31, perspective: "Aarav's Perspective", question: "Our team is missing deadlines repeatedly, and stress levels are high. What should I do as Aarav?", options: [
+        { id: "A", text: "Propose a retrospective session to identify blockers and solutions as a team." }, { id: "B", text: "Keep my head down and focus only on finishing my assigned work." }, { id: "C", text: "Speak to Rohan and ask if we can adjust timelines or priorities." }, { id: "D", text: "Point out in meetings that unrealistic deadlines are setting us up for failure." }, { id: "E", text: "Suggest working extra hours quietly to meet the deadlines." }, { id: "F", text: "Start documenting delays to protect myself if questions are raised." }
+    ], bestAnswer: "A" },
+    { id: 32, perspective: "Aarav's Perspective", question: "There's a proposal to bring in external consultants to help the team. What's my best response?", options: [
+        { id: "A", text: "Welcome the idea and offer to collaborate with them for the team's benefit." }, { id: "B", text: "Express my concern that outsiders may not understand our work culture." }, { id: "C", text: "Quietly continue my work and let the leaders decide how to use consultants." }, { id: "D", text: "Suggest we first identify if internal upskilling could achieve the same result." }, { id: "E", text: "Feel threatened and worry that they might replace or overshadow our team." }, { id: "F", text: "Offer to help onboard the consultants and bring them up to speed faster." }
+    ], bestAnswer: "A" },
+    { id: 33, perspective: "Aarav's Perspective", question: "A teammate is struggling technically but isn't asking for help. How might I respond?", options: [
+        { id: "A", text: "Approach them discreetly and offer support without making them feel judged." }, { id: "B", text: "Ignore it; it's their responsibility to ask for help when needed." }, { id: "C", text: "Alert Rohan so he can step in before it affects delivery." }, { id: "D", text: "Raise it indirectly in a team meeting to encourage openness." }, { id: "E", text: "Discuss it informally with others to see if they've noticed too." }, { id: "F", text: "Wait and see if they figure it out on their own." }
+    ], bestAnswer: "A" },
+    { id: 34, perspective: "Aarav's Perspective", question: "The company announces budget cuts, and morale drops sharply. What could I do?", options: [
+        { id: "A", text: "Try to stay positive and focus on what's within my control." }, { id: "B", text: "Talk to my teammates and help them process their worries constructively." }, { id: "C", text: "Quietly update my resume and start exploring other options." }, { id: "D", text: "Suggest to Rohan that we organize a team discussion to address concerns." }, { id: "E", text: "Share my frustrations openly, so others know they aren't alone." }, { id: "F", text: "Avoid conversations about it and keep my head down." }
+    ], bestAnswer: "A" },
+    { id: 35, perspective: "Aarav's Perspective", question: "Rajiv asks for quick turnaround on a client request that seems poorly thought through. What is my best move?", options: [
+        { id: "A", text: "Raise my concerns respectfully and suggest clarifying client needs first." }, { id: "B", text: "Just complete the work without questioning it - Rajiv asked, after all." }, { id: "C", text: "Propose a quick team huddle to align on the best approach." }, { id: "D", text: "Wait for someone else to flag the issues with the request." }, { id: "E", text: "Start coding what I think is best, even if it differs from Rajiv's ask." }, { id: "F", text: "Suggest documenting risks and assumptions before we proceed." }
+    ], bestAnswer: "A" },
+    { id: 36, perspective: "Aarav's Perspective", question: "The project requires knowledge of a new technology I don't fully understand. What's the best thing I could do?", options: [
+        { id: "A", text: "Proactively seek out learning resources and upskill quickly." }, { id: "B", text: "Quietly struggle through and hope it doesn't show." }, { id: "C", text: "Ask Rohan if we can get training or mentorship on it." }, { id: "D", text: "Suggest the task be reassigned to someone more experienced." }, { id: "E", text: "Delay starting on it while I figure out how to approach it." }, { id: "F", text: "Collaborate with a teammate who already knows the technology." }
+    ], bestAnswer: "A" },
+    { id: 37, perspective: "Aarav's Perspective", question: "A small bug I fixed has unexpectedly made me look like a hero. How should I handle it?", options: [
+        { id: "A", text: "Share credit with teammates who helped me spot or solve it." }, { id: "B", text: "Quietly accept the praise and move on without overthinking it." }, { id: "C", text: "Use the opportunity to propose improvements in our QA process." }, { id: "D", text: "Remind everyone it was a team effort, not just my win." }, { id: "E", text: "Stay silent and hope the attention fades quickly." }, { id: "F", text: "Highlight my contribution more to position myself for bigger opportunities." }
+    ], bestAnswer: "A" },
+    { id: 38, perspective: "Aarav's Perspective", question: "Our team's sprint goals seem unrealistic, and no one is speaking up. How could I act?", options: [
+        { id: "A", text: "Suggest a sprint planning review to adjust expectations realistically." }, { id: "B", text: "Stay silent to avoid tension or conflict." }, { id: "C", text: "Discuss my concerns with Rohan privately." }, { id: "D", text: "Try to complete as much as possible and let the rest slip." }, { id: "E", text: "Encourage teammates to collectively raise the issue." }, { id: "F", text: "Document my workload so it's clear what's feasible." }
+    ], bestAnswer: "C" },
+    { id: 39, perspective: "Aarav's Perspective", question: "I see that Nikhil's code often needs rework, but he dismisses feedback. What should I do?", options: [
+        { id: "A", text: "Give constructive feedback privately and offer to pair-program on tricky parts." }, { id: "B", text: "Ignore it and focus on cleaning up after him when needed." }, { id: "C", text: "Escalate the issue to Rohan if quality keeps slipping." }, { id: "D", text: "Leave comments in code reviews and hope he takes them seriously." }, { id: "E", text: "Discuss the situation with Meera for a broader solution." }, { id: "F", text: "Avoid giving feedback - he's unlikely to listen anyway." }
+    ], bestAnswer: "A" },
+    { id: 40, perspective: "Aarav's Perspective", question: "The company offers a hackathon to drive innovation, but no one on the team seems interested. What could I do?", options: [
+        { id: "A", text: "Take the lead in forming a team and propose a fun project idea." }, { id: "B", text: "Stay out of it - if others don't want to join, that's their choice." }, { id: "C", text: "Encourage others by highlighting how it could help our team's visibility." }, { id: "D", text: "Ask Rohan to endorse participation to generate more interest." }, { id: "E", text: "Quietly join another team outside ours to still take part." }, { id: "F", text: "Wait to see if enthusiasm builds closer to the date." }
+    ], bestAnswer: "A" },
+
+    // --- Nikhil's Perspective (41-60) ---
+    { id: 41, perspective: "Nikhil's Perspective", question: "I feel my skills are underutilized and my suggestions are ignored in meetings. What should I do?", options: [
+        { id: "A", text: "Speak privately with Rohan and ask how I can contribute more meaningfully." }, { id: "B", text: "Push harder in meetings to make sure people hear and implement my ideas." }, { id: "C", text: "Withdraw from discussions and focus only on the tasks assigned to me." }, { id: "D", text: "Send my ideas directly to senior leaders, bypassing my immediate manager." }, { id: "E", text: "Reflect on how I'm presenting my suggestions and adjust my approach." }, { id: "F", text: "Complain to a few colleagues to gain support for my frustration." }
+    ], bestAnswer: "A" },
+    { id: 42, perspective: "Nikhil's Perspective", question: "I strongly disagree with a technical direction chosen by the team, but the decision has been made. What should I do?", options: [
+        { id: "A", text: "Raise my concerns again during the next team meeting and challenge the decision." }, { id: "B", text: "Document my concerns for future reference but support the decision for now." }, { id: "C", text: "Quietly do things my own way in my part of the codebase." }, { id: "D", text: "Discuss my concerns privately with Rohan to seek his advice." }, { id: "E", text: "Work with the team to make the current direction succeed despite my reservations." }, { id: "F", text: "Talk to Meera or Rajiv about overriding the decision." }
+    ], bestAnswer: "E" },
+    { id: 43, perspective: "Nikhil's Perspective", question: "Rohan calls out my mistakes in a team meeting, and I feel humiliated. How should I respond?", options: [
+        { id: "A", text: "Ask Rohan privately for feedback on how to improve." }, { id: "B", text: "Publicly defend myself in the meeting to justify my actions." }, { id: "C", text: "Shut down and stop contributing to avoid further embarrassment." }, { id: "D", text: "Take time later to reflect on whether the criticism was fair." }, { id: "E", text: "Complain to other team members about Rohan's behavior." }, { id: "F", text: "Raise the issue with Meera about being called out unfairly." }
+    ], bestAnswer: "D" },
+    { id: 44, perspective: "Nikhil's Perspective", question: "A junior developer keeps asking me for help and it's slowing down my own work. What could I do?", options: [
+        { id: "A", text: "Set boundaries and ask them to try solving problems on their own first." }, { id: "B", text: "Offer to pair with them for a short time to help them gain confidence." }, { id: "C", text: "Ignore their requests and focus on my own tasks." }, { id: "D", text: "Suggest they ask Rohan or someone else for help instead." }, { id: "E", text: "Raise my workload concerns with Rohan so he can address it." }, { id: "F", text: "Make time to mentor them, seeing it as an investment in team strength." }
+    ], bestAnswer: "F" },
+    { id: 45, perspective: "Nikhil's Perspective", question: "The team is planning a solution that I know will cause technical debt. What's my best move?", options: [
+        { id: "A", text: "Propose alternatives clearly and explain the long-term risks." }, { id: "B", text: "Go along with the plan - it's not worth the fight." }, { id: "C", text: "Quietly code things in a cleaner way without discussing it." }, { id: "D", text: "Ask for a deeper technical review before we commit to this plan." }, { id: "E", text: "Highlight the issue to Meera or Rajiv if the team won't listen." }, { id: "F", text: "Wait to see if the plan fails and then point out the problem." }
+    ], bestAnswer: "A" },
+    { id: 46, perspective: "Nikhil's Perspective", question: "The client gives contradictory feedback on features I've developed. How should I handle this?", options: [
+        { id: "A", text: "Ask Rohan or the client directly for clarification." }, { id: "B", text: "Quietly make changes based on what I think the client wants." }, { id: "C", text: "Document the feedback and ask for a formal clarification from Sales." }, { id: "D", text: "Complain to my team about how unclear the client always is." }, { id: "E", text: "Escalate the issue to senior management so they handle it." }, { id: "F", text: "Ignore the contradictions and proceed with the original plan." }
+    ], bestAnswer: "A" },
+    { id: 47, perspective: "Nikhil's Perspective", question: "I'm overloaded, but the team keeps assigning me critical tasks. What could I do?", options: [
+        { id: "A", text: "Speak up and ask for my workload to be rebalanced." }, { id: "B", text: "Just put in longer hours and try to handle it all." }, { id: "C", text: "Quietly drop less important tasks to focus on the critical ones." }, { id: "D", text: "Raise the issue with Meera or Rajiv for immediate intervention." }, { id: "E", text: "Encourage the team to upskill so responsibilities are shared better." }, { id: "F", text: "Vent to colleagues about being overburdened." }
+    ], bestAnswer: "A" },
+    { id: 48, perspective: "Nikhil's Perspective", question: "A release is at risk, but the team is avoiding difficult decisions. How could I act?", options: [
+        { id: "A", text: "Propose a focused meeting to tackle the tough decisions head-on." }, { id: "B", text: "Step back and let the managers deal with it." }, { id: "C", text: "Quietly fix what I can and leave the rest." }, { id: "D", text: "Start documenting risks and suggest a revised plan." }, { id: "E", text: "Voice concerns bluntly in meetings to force action." }, { id: "F", text: "Wait - sometimes issues resolve themselves under pressure." }
+    ], bestAnswer: "A" },
+    { id: 49, perspective: "Nikhil's Perspective", question: "The code review process is slow, delaying progress. What should I do?", options: [
+        { id: "A", text: "Propose we adopt new tools or processes to speed things up." }, { id: "B", text: "Quietly skip code reviews on minor changes to save time." }, { id: "C", text: "Talk to Rohan about setting clearer SLAs for reviews." }, { id: "D", text: "Start reviewing others' code more proactively to set an example." }, { id: "E", text: "Complain to teammates that reviews are a bottleneck." }, { id: "F", text: "Wait and see if the team notices the delay on its own." }
+    ], bestAnswer: "D" },
+    { id: 50, perspective: "Nikhil's Perspective", question: "I feel our technical capabilities could be stronger, but no one seems focused on improvement. How could I respond?", options: [
+        { id: "A", text: "Propose regular knowledge-sharing sessions within the team." }, { id: "B", text: "Focus on my own growth and not worry about the team." }, { id: "C", text: "Raise the issue at the next team retrospective." }, { id: "D", text: "Suggest Rohan sponsor formal training for the team." }, { id: "E", text: "Highlight gaps to senior leadership and ask for action." }, { id: "F", text: "Quietly improve things where I can without making it a big issue." }
+    ], bestAnswer: "A" },
+    { id: 51, perspective: "Nikhil's Perspective", question: "I sense growing tension between Aarav and me during code reviews. What should I do?", options: [
+        { id: "A", text: "Arrange a one-on-one chat with Aarav to clear the air." }, { id: "B", text: "Raise the issue with Rohan and let him mediate." }, { id: "C", text: "Continue as usual tension is part of working in tech teams." }, { id: "D", text: "Subtly undermine Aarav's work in reviews to assert my authority." }, { id: "E", text: "Reflect on my own tone and approach in code reviews." }, { id: "F", text: "Avoid reviewing Aarav's code to reduce friction." }
+    ], bestAnswer: "E" },
+    { id: 52, perspective: "Nikhil's Perspective", question: "A critical production bug is traced back to my code. How might I respond?", options: [
+        { id: "A", text: "Own up to the mistake and work quickly to fix it." }, { id: "B", text: "Quietly fix the issue and hope no one notices." }, { id: "C", text: "Shift blame by pointing out gaps in the testing process." }, { id: "D", text: "Suggest a team post-mortem to prevent similar issues." }, { id: "E", text: "Raise the issue with Rohan before rumors start spreading." }, { id: "F", text: "Let the managers handle it without getting involved." }
+    ], bestAnswer: "A" },
+    { id: 53, perspective: "Nikhil's Perspective", question: "The team is adopting a framework I'm unfamiliar with, and I feel left behind. What should I do?", options: [
+        { id: "A", text: "Invest time to learn it on my own as fast as possible." }, { id: "B", text: "Resist using the new framework and stick to what I know." }, { id: "C", text: "Ask for team help or mentoring to get up to speed." }, { id: "D", text: "Propose we delay adoption until I'm comfortable with it." }, { id: "E", text: "Quietly avoid tasks involving the new framework." }, { id: "F", text: "Suggest the team arrange a workshop so we all level up together." }
+    ], bestAnswer: "F" },
+    { id: 54, perspective: "Nikhil's Perspective", question: "A project milestone is slipping, and frustration is building. What's my best move?", options: [
+        { id: "A", text: "Propose a focused troubleshooting session to identify blockers." }, { id: "B", text: "Wait for managers to come up with a plan." }, { id: "C", text: "Work extra hours to push through my parts faster." }, { id: "D", text: "Start calling out others who are causing delays." }, { id: "E", text: "Quietly do my bit and not get involved in the team stress." }, { id: "F", text: "Recommend breaking the work down further to regain control." }
+    ], bestAnswer: "A" },
+    { id: 55, perspective: "Nikhil's Perspective", question: "I see Rajiv making promises to clients that seem unrealistic. How could I act?", options: [
+        { id: "A", text: "Raise the risks calmly with Rajiv and suggest alternatives." }, { id: "B", text: "Complain to teammates about how Sales overcommits." }, { id: "C", text: "Propose a joint session between Sales and Tech to align expectations." }, { id: "D", text: "Escalate my concerns to Meera or Rohan directly." }, { id: "E", text: "Ignore it it's not my job to manage client promises." }, { id: "F", text: "Start preparing a technical workaround just in case." }
+    ], bestAnswer: "D" },
+    { id: 56, perspective: "Nikhil's Perspective", question: "The team is celebrating a successful release, but I feel my contributions weren't recognized. What should I do?", options: [
+        { id: "A", text: "Privately ask Rohan for feedback on my performance." }, { id: "B", text: "Share my achievements with the team in a humble way." }, { id: "C", text: "Quietly disengage if they didn't notice, why bother?" }, { id: "D", text: "Vent to a few teammates about being overlooked." }, { id: "E", text: "Raise the issue in the next review cycle." }, { id: "F", text: "Reflect on whether I'm doing enough to highlight my impact." }
+    ], bestAnswer: "F" },
+    { id: 57, perspective: "Nikhil's Perspective", question: "There's a debate on code quality vs. delivery speed, and the team is divided. How could I help?", options: [
+        { id: "A", text: "Suggest a balanced approach that meets both needs." }, { id: "B", text: "Take the side of code quality, no matter the delivery impact." }, { id: "C", text: "Stay out of it and let others argue it out." }, { id: "D", text: "Propose we define clearer coding standards for future work." }, { id: "E", text: "Support delivery speed deadlines matter most." }, { id: "F", text: "Highlight past examples where poor quality hurt us later." }
+    ], bestAnswer: "F" },
+    { id: 58, perspective: "Nikhil's Perspective", question: "I feel I'm not learning enough on this project. What's the best thing I could do?", options: [
+        { id: "A", text: "Ask Rohan for opportunities on more challenging tasks." }, { id: "B", text: "Quietly keep going at least it's a stable role." }, { id: "C", text: "Propose enhancements or side projects that build new skills." }, { id: "D", text: "Start applying elsewhere for better learning opportunities." }, { id: "E", text: "Request mentorship on technologies I want to master." }, { id: "F", text: "Take my frustration out on the quality of work assigned." }
+    ], bestAnswer: "A" },
+    { id: 59, perspective: "Nikhil's Perspective", question: "I've spotted a serious security gap in our product. What's my best action?", options: [
+        { id: "A", text: "Raise it immediately with the team and propose fixes." }, { id: "B", text: "Quietly patch it on my own without involving others." }, { id: "C", text: "Document it and wait for the next security review." }, { id: "D", text: "Inform Meera or Rajiv directly given the seriousness." }, { id: "E", text: "Bring it up in casual team discussions to test reactions." }, { id: "F", text: "Ignore it not my problem unless it becomes critical." }
+    ], bestAnswer: "A" },
+    { id: 60, perspective: "Nikhil's Perspective", question: "Rohan is assigning Aarav to lead a new feature I wanted to own. How should I react?", options: [
+        { id: "A", text: "Ask Rohan for feedback on how I can earn such opportunities." }, { id: "B", text: "Support Aarav's efforts and offer help where needed." }, { id: "C", text: "Quietly feel resentful but not say anything." }, { id: "D", text: "Complain to colleagues about favoritism." }, { id: "E", text: "Focus on excelling in my current assignments to prove myself." }, { id: "F", text: "Escalate to Meera that I'm being overlooked unfairly." }
+    ], bestAnswer: "A" },
+
+    // --- Meera's Perspective (61-80) ---
+    { id: 61, perspective: "Meera's Perspective", question: "The team is under pressure to deliver, and tensions between Nikhil and Aarav are rising. How should I act?", options: [
+        { id: "A", text: "Bring them together for a mediated conversation to clear misunderstandings." }, { id: "B", text: "Ignore it for now; the deadline matters more than team harmony." }, { id: "C", text: "Assign them to work on separate modules to avoid conflict." }, { id: "D", text: "Escalate the issue to Rajiv before it impacts delivery." }, { id: "E", text: "Remind them both privately about team values and professionalism." }, { id: "F", text: "Let Rohan handle it it's his team after all." }
+    ], bestAnswer: "A" },
+    { id: 62, perspective: "Meera's Perspective", question: "Rajiv pushes for a faster timeline that risks product quality. What should I do?", options: [
+        { id: "A", text: "Propose a realistic plan balancing speed and quality, and explain the trade-offs." }, { id: "B", text: "Agree meeting sales commitments is the top priority." }, { id: "C", text: "Raise the risks in the leadership meeting and seek alignment." }, { id: "D", text: "Quietly instruct the team to do their best with the faster schedule." }, { id: "E", text: "Push back firmly on Rajiv's request and insist on quality first." }, { id: "F", text: "Let the team figure out how to make it work without intervening much." }
+    ], bestAnswer: "A" },
+    { id: 63, perspective: "Meera's Perspective", question: "A valuable team member, Nikhil, is disengaged and missing his usual spark. What could I do?", options: [
+        { id: "A", text: "Schedule a one-on-one to explore what's bothering him." }, { id: "B", text: "Wait and see if he regains motivation on his own." }, { id: "C", text: "Quietly reassign some of his work to lighten his load." }, { id: "D", text: "Openly ask him in a team meeting why he seems disengaged." }, { id: "E", text: "Discuss Nikhil's performance with HR in case action is needed." }, { id: "F", text: "Assign him a fresh challenge that might rekindle his interest." }
+    ], bestAnswer: "A" },
+    { id: 64, perspective: "Meera's Perspective", question: "The client is unhappy with a recent release, and the team is demoralized. What's my best move?", options: [
+        { id: "A", text: "Arrange a debrief focusing on lessons learned and next steps." }, { id: "B", text: "Reassure the team privately and let the dust settle before addressing it formally." }, { id: "C", text: "Blame the issues on gaps in Rajiv's sales commitments." }, { id: "D", text: "Rally the team with a positive plan for addressing the client concerns." }, { id: "E", text: "Minimize discussion of the issue too much talk will hurt morale further." }, { id: "F", text: "Escalate the client's feedback to senior management and let them handle it." }
+    ], bestAnswer: "D" },
+    { id: 65, perspective: "Meera's Perspective", question: "Rohan's team is overworked, but other teams have capacity. What should I do?", options: [
+        { id: "A", text: "Reallocate some tasks to other teams to balance the load." }, { id: "B", text: "Encourage Rohan to ask for help rather than intervene directly." }, { id: "C", text: "Praise Rohan's team for their dedication and leave things as is." }, { id: "D", text: "Raise this in leadership meetings to push for resource rebalancing." }, { id: "E", text: "Quietly let it continue high performers always carry more load." }, { id: "F", text: "Arrange a temporary task force to support Rohan's team." }
+    ], bestAnswer: "A" },
+    { id: 66, perspective: "Meera's Perspective", question: "I sense the team is hesitant to speak up in meetings. How could I respond?", options: [
+        { id: "A", text: "Set ground rules that make it safe to share differing views." }, { id: "B", text: "Encourage individuals privately to voice their opinions." }, { id: "C", text: "Conclude people have nothing useful to add and move on." }, { id: "D", text: "Ask more open-ended questions in meetings to draw out input." }, { id: "E", text: "Let discussions stay top-down that's often more efficient." }, { id: "F", text: "Arrange smaller group discussions to give quieter voices space." }
+    ], bestAnswer: "F" },
+    { id: 67, perspective: "Meera's Perspective", question: "The product roadmap needs to change due to market shifts, but the team is attached to the old plan. What's my best move?", options: [
+        { id: "A", text: "Clearly explain the business reasons for change and invite ideas." }, { id: "B", text: "Enforce the new plan without much discussion time is tight." }, { id: "C", text: "Wait and see if the external pressures ease up first." }, { id: "D", text: "Co-create the updated roadmap with the team's input." }, { id: "E", text: "Escalate resistance to senior leadership as a performance concern." }, { id: "F", text: "Make only minimal changes so the team feels more comfortable." }
+    ], bestAnswer: "D" },
+    { id: 68, perspective: "Meera's Perspective", question: "The company is considering outsourcing some development work, and the team is anxious. What should I do?", options: [
+        { id: "A", text: "Communicate openly about what's known and listen to concerns." }, { id: "B", text: "Assure the team there's no reason to worry, even if I'm unsure." }, { id: "C", text: "Downplay the topic to avoid unnecessary panic." }, { id: "D", text: "Advocate for a fair and transparent process if outsourcing proceeds." }, { id: "E", text: "Ask HR to handle communications it's not my role." }, { id: "F", text: "Support outsourcing quietly, as cost savings matter most." }
+    ], bestAnswer: "A" },
+    { id: 69, perspective: "Meera's Perspective", question: "Anika's marketing team needs technical input urgently, but my team is fully booked. How could I act?", options: [
+        { id: "A", text: "Find a short-term way to support Anika without harming delivery." }, { id: "B", text: "Tell Anika she'll have to wait we have our own priorities." }, { id: "C", text: "Ask Rajiv or Rohan for ideas on how to help." }, { id: "D", text: "Assign a junior developer to assist as a learning opportunity." }, { id: "E", text: "Ignore the request marketing often asks for unrealistic help." }, { id: "F", text: "Propose a joint planning session to align on priorities." }
+    ], bestAnswer: "F" },
+    { id: 70, perspective: "Meera's Perspective", question: "I notice Rohan seems stressed and burnt out. What could I do?", options: [
+        { id: "A", text: "Check in with him privately and offer support." }, { id: "B", text: "Ask HR to step in before it becomes a bigger issue." }, { id: "C", text: "Let him work through it that's what leaders do." }, { id: "D", text: "Adjust his responsibilities temporarily to reduce pressure." }, { id: "E", text: "Openly mention in a meeting that Rohan seems stressed." }, { id: "F", text: "Suggest he take some time off to recharge." }
+    ], bestAnswer: "A" },
+    { id: 71, perspective: "Meera's Perspective", question: "I'm hearing complaints that Rohan is micromanaging. What's the best way to handle this?", options: [
+        { id: "A", text: "Have a private conversation with Rohan to understand his intent." }, { id: "B", text: "Monitor the situation quietly maybe it'll resolve itself." }, { id: "C", text: "Send out a blanket email reminding all leads about empowering teams." }, { id: "D", text: "Escalate it directly to HR for formal intervention." }, { id: "E", text: "Provide Rohan with coaching on delegation and trust." }, { id: "F", text: "Ignore it some teams need tight control in tough times." }
+    ], bestAnswer: "E" },
+    { id: 72, perspective: "Meera's Perspective", question: "There's been a major client escalation, and Rajiv and I disagree on how to respond. What should I do?", options: [
+        { id: "A", text: "Propose a joint meeting with leadership to align on a plan." }, { id: "B", text: "Stick firmly to my view and push Rajiv to agree." }, { id: "C", text: "Compromise quickly to present a united front to the client." }, { id: "D", text: "Let Rajiv handle it his way to avoid more conflict." }, { id: "E", text: "Ask the CEO for guidance to break the deadlock." }, { id: "F", text: "Focus on supporting my team while Rajiv manages the client." }
+    ], bestAnswer: "A" },
+    { id: 73, perspective: "Meera's Perspective", question: "I notice the same people always get visible, high-stakes projects. What action could I take?", options: [
+        { id: "A", text: "Consciously broaden opportunities to others to build bench strength." }, { id: "B", text: "Leave things as is those people are simply top performers." }, { id: "C", text: "Bring it up in leadership reviews to drive more equitable assignment." }, { id: "D", text: "Wait and see if others step up on their own." }, { id: "E", text: "Encourage quieter team members to volunteer for bigger roles." }, { id: "F", text: "Rotate project ownership systematically to develop talent." }
+    ], bestAnswer: "A" },
+    { id: 74, perspective: "Meera's Perspective", question: "I sense that cultural differences are creating friction between onsite and offshore teams. What's the best move?", options: [
+        { id: "A", text: "Arrange cross-cultural workshops to build mutual understanding." }, { id: "B", text: "Wait these things often smooth out over time." }, { id: "C", text: "Remind both teams about company values and expected behaviors." }, { id: "D", text: "Assign a senior team member to monitor and report issues." }, { id: "E", text: "Ignore minor tensions unless they disrupt delivery." }, { id: "F", text: "Encourage team members to visit or virtually shadow each other." }
+    ], bestAnswer: "A" },
+    { id: 75, perspective: "Meera's Perspective", question: "Rohan's team is falling behind on documentation, and QA is frustrated. How should I respond?", options: [
+        { id: "A", text: "Meet with Rohan and QA to agree on a clear documentation plan." }, { id: "B", text: "Let QA push Rohan it's their issue to sort out." }, { id: "C", text: "Ask QA to adjust and work with what they have for now." }, { id: "D", text: "Propose assigning a dedicated resource for documentation." }, { id: "E", text: "Remind the entire team in writing about documentation standards." }, { id: "F", text: "Downplay it focus should stay on working code, not paperwork." }
+    ], bestAnswer: "A" },
+    { id: 76, perspective: "Meera's Perspective", question: "A senior developer threatens to quit over workload stress. What's my best response?", options: [
+        { id: "A", text: "Listen carefully, acknowledge the stress, and explore solutions." }, { id: "B", text: "Tell them to hang in it's a tough phase for everyone." }, { id: "C", text: "Immediately escalate to HR and senior leadership." }, { id: "D", text: "Shift deadlines or reassign work where possible to ease pressure." }, { id: "E", text: "Suggest they take time off to recover." }, { id: "F", text: "Advise them to consider if they're in the right role for this team." }
+    ], bestAnswer: "A" },
+    { id: 77, perspective: "Meera's Perspective", question: "Anika's team feels that Engineering doesn't respect their timelines for marketing inputs. What should I do?", options: [
+        { id: "A", text: "Call a joint session to align Marketing and Engineering priorities." }, { id: "B", text: "Assure Anika I'll look into it but take no immediate action." }, { id: "C", text: "Ask Rohan to prioritize Marketing requests more strongly." }, { id: "D", text: "Remind Anika that Engineering has its own critical deadlines." }, { id: "E", text: "Propose a shared planning calendar to improve coordination." }, { id: "F", text: "Escalate the issue to the COO for resolution." }
+    ], bestAnswer: "E" },
+    { id: 78, perspective: "Meera's Perspective", question: "I see a team forming cliques, and it's starting to hurt collaboration. What's the best action?", options: [
+        { id: "A", text: "Organize team-building activities to rebuild unity." }, { id: "B", text: "Watch and wait to see if it corrects itself." }, { id: "C", text: "Have private chats with clique leaders to understand what's driving it." }, { id: "D", text: "Assign mixed teams for projects to break down barriers." }, { id: "E", text: "Call it out in a team meeting and demand better behavior." }, { id: "F", text: "Report it to HR as a formal conduct concern." }
+    ], bestAnswer: "D" },
+    { id: 79, perspective: "Meera's Perspective", question: "A competitor just launched a feature we were planning - the team feels deflated. What could I do?", options: [
+        { id: "A", text: "Gather the team to refocus on what differentiates our product." }, { id: "B", text: "Downplay it competitors always do things like this." }, { id: "C", text: "Rally the team with a faster timeline for our release." }, { id: "D", text: "Suggest we pivot to a different, unique feature." }, { id: "E", text: "Ask Rajiv and Anika for help re-energizing the team." }, { id: "F", text: "Let the team process the disappointment before acting." }
+    ], bestAnswer: "A" },
+    { id: 80, perspective: "Meera's Perspective", question: "A junior engineer suggests a bold technical idea that could change our architecture. What's my best move?", options: [
+        { id: "A", text: "Encourage them to develop a proposal and present it." }, { id: "B", text: "Dismiss it big changes from juniors are too risky." }, { id: "C", text: "Ask senior engineers for input before responding." }, { id: "D", text: "Praise their initiative but steer them toward safer ideas." }, { id: "E", text: "Bring it up in technical leadership meetings for discussion." }, { id: "F", text: "Quietly let it drop now isn't the time for big changes." }
+    ], bestAnswer: "A" },
+
+    // --- Rajiv's Perspective (81-100) ---
+    { id: 81, perspective: "Rajiv's Perspective", question: "The sales pipeline in Europe is slowing, and I'm worried about targets. What's my best action?", options: [
+        { id: "A", text: "Call a strategy session with Product and Marketing to co-create solutions." }, { id: "B", text: "Push the sales team harder to close existing prospects." }, { id: "C", text: "Quietly lower targets internally to avoid demoralizing the team." }, { id: "D", text: "Explore partnerships or alliances to boost sales quickly." }, { id: "E", text: "Focus solely on the US market where demand is steadier." }, { id: "F", text: "Ask senior management for support on incentives or pricing levers." }
+    ], bestAnswer: "A" },
+    { id: 82, perspective: "Rajiv's Perspective", question: "A key prospect asks for a feature we don't have yet. What should I do?", options: [
+        { id: "A", text: "Collaborate with Product to assess feasibility before committing." }, { id: "B", text: "Promise delivery to close the deal and work it out later." }, { id: "C", text: "Redirect the client to focus on existing strengths of our product." }, { id: "D", text: "Escalate it to the AVP Product for immediate prioritization." }, { id: "E", text: "Delay responding until I have more internal clarity." }, { id: "F", text: "Offer a discount instead of the feature to secure the deal." }
+    ], bestAnswer: "A" },
+    { id: 83, perspective: "Rajiv's Perspective", question: "Anika is frustrated that Sales keeps changing requirements for collateral last minute. What could I do?", options: [
+        { id: "A", text: "Involve Anika earlier in sales planning to avoid last-minute changes." }, { id: "B", text: "Explain to Anika that agility is part of supporting sales." }, { id: "C", text: "Let it continue marketing needs to stay flexible." }, { id: "D", text: "Assign a dedicated liaison between Sales and Marketing." }, { id: "E", text: "Raise this with senior leadership as a process gap." }, { id: "F", text: "Assure Anika I'll try to stabilize inputs going forward." }
+    ], bestAnswer: "A" },
+    { id: 84, perspective: "Rajiv's Perspective", question: "I sense the Product and Engineering teams feel Sales over-promises. How should I address this?", options: [
+        { id: "A", text: "Propose joint planning to align commitments and capabilities." }, { id: "B", text: "Reassure Product and Engineering privately without changing much." }, { id: "C", text: "Adjust sales messaging to better reflect product realities." }, { id: "D", text: "Argue that Sales needs flexibility to win deals the rest must adapt." }, { id: "E", text: "Ask Meera to mediate between teams for better coordination." }, { id: "F", text: "Raise it with the CEO as a strategic misalignment." }
+    ], bestAnswer: "A" },
+    { id: 85, perspective: "Rajiv's Perspective", question: "The team is losing deals to a competitor with lower prices. What's my best move?", options: [
+        { id: "A", text: "Work with leadership on creative value-based selling strategies." }, { id: "B", text: "Request temporary price adjustments to match the competitor." }, { id: "C", text: "Pressure the sales team to push harder despite pricing gaps." }, { id: "D", text: "Focus on accounts less sensitive to pricing." }, { id: "E", text: "Ignore the competitor focusing on value will win in the end." }, { id: "F", text: "Explore non-price levers like bundled services or support perks." }
+    ], bestAnswer: "A" },
+    { id: 86, perspective: "Rajiv's Perspective", question: "Nikhil keeps questioning the commercial priorities in meetings. What could I do?", options: [
+        { id: "A", text: "Invite him to a one-on-one to better understand his concerns." }, { id: "B", text: "Remind him that Sales priorities are set by leadership and not debatable." }, { id: "C", text: "Ignore his comments unless they disrupt decisions." }, { id: "D", text: "Encourage him to present constructive alternatives." }, { id: "E", text: "Raise his behavior with Meera as a leadership concern." }, { id: "F", text: "Publicly push back to stop negative influence on the team." }
+    ], bestAnswer: "A" },
+    { id: 87, perspective: "Rajiv's Perspective", question: "A long-term client is unhappy about a support issue and threatens to leave. What should I do?", options: [
+        { id: "A", text: "Personally engage the client to rebuild trust." }, { id: "B", text: "Ask Support to handle it as they normally would." }, { id: "C", text: "Offer the client commercial concessions as goodwill." }, { id: "D", text: "Escalate it urgently with cross-functional teams to resolve fast." }, { id: "E", text: "Let the AVP Product take point on the resolution." }, { id: "F", text: "Wait to see if the issue settles without overreacting." }
+    ], bestAnswer: "D" },
+    { id: 88, perspective: "Rajiv's Perspective", question: "The CEO pressures me to hit numbers despite market challenges. What's my response?", options: [
+        { id: "A", text: "Present a data-backed plan showing realistic options and risks." }, { id: "B", text: "Quietly try to hit the numbers without sharing concerns." }, { id: "C", text: "Push the team harder even if it risks burnout." }, { id: "D", text: "Ask for additional resources or support to achieve targets." }, { id: "E", text: "Focus only on the most promising deals to conserve effort." }, { id: "F", text: "Reassure the CEO we'll deliver no matter what." }
+    ], bestAnswer: "A" },
+    { id: 89, perspective: "Rajiv's Perspective", question: "Meera's team is slow to support a major sales initiative. What could I do?", options: [
+        { id: "A", text: "Work with Meera to jointly solve resource bottlenecks." }, { id: "B", text: "Escalate directly to the COO to speed things up." }, { id: "C", text: "Wait they'll catch up eventually." }, { id: "D", text: "Assign Sales team members to help with preparation work." }, { id: "E", text: "Adjust my timelines and manage client expectations better." }, { id: "F", text: "Criticize Meera's team openly to pressure faster action." }
+    ], bestAnswer: "A" },
+    { id: 90, perspective: "Rajiv's Perspective", question: "A junior sales rep loses a big deal and feels demoralized. How should I respond?", options: [
+        { id: "A", text: "Coach them on what went wrong and how to improve." }, { id: "B", text: "Tell them to move on losses happen in sales." }, { id: "C", text: "Review the loss in a team meeting for shared learning." }, { id: "D", text: "Quietly shift their accounts to a more experienced rep." }, { id: "E", text: "Give them a smaller win to help rebuild confidence." }, { id: "F", text: "Escalate the issue to HR for formal review." }
+    ], bestAnswer: "A" },
+    { id: 91, perspective: "Rajiv's Perspective", question: "I notice that deals in the pipeline are stagnating at the proposal stage. What action should I take?", options: [
+        { id: "A", text: "Hold a deal review with the team to diagnose and unblock issues." }, { id: "B", text: "Increase discounts or incentives to push deals forward." }, { id: "C", text: "Leave it for another quarter some deals take longer to close." }, { id: "D", text: "Ask Marketing for stronger collateral to help close." }, { id: "E", text: "Focus effort on only the largest stalled deals for now." }, { id: "F", text: "Escalate to leadership for additional support or visibility." }
+    ], bestAnswer: "A" },
+    { id: 92, perspective: "Rajiv's Perspective", question: "Product wants to delay a promised feature, and the client is getting upset. What's the best approach?", options: [
+        { id: "A", text: "Negotiate a timeline the client can live with, then align internally." }, { id: "B", text: "Pressure Product to deliver as promised, no matter the challenge." }, { id: "C", text: "Offer the client discounts or extras to make up for the delay." }, { id: "D", text: "Be fully transparent with the client about the situation." }, { id: "E", text: "Keep quiet and hope the client stays patient." }, { id: "F", text: "Escalate to the CEO to force Product to deliver faster." }
+    ], bestAnswer: "A" },
+    { id: 93, perspective: "Rajiv's Perspective", question: "A competitor launches an aggressive marketing campaign against us. What's my best move?", options: [
+        { id: "A", text: "Collaborate with Marketing to counter with our own bold campaign." }, { id: "B", text: "Reassure the team and focus on our strengths instead of reacting." }, { id: "C", text: "Let it pass competitors often try stunts like this." }, { id: "D", text: "Call an urgent meeting to recalibrate our sales messaging." }, { id: "E", text: "Focus on securing existing clients from switching." }, { id: "F", text: "Pressure my team to discount deals aggressively in response." }
+    ], bestAnswer: "A" },
+    { id: 94, perspective: "Rajiv's Perspective", question: "Sales morale is low after missing a key quarterly target. What's the best course of action?", options: [
+        { id: "A", text: "Rally the team with clear next steps and renewed focus." }, { id: "B", text: "Push them harder to make up the gap urgently." }, { id: "C", text: "Organize a session to reflect and learn from what happened." }, { id: "D", text: "Ignore it it's just one quarter; no need to overreact." }, { id: "E", text: "Quietly adjust future targets downward to ease pressure." }, { id: "F", text: "Request support from senior leadership on incentives or enablement." }
+    ], bestAnswer: "C" },
+    { id: 95, perspective: "Rajiv's Perspective", question: "A large prospect asks for region-specific customizations that Product doesn't want to build. What should I do?", options: [
+        { id: "A", text: "Propose a creative workaround that meets the prospect's need." }, { id: "B", text: "Promise the customization to win the deal and sort it out later." }, { id: "C", text: "Align with Product first, then revert to the prospect honestly." }, { id: "D", text: "Ask for an exception approval from senior leadership." }, { id: "E", text: "Suggest the client adapt to our standard solution." }, { id: "F", text: "Delay responding and hope the issue resolves itself." }
+    ], bestAnswer: "C" },
+    { id: 96, perspective: "Rajiv's Perspective", question: "A junior sales team member keeps complaining about lack of recognition. What's my best response?", options: [
+        { id: "A", text: "Privately recognize and coach them on building visibility." }, { id: "B", text: "Remind them that recognition is earned over time." }, { id: "C", text: "Give them a high-profile opportunity to prove themselves." }, { id: "D", text: "Tell them to focus on performance rather than seeking praise." }, { id: "E", text: "Raise their concern in leadership meetings for broader visibility." }, { id: "F", text: "Ignore it we can't cater to everyone's feelings." }
+    ], bestAnswer: "A" },
+    { id: 97, perspective: "Rajiv's Perspective", question: "The COO asks for my view on why revenue is flat. What's the most constructive way to respond?", options: [
+        { id: "A", text: "Present a thoughtful analysis with proposed solutions." }, { id: "B", text: "Blame external market factors beyond our control." }, { id: "C", text: "Highlight other departments' delays that affected sales." }, { id: "D", text: "Propose a task force to dig deeper into root causes." }, { id: "E", text: "Focus on reassuring the COO rather than presenting problems." }, { id: "F", text: "Ask for more time before giving a view." }
+    ], bestAnswer: "A" },
+    { id: 98, perspective: "Rajiv's Perspective", question: "A major client wants Rajiv personally involved in quarterly business reviews. What should I do?", options: [
+        { id: "A", text: "Agree and commit to personally attending key reviews." }, { id: "B", text: "Delegate to a senior sales manager to manage it." }, { id: "C", text: "Explain that my bandwidth won't allow for such involvement." }, { id: "D", text: "Ask the client for fewer reviews to make it feasible." }, { id: "E", text: "Assure the client of my support but stay in the background." }, { id: "F", text: "Quietly ignore the request and let the usual team handle it." }
+    ], bestAnswer: "A" },
+    { id: 99, perspective: "Rajiv's Perspective", question: "Meera suggests we slow new deals until delivery teams catch up. What's the best way to respond?", options: [
+        { id: "A", text: "Collaborate with her on a balanced growth plan." }, { id: "B", text: "Push back Sales must keep driving regardless." }, { id: "C", text: "Escalate to leadership for a broader discussion." }, { id: "D", text: "Ask delivery teams to find efficiencies instead." }, { id: "E", text: "Slow selectively only on lower priority prospects." }, { id: "F", text: "Quietly ignore the suggestion and continue as planned." }
+    ], bestAnswer: "A" },
+    { id: 100, perspective: "Rajiv's Perspective", question: "A new competitor is gaining ground fast in our core segment. What action should I prioritize?", options: [
+        { id: "A", text: "Work with cross-functional teams to sharpen our unique value." }, { id: "B", text: "Instruct the team to discount heavily to retain clients." }, { id: "C", text: "Focus on reassuring existing clients of our strengths." }, { id: "D", text: "Ask for more marketing investment to counter the threat." }, { id: "E", text: "Wait and watch to see if the competitor sustains momentum." }, { id: "F", text: "Propose an urgent executive-level review of our strategy." }
+    ], bestAnswer: "A" },
+
+    // --- Anika's Perspective (101-120) ---
+    { id: 101, perspective: "Anika's Perspective", question: "The sales team keeps changing requirements for campaign materials at the last minute. What should I do?", options: [
+        { id: "A", text: "Propose regular alignment meetings with Sales to set expectations early." }, { id: "B", text: "Accommodate the changes without raising concerns - sales comes first." }, { id: "C", text: "Escalate to Rajiv and Meera about the constant disruptions." }, { id: "D", text: "Set stricter timelines and explain the impact of late changes." }, { id: "E", text: "Ask my team to stay flexible and manage as best as they can." }, { id: "F", text: "Document and review the pattern with Sales leadership later." }
+    ], bestAnswer: "A" },
+    { id: 102, perspective: "Anika's Perspective", question: "Product priorities keep shifting, which affects our messaging. What's the best response?", options: [
+        { id: "A", text: "Request a cross-functional roadmap alignment session." }, { id: "B", text: "Adjust marketing messaging quietly each time priorities change." }, { id: "C", text: "Highlight the confusion to senior leadership as a strategic risk." }, { id: "D", text: "Focus on stable product features and ignore the rest." }, { id: "E", text: "Escalate delays in getting clear inputs to the AVP Product." }, { id: "F", text: "Keep reworking campaigns as required without challenging Product." }
+    ], bestAnswer: "A" },
+    { id: 103, perspective: "Anika's Perspective", question: "The CEO asks me to produce a major thought leadership piece in just three days. How should I respond?", options: [
+        { id: "A", text: "Propose a realistic timeline while still supporting the CEO's goal." }, { id: "B", text: "Push my team to meet the deadline no matter what." }, { id: "C", text: "Suggest repurposing existing content to meet the timeline." }, { id: "D", text: "Accept and figure it out later how to deliver." }, { id: "E", text: "Explain why the timeline risks quality and propose alternatives." }, { id: "F", text: "Ask for additional resources to help meet the deadline." }
+    ], bestAnswer: "E" },
+    { id: 104, perspective: "Anika's Perspective", question: "Rajiv's team complains our campaigns aren't generating enough leads. What's my best move?", options: [
+        { id: "A", text: "Analyze campaign data and review strategy with Sales." }, { id: "B", text: "Defend the marketing team and blame Sales for poor conversion." }, { id: "C", text: "Propose joint reviews to align on messaging and targeting." }, { id: "D", text: "Reassure my team we're doing fine and not change much." }, { id: "E", text: "Ask Rajiv to provide clearer lead criteria." }, { id: "F", text: "Quietly adjust our approach without raising it further." }
+    ], bestAnswer: "A" },
+    { id: 105, perspective: "Anika's Perspective", question: "Meera asks Marketing to support a new initiative with no extra budget. How should I handle this?", options: [
+        { id: "A", text: "Propose a scaled-down plan that fits existing resources." }, { id: "B", text: "Accept and try to stretch my team's capacity." }, { id: "C", text: "Raise the concern formally and request proper funding." }, { id: "D", text: "Reprioritize other projects quietly to make room." }, { id: "E", text: "Tell Meera it's not feasible without extra funds." }, { id: "F", text: "Delay action and hope the request is reconsidered." }
+    ], bestAnswer: "A" },
+    { id: 106, perspective: "Anika's Perspective", question: "My team feels burnt out after a series of back-to-back launches. What should I do?", options: [
+        { id: "A", text: "Reprioritize work and give them breathing space where possible." }, { id: "B", text: "Encourage them to push through this is normal in marketing." }, { id: "C", text: "Request temporary resources or freelancers to help." }, { id: "D", text: "Share the feedback with leadership and propose solutions." }, { id: "E", text: "Organize a morale-boosting activity to lift spirits." }, { id: "F", text: "Tell them this is a test of resilience in our field." }
+    ], bestAnswer: "A" },
+    { id: 107, perspective: "Anika's Perspective", question: "A senior leader provides conflicting input on a campaign. What's the best course of action?", options: [
+        { id: "A", text: "Clarify expectations directly with the leader." }, { id: "B", text: "Proceed with my team's original plan to avoid confusion." }, { id: "C", text: "Escalate to Meera for resolution." }, { id: "D", text: "Quietly adjust the plan without addressing the conflict." }, { id: "E", text: "Arrange a joint discussion to align on direction." }, { id: "F", text: "Delay action until the conflict resolves itself." }
+    ], bestAnswer: "E" },
+    { id: 108, perspective: "Anika's Perspective", question: "Rajiv wants last-minute changes that could delay a campaign launch. How should I approach this?", options: [
+        { id: "A", text: "Explain the impact and propose an alternative timeline." }, { id: "B", text: "Make the changes quietly and delay the launch." }, { id: "C", text: "Push the team to meet the new request anyway." }, { id: "D", text: "Suggest deferring the changes to a future phase." }, { id: "E", text: "Escalate to senior leadership for guidance." }, { id: "F", text: "Agree and figure out how to manage the delay later." }
+    ], bestAnswer: "A" },
+    { id: 109, perspective: "Anika's Perspective", question: "The Product team wants a bigger marketing push for a feature with little market demand. What's my best move?", options: [
+        { id: "A", text: "Propose focusing on features with stronger market potential." }, { id: "B", text: "Challenge Product on their assumptions and ask for data." }, { id: "C", text: "Agree and put together a plan as requested." }, { id: "D", text: "Consult Rajiv and Meera on balancing priorities." }, { id: "E", text: "Quietly downplay the feature in our campaigns." }, { id: "F", text: "Escalate concerns about wasting resources." }
+    ], bestAnswer: "B" },
+    { id: 110, perspective: "Anika's Perspective", question: "A key client complains that marketing materials don't reflect their experience with us. What's the right response?", options: [
+        { id: "A", text: "Engage the client directly to understand their feedback." }, { id: "B", text: "Review and refresh our materials to better match reality." }, { id: "C", text: "Reassure the client we'll consider their input next time." }, { id: "D", text: "Defend the current materials as representing broader reality." }, { id: "E", text: "Escalate the feedback to leadership for strategic review." }, { id: "F", text: "Delay acting until we hear more complaints." }
+    ], bestAnswer: "A" },
+    { id: 111, perspective: "Anika's Perspective", question: "A regional sales head pressures me to approve a localized campaign that risks brand consistency. What should I do?", options: [
+        { id: "A", text: "Propose adjustments that balance local needs with brand guidelines." }, { id: "B", text: "Approve it sales knows what works in their region." }, { id: "C", text: "Consult with leadership before deciding." }, { id: "D", text: "Refuse and remind them of our brand policies." }, { id: "E", text: "Quietly let them run it without formal approval." }, { id: "F", text: "Delay and hope they drop the idea." }
+    ], bestAnswer: "A" },
+    { id: 112, perspective: "Anika's Perspective", question: "Competitors are gaining share with edgy, unconventional campaigns. How should I respond?", options: [
+        { id: "A", text: "Analyze what's working for them and propose bold ideas ourselves." }, { id: "B", text: "Ask my team to stick to proven approaches for now." }, { id: "C", text: "Raise the matter in strategy meetings for broader input." }, { id: "D", text: "Launch an aggressive campaign immediately to counter." }, { id: "E", text: "Monitor the trend before reacting too fast." }, { id: "F", text: "Focus on strengthening our core messaging instead." }
+    ], bestAnswer: "A" },
+    { id: 113, perspective: "Anika's Perspective", question: "My team keeps facing delays because Product and Sales give late inputs. What's my best action?", options: [
+        { id: "A", text: "Propose a structured planning calendar with agreed deadlines." }, { id: "B", text: "Adjust timelines as best as possible without raising it." }, { id: "C", text: "Escalate to Meera about the recurring issue." }, { id: "D", text: "Let the teams know that Marketing will proceed without late inputs." }, { id: "E", text: "Quietly make the best of the situation every time." }, { id: "F", text: "Arrange a cross-functional session to improve the process." }
+    ], bestAnswer: "A" },
+    { id: 114, perspective: "Anika's Perspective", question: "A campaign has just launched and we spot a serious factual error. What's the best course?", options: [
+        { id: "A", text: "Pause the campaign immediately and fix it." }, { id: "B", text: "Downplay the issue most people won't notice." }, { id: "C", text: "Escalate to senior leaders and ask for guidance." }, { id: "D", text: "Issue a correction and keep the campaign live." }, { id: "E", text: "Quietly fix it in the backend without much noise." }, { id: "F", text: "Let it run and focus on doing better next time." }
+    ], bestAnswer: "A" },
+    { id: 115, perspective: "Anika's Perspective", question: "Leadership wants to reduce marketing spend but increase impact. What should I prioritize?", options: [
+        { id: "A", text: "Propose smarter targeting and more efficient channels." }, { id: "B", text: "Ask for clarity on priorities before adjusting plans." }, { id: "C", text: "Push my team to work harder to achieve more with less." }, { id: "D", text: "Defend the current budget as already lean." }, { id: "E", text: "Quietly trim small costs without changing major plans." }, { id: "F", text: "Delay action until firm decisions are made." }
+    ], bestAnswer: "A" },
+    { id: 116, perspective: "Anika's Perspective", question: "The sales team often launches local initiatives without informing Marketing. What's my best move?", options: [
+        { id: "A", text: "Propose a formal alignment protocol for local initiatives." }, { id: "B", text: "Accept that sales will do what they need to." }, { id: "C", text: "Escalate the issue to Rajiv and Meera." }, { id: "D", text: "Have informal conversations to smooth things over." }, { id: "E", text: "Quietly monitor and adjust our plans as needed." }, { id: "F", text: "Confront the sales team firmly about process violations." }
+    ], bestAnswer: "A" },
+    { id: 117, perspective: "Anika's Perspective", question: "Product is asking for major campaign support for a feature still in beta. What should I do?", options: [
+        { id: "A", text: "Explain the risk and propose a pre-launch teaser instead." }, { id: "B", text: "Agree to support and figure out the details later." }, { id: "C", text: "Ask leadership for guidance on priorities." }, { id: "D", text: "Decline and focus on stable features." }, { id: "E", text: "Quietly prepare materials without promoting the feature too heavily." }, { id: "F", text: "Push the team to create full campaigns regardless of readiness." }
+    ], bestAnswer: "A" },
+    { id: 118, perspective: "Anika's Perspective", question: "My team complains they're being blamed unfairly for weak lead numbers. What's my best action?", options: [
+        { id: "A", text: "Review the data with them and propose a joint review with Sales." }, { id: "B", text: "Reassure them that this happens in marketing." }, { id: "C", text: "Escalate the blame issue to Meera." }, { id: "D", text: "Quietly support them without rocking the boat." }, { id: "E", text: "Challenge Sales directly about the fairness of their comments." }, { id: "F", text: "Tell the team to focus on improving results instead of the blame." }
+    ], bestAnswer: "A" },
+    { id: 119, perspective: "Anika's Perspective", question: "Rajiv asks for marketing to focus heavily on deals in Europe, but the pipeline there is weak. How should I respond?", options: [
+        { id: "A", text: "Propose a balanced regional focus aligned to real pipeline." }, { id: "B", text: "Accept and shift resources as requested." }, { id: "C", text: "Raise the concern to Meera and seek clarity." }, { id: "D", text: "Quietly shift only part of the focus to Europe." }, { id: "E", text: "Ask Rajiv for data to justify the shift." }, { id: "F", text: "Delay any major change until the pipeline improves." }
+    ], bestAnswer: "A" },
+    { id: 120, perspective: "Anika's Perspective", question: "A junior team member's work is repeatedly subpar. What's the best way to handle this?", options: [
+        { id: "A", text: "Coach them directly and set clear improvement goals." }, { id: "B", text: "Quietly redistribute their tasks to stronger team members." }, { id: "C", text: "Escalate the issue to HR or leadership for action." }, { id: "D", text: "Provide feedback and give them one more chance." }, { id: "E", text: "Tolerate the situation to avoid creating conflict." }, { id: "F", text: "Assign them lower-impact work to limit damage." }
+    ], bestAnswer: "A" },
+
+    // --- Candidate's Own Perspective (121-140) ---
+    { id: 121, perspective: "Candidate's Own Perspective", question: "The team is losing motivation after a flat year of business, increased competition, and shifting priorities. As the leader, how do you best reinvigorate your people while staying focused on results?", options: [
+        { id: "A", text: "Engage the team openly about challenges and co-create a path forward that excites them." }, { id: "B", text: "Push for harder work and higher goals to restore performance energy." }, { id: "C", text: "Focus on quick wins and highlight small successes to rebuild confidence." }, { id: "D", text: "Reassure them privately but avoid raising these concerns publicly." }, { id: "E", text: "Escalate to leadership that we need morale-building initiatives." }, { id: "F", text: "Let things settle and trust that motivation will return with time." }
+    ], bestAnswer: "A" },
+    { id: 122, perspective: "Candidate's Own Perspective", question: "There's tension between Sales and Product that's impacting delivery timelines and team morale. How should you handle this complex cross-functional issue?", options: [
+        { id: "A", text: "Facilitate a direct dialogue between teams to surface issues and align." }, { id: "B", text: "Quietly adjust my team's plans to manage the fallout." }, { id: "C", text: "Escalate the conflict to senior leaders for resolution." }, { id: "D", text: "Gather facts and propose a shared accountability framework." }, { id: "E", text: "Let the teams resolve it on their own over time." }, { id: "F", text: "Take sides with the team that aligns better with business priorities." }
+    ], bestAnswer: "A" },
+    { id: 123, perspective: "Candidate's Own Perspective", question: "A senior leader pressures you to cut corners on a major deliverable due to time constraints. How do you balance compliance, quality, and integrity?", options: [
+        { id: "A", text: "Propose an alternative that preserves quality within a feasible timeline." }, { id: "B", text: "Comply and hope it doesn't significantly hurt outcomes." }, { id: "C", text: "Push back firmly, explaining risks to the business and reputation." }, { id: "D", text: "Deliver as instructed and quietly try to mitigate risks." }, { id: "E", text: "Escalate the ethical concern to a higher authority." }, { id: "F", text: "Delay action in hopes the pressure eases." }
+    ], bestAnswer: "C" },
+    { id: 124, perspective: "Candidate's Own Perspective", question: "Your top performer starts showing signs of burnout and disengagement, but is reluctant to speak about it. What's the most effective leadership response?", options: [
+        { id: "A", text: "Create a safe space for them to open up and explore solutions together." }, { id: "B", text: "Quietly redistribute their workload without making it obvious." }, { id: "C", text: "Encourage them to push through we all have rough patches." }, { id: "D", text: "Escalate the issue to HR for formal intervention." }, { id: "E", text: "Wait and watch if the situation improves on its own." }, { id: "F", text: "Reward them publicly to rekindle their motivation." }
+    ], bestAnswer: "A" },
+    { id: 125, perspective: "Candidate's Own Perspective", question: "A major campaign fails publicly, and blame is circulating across functions. As the leader, what is your best approach?", options: [
+        { id: "A", text: "Take ownership, debrief the failure, and focus on learning points." }, { id: "B", text: "Defend my team and point out where others went wrong." }, { id: "C", text: "Propose an objective cross-functional review to address root causes." }, { id: "D", text: "Quietly make adjustments without drawing attention to the failure." }, { id: "E", text: "Escalate to leadership that we need process changes." }, { id: "F", text: "Downplay the issue and move on quickly to the next task." }
+    ], bestAnswer: "A" },
+    { id: 126, perspective: "Candidate's Own Perspective", question: "A junior employee proposes an idea that could disrupt current processes but has potential. What's the most effective response?", options: [
+        { id: "A", text: "Explore the idea further and guide them to build a strong case." }, { id: "B", text: "Praise the effort but shelve the idea to avoid disruption." }, { id: "C", text: "Ask the team to critique and challenge the proposal rigorously." }, { id: "D", text: "Adopt it immediately to show openness to innovation." }, { id: "E", text: "Quietly test the idea on a small scale without involving others." }, { id: "F", text: "Encourage more such ideas but delay acting on this one." }
+    ], bestAnswer: "A" },
+    { id: 127, perspective: "Candidate's Own Perspective", question: "You notice that silent team members rarely contribute in critical discussions. How should you strengthen collective intelligence and inclusion?", options: [
+        { id: "A", text: "Actively draw them in and create formats where they feel safe to speak." }, { id: "B", text: "Accept that some people prefer to observe rather than contribute." }, { id: "C", text: "Arrange smaller forums where quieter voices can be heard." }, { id: "D", text: "Let the stronger contributors drive decisions for efficiency." }, { id: "E", text: "Escalate concerns of disengagement to HR or my manager." }, { id: "F", text: "Wait for them to speak up in their own time." }
+    ], bestAnswer: "A" },
+    { id: 128, perspective: "Candidate's Own Perspective", question: "The company is under pressure to cut costs. You're asked for ideas to trim your team's budget. What's your best course of action?", options: [
+        { id: "A", text: "Engage my team to identify efficiencies without hurting key outcomes." }, { id: "B", text: "Quietly trim low-visibility costs without consultation." }, { id: "C", text: "Propose cuts only where I know they'll be least noticed." }, { id: "D", text: "Defend the budget and argue cuts will damage results." }, { id: "E", text: "Escalate the need for a broader cost-sharing approach across teams." }, { id: "F", text: "Delay suggestions and hope the pressure eases." }
+    ], bestAnswer: "A" },
+    { id: 129, perspective: "Candidate's Own Perspective", question: "A high-value client complains that your team isn't meeting expectations. How do you respond?", options: [
+        { id: "A", text: "Meet the client personally, listen deeply, and co-create a recovery plan." }, { id: "B", text: "Reassure the client and quietly ask the team to improve." }, { id: "C", text: "Escalate internally and seek help addressing the gaps." }, { id: "D", text: "Defend the team's efforts and explain external challenges." }, { id: "E", text: "Propose a formal review of our service model." }, { id: "F", text: "Downplay the issue to prevent alarm." }
+    ], bestAnswer: "A" },
+    { id: 130, perspective: "Candidate's Own Perspective", question: "Your manager publicly criticizes your team unfairly in a senior meeting. What's the best leadership reaction?", options: [
+        { id: "A", text: "Address it calmly in the meeting and defend my team factually." }, { id: "B", text: "Stay silent in the meeting and debrief my team later." }, { id: "C", text: "Escalate the issue through formal channels." }, { id: "D", text: "Quietly work on improving areas of perceived weakness." }, { id: "E", text: "Confront the manager privately and express my concerns." }, { id: "F", text: "Let it go to avoid further conflict." }
+    ], bestAnswer: "E" },
+    { id: 131, perspective: "Candidate's Own Perspective", question: "The company wants faster innovation, but your team is overwhelmed managing existing commitments. How do you balance delivering today with building for the future?", options: [
+        { id: "A", text: "Engage the team to co-design a plan that protects delivery while creating space for innovation." }, { id: "B", text: "Quietly push the team to work harder and stretch for both objectives." }, { id: "C", text: "Delay new initiatives until we stabilize current work." }, { id: "D", text: "Propose that leadership prioritize initiatives or provide more resources." }, { id: "E", text: "Experiment with small pilot innovations that don't derail core work." }, { id: "F", text: "Focus on delivering today's work and revisit innovation later." }
+    ], bestAnswer: "A" },
+    { id: 132, perspective: "Candidate's Own Perspective", question: "A respected senior colleague is making decisions that undermine cross-functional trust. You disagree, but they have more authority. What's your best move?", options: [
+        { id: "A", text: "Propose a joint session to realign goals and address tensions constructively." }, { id: "B", text: "Quietly adjust my plans to minimize the damage without confrontation." }, { id: "C", text: "Escalate my concerns to leadership for intervention." }, { id: "D", text: "Seek informal allies to build a case for change." }, { id: "E", text: "Challenge the colleague directly and risk the conflict." }, { id: "F", text: "Let the situation play out rather than create political risk." }
+    ], bestAnswer: "A" },
+    { id: 133, perspective: "Candidate's Own Perspective", question: "A new competitor is disrupting your market with technology your company hasn't invested in. How do you lead your team in this uncertainty?", options: [
+        { id: "A", text: "Gather the team to assess threats, opportunities, and propose a response plan." }, { id: "B", text: "Reassure them and maintain focus on our current strengths." }, { id: "C", text: "Escalate the concern to senior leadership for strategic action." }, { id: "D", text: "Quietly explore partnerships or vendors to bridge our gap." }, { id: "E", text: "Delay major action and observe how the disruption unfolds." }, { id: "F", text: "Push my team to match the competitor's moves immediately." }
+    ], bestAnswer: "A" },
+    { id: 134, perspective: "Candidate's Own Perspective", question: "Your most trusted lieutenant strongly disagrees with your approach on a key project and challenges you openly. How do you handle this?", options: [
+        { id: "A", text: "Listen deeply, explore their reasoning, and seek a shared solution." }, { id: "B", text: "Acknowledge their view but stick firmly to my plan." }, { id: "C", text: "De-escalate and discuss privately later." }, { id: "D", text: "Adjust my plan to accommodate their position to keep unity." }, { id: "E", text: "Escalate the disagreement for arbitration." }, { id: "F", text: "View the challenge as disloyal and address it assertively." }
+    ], bestAnswer: "A" },
+    { id: 135, perspective: "Candidate's Own Perspective", question: "You discover that informal cliques have formed in your team, impacting morale and collaboration. What's your most effective action?", options: [
+        { id: "A", text: "Work to rebuild inclusiveness through team initiatives and one-on-ones." }, { id: "B", text: "Quietly monitor and hope the cliques dissolve naturally." }, { id: "C", text: "Directly confront the groups and demand better behavior." }, { id: "D", text: "Propose cross-functional assignments to break down barriers." }, { id: "E", text: "Escalate the issue to HR or senior management." }, { id: "F", text: "Focus on high performers and let others self-manage." }
+    ], bestAnswer: "D" },
+    { id: 136, perspective: "Candidate's Own Perspective", question: "The CEO announces a change in company direction that you feel is risky and poorly communicated. What's your best leadership response?", options: [
+        { id: "A", text: "Help my team process the change and align while sharing constructive feedback upwards." }, { id: "B", text: "Defend the CEO's decision fully to ensure stability." }, { id: "C", text: "Express my concerns openly in leadership meetings." }, { id: "D", text: "Quietly advise my team but avoid pushing back at senior levels." }, { id: "E", text: "Delay alignment until the direction is clearer." }, { id: "F", text: "Rally my team to execute while seeking informal clarity on risks." }
+    ], bestAnswer: "A" },
+    { id: 137, perspective: "Candidate's Own Perspective", question: "A long-time client offers you a large deal with terms that stretch ethical boundaries. How should you lead this situation?", options: [
+        { id: "A", text: "Escalate and seek guidance while explaining risks clearly to the client." }, { id: "B", text: "Agree to the deal but document my concerns for the record." }, { id: "C", text: "Negotiate terms that meet our ethical standards." }, { id: "D", text: "Refuse the deal outright to protect the company's integrity." }, { id: "E", text: "Quietly accept and manage the risks as they arise." }, { id: "F", text: "Delay commitment while exploring options." }
+    ], bestAnswer: "D" },
+    { id: 138, perspective: "Candidate's Own Perspective", question: "The company is pushing digital transformation, but several senior team members resist learning new tools and ways of working. How do you lead this shift?", options: [
+        { id: "A", text: "Model the change myself and provide coaching and support to the team." }, { id: "B", text: "Mandate the change and enforce compliance." }, { id: "C", text: "Give them time and hope peer pressure drives adoption." }, { id: "D", text: "Propose external training and resources to ease the transition." }, { id: "E", text: "Escalate to HR or leadership that stronger action is needed." }, { id: "F", text: "Quietly adjust workloads to favor those embracing the change." }
+    ], bestAnswer: "A" },
+    { id: 139, perspective: "Candidate's Own Perspective", question: "You are asked to lead a cross-functional team where key players have personal conflicts. What's your most effective leadership move?", options: [
+        { id: "A", text: "Set shared goals and create norms that emphasize collaboration." }, { id: "B", text: "Accept that some conflict is natural and proceed." }, { id: "C", text: "Have private conversations to understand and address concerns." }, { id: "D", text: "Escalate to leadership to mediate the issues." }, { id: "E", text: "Let the work unfold and see if the conflict resolves itself." }, { id: "F", text: "Split responsibilities to minimize their interaction." }
+    ], bestAnswer: "C" },
+    { id: 140, perspective: "Candidate's Own Perspective", question: "A strategic partner fails to deliver on commitments, putting your project at risk. How do you demonstrate leadership in this crisis?", options: [
+        { id: "A", text: "Engage the partner constructively while developing a contingency plan." }, { id: "B", text: "Escalate immediately to leadership demanding intervention." }, { id: "C", text: "Adjust internal plans and quietly work around the issue." }, { id: "D", text: "Confront the partner firmly about the consequences." }, { id: "E", text: "Focus on short-term fixes and address root issues later." }, { id: "F", text: "Delay reaction until more information is available." }
+    ], bestAnswer: "A" }
+]
 };
 
 // --- API Routes ---
@@ -934,34 +539,95 @@ app.post('/api/evaluate', async (req, res) => {
         });
 
     // Create a new, highly-specific system prompt
-    const systemPrompt = `
-        You are an expert HR leadership assessment AI. Based on the provided user assessment data, generate a comprehensive report in a strict JSON format.
+// Create the new, comprehensive system prompt
+const systemPrompt = `
+You are an expert leadership assessment AI. Your task is to analyze the user's responses to a leadership simulation and generate a comprehensive, multi-part report in a strict JSON format.
 
-        **CRITICAL INSTRUCTIONS:**
-        1.  **JSON ONLY:** Your entire response MUST be a single, valid JSON object.
-        2.  **SCORING LOGIC:** Calculate a score for each competency based on the percentage of correct answers for that competency. The overallScore is the average of all competency scores. Present scores as a string "XX/100".
-        3.  **ANALYSIS:** Your analysis must be insightful. Do not just state if the answer was right or wrong. Explain *why* the user's choices were effective or ineffective in the context of HR leadership, referencing their specific answers.
-        4.  **JSON STRUCTURE:** The JSON object must follow this exact structure:
-            {
-              "executiveSummary": "A brief, insightful summary of the user's performance, highlighting 1-2 key strengths and 1-2 major growth areas.",
-              "overallScore": "XX/100",
-              "competencyBand": "Exceptional / Strong / Developing / Needs Improvement",
-              "competencies": [
-                {
-                  "name": "Strategic HR Leadership",
-                  "score": "XX/100",
-                  "analysis": "Detailed analysis of user's choices for this competency. Explain the leadership implications of their decisions.",
-                  "strengths": "List of key strengths demonstrated in this area.",
-                  "growthAreas": "List of key areas for improvement in this area."
-                }
-              ],
-              "recommendedNextSteps": [
-                "Actionable, personalized recommendation 1 based on their weakest competencies.",
-                "Actionable, personalized recommendation 2 based on their weakest competencies."
-              ]
-            }
-        5.  **COMPETENCIES:** You must generate a report containing an analysis for ALL SIX of the following competencies: "Strategic HR Leadership", "People & Stakeholder Management", "Decision-Making & Crisis Handling", "Ethical & Compliance Judgment", "Talent Acquisition & Retention", "Interdepartmental Collaboration".
-    `;
+**CRITICAL INSTRUCTIONS:**
+1.  **JSON ONLY:** Your entire response MUST be a single, valid JSON object. Do not include any text or formatting outside of this JSON object.
+2.  **ANALYZE DEEPLY:** Your analysis must be profound and multi-dimensional. Do not just state if an answer was right or wrong. Explain the 'why' behind the user's choices, referencing their specific answers and the implications for their leadership style in a dynamic, high-stakes environment.
+3.  **ADHERE TO THE STRUCTURE:** The final JSON object must follow the exact structure outlined below.
+
+**JSON OUTPUT STRUCTURE:**
+
+{
+  "narrativeAnalysis": {
+    "introduction": "Start with a brief, insightful summary of the user's core leadership philosophy as revealed by their choices.",
+    "parameters": [
+      {
+        "name": "Strategic Judgment",
+        "evaluation": "Provide a 100-word analysis on their ability to balance short-term wins with long-term positioning and the quality of their big-picture thinking.",
+        "strengths": ["List 1-2 key strengths demonstrated in this area."],
+        "gaps": ["List 1-2 key gaps or areas for development in this area."]
+      },
+      // ... Generate a block for EACH of the 18 parameters from the list below ...
+      // (Strategic Judgment, Decision-Making, Stakeholder Alignment, Ethical Leadership, Emotional Intelligence, Team Empowerment, Resilience, Innovation, Conflict Resolution, Change Leadership, Self-Regulation, Collaboration, Customer-Centricity, Accountability, Agility, Courage, Communication, Prioritization)
+    ]
+  },
+  "metaCognitiveAnalysis": {
+    "introduction": "An introductory sentence about the deeper behavioral patterns observed.",
+    "qualities": [
+      {
+        "name": "Critical Thinking Agility",
+        "evaluation": "Analyze how well they navigate complex trade-offs versus seeking simple answers. Evaluate their ability to integrate diverse information."
+      },
+      // ... Generate a block for EACH of the 9 meta-cognitive qualities below ...
+      // (Critical Thinking Agility, Perspective-Taking, Situational Awareness, Consistency of Values, Patience vs. Impulsiveness, Political Savvy, Bias Toward Action, Tolerance for Ambiguity, Risk Appetite)
+    ]
+  },
+  "cognitivePatterns": {
+    "introduction": "An introductory sentence about the observed cognitive patterns.",
+    "patterns": [
+      {
+        "name": "Holistic Vs. Fragmented Thinker",
+        "evaluation": "In about 100 words, assess whether the candidate connects dots across the organization or focuses on isolated issues."
+      },
+      {
+        "name": "Ethics-centered Vs. Outcome-centered Decision Maker",
+        "evaluation": "In about 100 words, assess if their decisions are guided by principles or driven purely by desired results."
+      },
+      {
+        "name": "Micro-manager Vs. Delegator vs. Empowerer",
+        "evaluation": "In about 100 words, evaluate their tendency to control, assign tasks, or build capability in others."
+      },
+      {
+        "name": "Collaborative Vs. Authoritarian Tendencies",
+        "evaluation": "In about 100 words, assess whether they lean towards building consensus or directing action from the top."
+      },
+      {
+        "name": "Proactive Strategist Vs. Reactive Problem Solver",
+        "evaluation": "In about 100 words, evaluate if they tend to anticipate and shape the future or primarily respond to immediate problems."
+      }
+    ]
+  },
+  "scoringMatrix": {
+    "introduction": "An introductory sentence for the scoring matrix.",
+    "scores": [
+      {
+        "dimension": "Cognitive / Strategic",
+        "parameters": [
+          { "name": "Strategic Judgment", "score": "X/10", "rationale": "Provide a concise 3-line rationale for the score based on their answers." },
+          // ... score for all 6 Cognitive/Strategic dimensions ...
+        ]
+      },
+      {
+        "dimension": "Interpersonal / Relational",
+        "parameters": [
+          { "name": "Emotional Intelligence", "score": "X/10", "rationale": "Provide a concise 3-line rationale for the score." },
+          // ... score for all 8 Interpersonal/Relational dimensions ...
+        ]
+      },
+      {
+        "dimension": "Personal Mastery",
+        "parameters": [
+          { "name": "Ethical & Values-Based Leadership", "score": "X/10", "rationale": "Provide a concise 3-line rationale for the score." },
+          // ... score for all 6 Personal Mastery dimensions ...
+        ]
+      }
+    ]
+  }
+}
+`;
     
     // Create the user prompt with the detailed context
     const userPrompt = `
