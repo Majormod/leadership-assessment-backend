@@ -669,29 +669,10 @@ You are an expert leadership assessment AI. Your task is to analyze the user's r
 
 // --- SERVER START LOGIC ---
 // This block will try to start an HTTPS server, but will fall back to HTTP if SSL certs are not found.
-try {
-    // Attempt to read the SSL certificate files for HTTPS
-    const options = {
-      key: fs.readFileSync('/etc/letsencrypt/live/api.majormod.xyz/privkey.pem'),
-      cert: fs.readFileSync('/etc/letsencrypt/live/api.majormod.xyz/fullchain.pem')
-    };
-
-    // If successful, create and start the HTTPS server (for your deployed server)
-    https.createServer(options, app).listen(port, () => {
-      console.log(`HTTPS server listening on port ${port}`);
-    });
-
-} catch (error) {
-    // If reading the cert files fails (because we are on a local machine), this catch block will run.
-    if (error.code === 'ENOENT') {
-        console.log("SSL certs not found. Starting a standard HTTP server for local development.");
-        
-        // Create and start a standard HTTP server
-        http.createServer(app).listen(port, () => {
-            console.log(`HTTP server listening on http://localhost:${port}`);
-        });
-    } else {
-        // If there's some other error, log it.
-        console.error("An error occurred during server startup:", error);
-    }
-}
+// --- SERVER START LOGIC ---
+// This is the new, simplified block.
+// It will ALWAYS start a standard HTTP server, which is the correct setup
+// when running behind an Nginx reverse proxy that handles HTTPS.
+http.createServer(app).listen(port, () => {
+    console.log(`Server listening on http://localhost:${port}`);
+});
