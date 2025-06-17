@@ -8,6 +8,7 @@ require('dotenv').config();
 
 // --- App Setup ---
 const app = express();
+app.set('trust proxy', 1); // <--- ADD THIS LINE
 const OpenAI = require('openai');
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const port = 3001; // Define a port
