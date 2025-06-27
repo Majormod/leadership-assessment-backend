@@ -58,7 +58,7 @@ questions: [
   ], bestAnswer: "F" },
   { id: 3, perspective: "Rohan's Perspective", question: "Nikhil's cynicism is affecting the team mood. What is the best leadership action I can take?", options: [
     { id: "A", text: "Ask Nikhil to present constructive suggestions to the team so he channels his energy productively." }, { id: "B", text: "Call him out in front of the team to show that this negativity won't be tolerated anymore." }, { id: "C", text: "Assign Nikhil to a low-visibility task so his attitude causes less disruption." }, { id: "D", text: "Have a private conversation with Nikhil, seeking to understand the root cause of his frustrations." }, { id: "E", text: "Ignore him for now - he'll tire himself out eventually, and I can't afford distractions." }, { id: "F", text: "Suggest the team take a break together to reset the mood and reduce tensions overall." }
-  ], bestAnswer: "D" }
+  ], bestAnswer: "D" },
   { id: 4, perspective: "Rohan's Perspective", question: "The AVP of Product (Rajiv) asks me to lead a cross-functional initiative that feels huge and risky. How should I handle this?", options: [
     { id: "A", text: "Say yes but set very clear conditions about the support and resources I'll need to succeed." }, { id: "B", text: "Agree right away to show I'm a team player, and figure out the details later as things unfold." }, { id: "C", text: "Ask Rajiv for time to think it over before making a decision, so I can assess the risk." }, { id: "D", text: "Decline politely, explaining that my plate is full and I don't want to overpromise and underdeliver." }, { id: "E", text: "Say yes but keep my head down, quietly trying to manage without raising expectations." }, { id: "F", text: "Accept and immediately ask for a coach or mentor to guide me on managing cross-functional work." }
   ], bestAnswer: "A" },
@@ -631,8 +631,24 @@ async function generateReport(jobId, answers) {
 }
 
 // --- API ROUTES ---
+// In server.js, replace the /api/case-study route with this correct version.
+
 app.get('/api/case-study', (req, res) => {
-    res.json({ questions: caseStudyData.questions });
+    // This removes the 'bestAnswer' from the questions before sending
+    const questionsForFrontend = caseStudyData.questions.map(({ bestAnswer, ...rest }) => rest);
+
+    // This creates the full payload with all necessary data
+    const payload = {
+        title: caseStudyData.title,
+        background: caseStudyData.background,
+        characters: caseStudyData.characters,
+        crisis: caseStudyData.crisis,
+        challenges: caseStudyData.challenges,
+        questions: questionsForFrontend
+    };
+
+    // Now, it sends the complete payload
+    res.json(payload);
 });
 app.post('/api/evaluate', (req, res) => {
     const jobId = crypto.randomUUID();
