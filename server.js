@@ -52,7 +52,7 @@ questions: [
   // --- Rohan's Perspective (1-20) ---
   { id: 1, perspective: "Rohan's Perspective", question: "The team is feeling the pressure of tight deadlines and rising competition. What is the best way for me to set the tone as their leader?", options: [
     { id: "A", text: "Acknowledge the pressure but redirect focus toward small, immediate wins that build momentum and morale." }, { id: "B", text: "Make it clear that failure isn't an option and that I expect nothing less than full commitment at any cost." }, { id: "C", text: "Schedule daily status checks and question delays aggressively to keep everyone accountable and moving faster." }, { id: "D", text: "Meet with each team member individually and ask how they're coping, adjusting expectations where needed." }, { id: "E", text: "Remind the team of past successes and encourage them to dig deep and stay the course until we meet the deadline." }, { id: "F", text: "Share openly that I'm equally stressed, so they see we're all in this together and it's normal to feel the strain." }
-  ], bestAnswer: "A" },
+  ], bestAnswer: "A" },/*
   { id: 2, perspective: "Rohan's Perspective", question: "Aarav keeps suggesting longer-term solutions, but Anika is demanding quick wins. How should I respond to these competing needs?", options: [
     { id: "A", text: "Listen to both and push back on Aarav, asking him to set aside long-term ideas and focus purely on short-term fixes." }, { id: "B", text: "Propose a middle ground - develop quick prototypes of Aarav's ideas that we can market-test in weeks, not months." }, { id: "C", text: "Privately tell Aarav to keep working on his vision while publicly committing only to Anika's immediate asks." }, { id: "D", text: "Let Product and Sales battle it out and follow whichever side wins the leadership team's support." }, { id: "E", text: "Champion Aarav's vision fully, even if it means risking tension with Sales in the short run." }, { id: "F", text: "Arrange a workshop where Aarav and Anika co-design features that balance speed and differentiation." }
   ], bestAnswer: "F" },
@@ -478,7 +478,7 @@ questions: [
   ], bestAnswer: "A" },
   { id: 139, perspective: "Candidate's Own Perspective", question: "You are asked to lead a cross-functional team where key players have personal conflicts. What's your most effective leadership move?", options: [
     { id: "A", text: "Set shared goals and create norms that emphasize collaboration." }, { id: "B", text: "Accept that some conflict is natural and proceed." }, { id: "C", text: "Have private conversations to understand and address concerns." }, { id: "D", text: "Escalate to leadership to mediate the issues." }, { id: "E", text: "Let the work unfold and see if the conflict resolves itself." }, { id: "F", text: "Split responsibilities to minimize their interaction." }
-  ], bestAnswer: "C" },
+  ], bestAnswer: "C" },*/
   { id: 140, perspective: "Candidate's Own Perspective", question: "A strategic partner fails to deliver on commitments, putting your project at risk. How do you demonstrate leadership in this crisis?", options: [
     { id: "A", text: "Engage the partner constructively while developing a contingency plan." }, { id: "B", text: "Escalate immediately to leadership demanding intervention." }, { id: "C", text: "Adjust internal plans and quietly work around the issue." }, { id: "D", text: "Confront the partner firmly about the consequences." }, { id: "E", text: "Focus on short-term fixes and address root issues later." }, { id: "F", text: "Delay reaction until more information is available." }
   ], bestAnswer: "A" }
@@ -537,7 +537,7 @@ async function getDepthMap(analysisContext, mapData) {
 // In server.js, replace your existing generateReport function with this final version.
 
 // In server.js, replace your existing generateReport function with this final version.
-
+/*
 async function generateReport(jobId, answers) {
     // LOG 1: Announce that the process has started
     console.log(`[Job ${jobId}]: Starting FULL SEQUENTIAL AI report generation...`);
@@ -629,6 +629,82 @@ async function generateReport(jobId, answers) {
         reportJobs[jobId].error = 'An error occurred while generating the report.';
     }
 }
+*/
+/* MOCK START */
+
+// In server.js, replace your entire generateReport function with this final version.
+
+async function generateReport(jobId, answers) {
+    // This is our master switch. Set to true for free, instant testing.
+    const USE_MOCK_DATA = true; 
+
+    // --- MOCK DATA PATH ---
+    if (USE_MOCK_DATA) {
+        console.log(`[Job ${jobId}]: MOCK MODE ON. Generating instant high-fidelity report...`);
+        
+        // This is a pre-written report object using realistic placeholder data.
+        const mockReport = {
+            powerQuadrant: [
+                { name: "Mock: Strategic Judgment", definition: "Consistently demonstrated an ability to see the bigger picture and balance long-term goals with immediate operational needs.", score: 6.8 },
+                { name: "Mock: Team Empowerment", definition: "Frequently chose options that involved trusting the team, delegating ownership, and fostering an inclusive environment.", score: 6.5 },
+                { name: "Mock: Resilience", definition: "Showed a strong capacity to remain steady and constructive when faced with setbacks, focusing on solutions.", score: 6.3 },
+                { name: "Mock: Collaboration", definition: "Actively sought to break down silos and build bridges between different departments, such as Sales and Product.", score: 6.1 },
+            ],
+            breakthroughZone: [
+                { name: "Mock: Conflict Resolution", definition: "Showed a tendency to avoid direct mediation in conflicts between senior peers, which could delay resolution.", score: 4.8 },
+                { name: "Mock: Political Savvy", definition: "Navigated internal politics cautiously, indicating an opportunity to more proactively manage stakeholder relationships.", score: 4.5 },
+                { name: "Mock: Bias Toward Action", definition: "Occasionally preferred to gather more data or wait for consensus before acting, which could slow momentum.", score: 4.3 },
+                { name: "Mock: Constructive Dissent", definition: "While collaborative, there is room to more assertively challenge senior leaders when their decisions risk negative consequences.", score: 4.1 },
+            ],
+            leadershipFacets: {
+                strategicAndCognitive: [
+                    { name: "Mock: Strategic Judgment & Foresight", definition: "Your ability to see the bigger picture...", evaluation: ["Mock evaluation point 1.", "Mock evaluation point 2."], strengths: ["Mock strength A."], gaps: ["Mock gap A."] }
+                ],
+                interpersonalAndStakeholder: [
+                    { name: "Mock: Emotional Intelligence & Empathy", definition: "Your ability to understand what others are feeling...", evaluation: ["..."], strengths: [], gaps: [] }
+                ],
+                personalMasteryAndValues: [
+                    { name: "Mock: Ethical Integrity & Values-Based Decision-Making", definition: "Your ability to stay true to what is right and fair...", evaluation: ["..."], strengths: [], gaps: [] }
+                ],
+            },
+            extendedFacets: [
+                {
+                    title: "Mock: Leadership Thinking & Cognitive Style",
+                    averageScore: 6.6,
+                    industryStandard: 7.29,
+                    radarChartData: {
+                        labels: ["Systems Thinking", "Anticipatory Thinking", "Decision Accountability", "Tolerance for Complexity"],
+                        scores: [7, 6, 8, 5]
+                    },
+                    subPointEvaluations: [
+                        { name: "Systems Thinking", definition: "Ability to see how decisions affect the wider organization...", evaluation: "This is a mock evaluation for Systems Thinking.", score: 7 },
+                        { name: "Anticipatory Thinking / Strategic Foresight", definition: "Ability to spot emerging risks...", evaluation: "This is a mock evaluation for Anticipatory Thinking.", score: 6 },
+                    ]
+                }
+            ],
+            depthMap: [
+                {
+                    title: "Mock: Leadership Lens™ - The Way You See",
+                    definition: "This reflects how you perceive complexity...",
+                    averageScore: 6.9,
+                    industryStandard: 7.83,
+                    inferences: ["This is mock inference point #1.", "This is mock inference point #2.", "This mock data demonstrates the structure."]
+                }
+            ]
+        };
+
+        reportJobs[jobId].status = 'complete';
+        reportJobs[jobId].report = mockReport;
+        console.log(`[Job ${jobId}]: Mock report successfully generated.`);
+        return; // Exit the function here.
+    }
+
+    // --- REAL AI GENERATION PATH (This part will be skipped if USE_MOCK_DATA is true) ---
+    console.log(`[Job ${jobId}]: LIVE MODE ON. Starting sequential AI report generation...`);
+    // ... (your full, real AI generation logic remains here) ...
+}
+
+/* MOCK END */
 
 // --- API ROUTES ---
 // In server.js, replace the /api/case-study route with this correct version.
