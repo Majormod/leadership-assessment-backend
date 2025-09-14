@@ -1,6 +1,6 @@
 // marketing-assessment-data.js
 
-export const marketingQuestions = [
+module.exports = { marketingQuestions: [
   // --- Section A: Trade-Off Questions (Q1-Q80) ---
   {
     questionId: 1,
@@ -2299,4 +2299,4 @@ export const marketingQuestions = [
     },
     correctAnswer: 'A'
   }
-]
+]};
