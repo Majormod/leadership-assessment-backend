@@ -16,8 +16,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // --- Import Route Files ---
-// const caseStudyRoutes = require('./routes/caseStudyRoutes');
-// const imperiumRoutes = require('./routes/imperiumRoutes');
+const caseStudyRoutes = require('./routes/caseStudyRoutes');
+const imperiumRoutes = require('./routes/imperiumRoutes');
 const marketingRoutes = require('./routes/marketingRoutes');
 
 // --- Use Route Files ---
