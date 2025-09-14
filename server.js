@@ -11,7 +11,7 @@ const app = express();
 const port = 3001;
 
 // --- Middleware ---
-app.use(cors({ origin: ['http://localhost:3000', 'https://main.d21put265zxojq.amplifyapp.com'] }));
+app.use(cors({ origin: ['http://localhost:3000', 'https://main.d21put265zxojq.amplifyapp.com', 'https://leadership-assessment-frontend.onrender.com'] }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
