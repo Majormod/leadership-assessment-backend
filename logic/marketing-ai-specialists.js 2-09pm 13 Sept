@@ -1,0 +1,1433 @@
+// marketing-ai-specialists.js
+
+const { OpenAI } = require('openai');
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+/**
+ * ## INSTRUCTIONS FOR: calculateScores ##
+ *
+ * This function must be pure JavaScript and should NOT call an AI.
+ * It calculates scores based on the rules from the "Marketing Influence Quotient" PDF.
+ */
+
+const calculateScores = (answers, answerKey) => {
+    console.log("Calculating scores with final, complete logic...");
+
+    // --- All variables are now correctly declared ---
+    let trade_points = 0;
+    let num_pairs_clarity = 0;
+    let num_pairs_internal_contradiction = 0;
+    let num_pairs_flexibility = 0;
+    let num_pairs_ambiguous = 0;
+
+    const tradeOffPairs = [
+        [1,2],[3,4],[5,6],[7,8],[9,10],[11,12],[13,14],[15,16],[17,18],[19,20],[21,22],[23,24],[25,26],[27,28],[29,30],
+        [31,32],[33,34],[35,36],[37,38],[39,40],[41,42],[43,44],[45,46],[47,48],[49,50],[51,52],[53,54],[55,56],[57,58],
+        [59,60],[61,62],[63,64],[65,66],[67,68],[69,70],[71,72],[73,74],[75,76],[77,78],[79,80]
+    ];
+
+    const pairs_results = tradeOffPairs.map(([qA, qB], index) => {
+        const rA = answers[qA], rB = answers[qB];
+        let pair_status = "ambiguous", points_awarded = 0;
+        if (!rA || !rB) {
+            pair_status = "missing";
+        } else if ((rA >= 5 && rB <= 2) || (rA <= 2 && rB >= 5)) {
+            pair_status = "clarity";
+            points_awarded = 2;
+            trade_points += 2;
+            num_pairs_clarity++;
+        } else if ((rA >= 5 && rB >= 5) || (rA <= 2 && rB <= 2)) {
+            pair_status = "internal_contradiction";
+            num_pairs_internal_contradiction++;
+        } else if ((rA >= 3 && rA <= 4 && rB >= 3 && rB <= 4) || Math.abs(rA - rB) === 1) {
+            pair_status = "flexibility";
+            num_pairs_flexibility++;
+        } else {
+            num_pairs_ambiguous++;
+        }
+        return { pair_id: index + 1, qA, qB, rA, rB, pair_status, points_awarded };
+    });
+
+    const mcq_results = [];
+    for (let q = 81; q <= 213; q++) {
+        const is_correct = answers[q]?.toString().toLowerCase() === answerKey[q]?.toString().toLowerCase();
+        mcq_results.push({ q, is_correct, response: answers[q] || null });
+    }
+    const mcq_points = mcq_results.filter(r => r.is_correct).length;
+    const total_points = trade_points + mcq_points;
+    const percentage = (total_points / 213) * 100;
+
+    const dimensionScores = {};
+    const dimensionQuestionMap = {
+        strategicJudgment: { type: 'tradeoff', questions: [1,2,3,4,5,6,7,8,9,10] }, brandCommAcumen: { type: 'tradeoff', questions: [11,12,13,14,15,16,17,18] }, commercialAcumen: { type: 'tradeoff', questions: [19,20,21,22,23,24,25,26,27,28] }, leadershipTeamOrientation: { type: 'tradeoff', questions: [29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48] }, resourceAllocationDiscipline: { type: 'tradeoff', questions: [49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68] }, commercialGrowthOrientation: { type: 'tradeoff', questions: [69,70,71,72,73,74,75,76,77,78,79,80] },
+        foundationsOfStrategy: { type: 'mcq', start: 81, end: 96 }, brandAndCommunicationsKnowledge: { type: 'mcq', start: 97, end: 108 }, pricingAndChannelsKnowledge: { type: 'mcq', start: 109, end: 114 }, paucityOfBudgetsKnowledge: { type: 'mcq', start: 115, end: 118 }, digitalAndDataKnowledge: { type: 'mcq', start: 119, end: 124 }, globalAndCulturalKnowledge: { type: 'mcq', start: 125, end: 130 }, futureAndThoughtLeadership: { type: 'mcq', start: 131, end: 132 }, strategyAndPositioningApplication: { type: 'mcq', start: 133, end: 142 }, brandAndCommunicationApplication: { type: 'mcq', start: 143, end: 152 }, customerAndGrowthApplication: { type: 'mcq', start: 153, end: 156 }, channelsAndDistributionApplication: { type: 'mcq', start: 157, end: 168 }, pricingAndMonetizationApplication: { type: 'mcq', start: 169, end: 178 }, marketingBudgetsApplication: { type: 'mcq', start: 179, end: 182 }, executionAndPrioritizationDiscipline: { type: 'mcq', start: 183, end: 187 }, selfAwarenessAndReflection: { type: 'mcq', start: 188, end: 191 }, creativityAndNarrativePower: { type: 'mcq', start: 192, end: 194 }, analyticsKnowledge: { type: 'mcq', start: 195, end: 213 }
+    };
+    for (const [key, value] of Object.entries(dimensionQuestionMap)) {
+        let score = 0; let maxScore = 0;
+        if (value.type === 'tradeoff') { maxScore = value.questions.length; const relevantPairs = pairs_results.filter(p => value.questions.includes(p.qA)); score = relevantPairs.reduce((sum, p) => sum + p.points_awarded, 0); } 
+        else { maxScore = value.end - value.start + 1; const relevantMcqs = mcq_results.filter(mcq => mcq.q >= value.start && mcq.q <= value.end); score = relevantMcqs.filter(mcq => mcq.is_correct).length; }
+        dimensionScores[key] = maxScore > 0 ? (score / maxScore) * 100 : 0;
+    }
+
+    const capabilityMap = {
+    'Strategic Acumen': ['strategicJudgment', 'foundationsOfStrategy', 'strategyAndPositioningApplication'],
+    'Commercial Rigor': ['commercialAcumen', 'resourceAllocationDiscipline', 'analyticsKnowledge', 'pricingAndChannelsKnowledge', 'pricingAndMonetizationApplication', 'marketingBudgetsApplication'],
+    'Brand Craft': ['brandCommAcumen', 'brandAndCommunicationsKnowledge', 'brandAndCommunicationApplication', 'creativityAndNarrativePower'],
+    'Execution & Leadership': ['leadershipTeamOrientation', 'commercialGrowthOrientation', 'customerAndGrowthApplication', 'executionAndPrioritizationDiscipline', 'selfAwarenessAndReflection'],
+    'Digital & Global Fluency': ['digitalAndDataKnowledge', 'globalAndCulturalKnowledge', 'futureAndThoughtLeadership', 'channelsAndDistributionApplication'] // <-- ADD THIS LINE
+    };
+    const coreCapabilityScores = {};
+    for (const [capability, dimensions] of Object.entries(capabilityMap)) { const total = dimensions.reduce((sum, key) => sum + (dimensionScores[key] || 0), 0); coreCapabilityScores[capability] = total / dimensions.length; }
+
+    const capabilities = Object.keys(capabilityMap);
+    let chordMatrix = Array(capabilities.length).fill(0).map(() => Array(capabilities.length).fill(0));
+    const tradeOffTensionMap = { 1: [0, 1], 3: [3, 1], 5: [0, 2], 11: [2, 3], 15: [2, 1], 49: [2, 1], 69: [3, 1] };
+    pairs_results.forEach(pair => {
+        const tension = tradeOffTensionMap[pair.qA];
+        if (tension) {
+            const [capA, capB] = tension;
+            const weight = pair.points_awarded > 0 ? 2 : (Math.abs(pair.rA - pair.rB) > 2 ? 1 : 0.5);
+            chordMatrix[capA][capB] += weight;
+            chordMatrix[capB][capA] += weight;
+        }
+    });
+    
+    console.log(`Scoring complete. Total points: ${total_points}`);
+    
+    // --- The complete, un-nested return object ---
+    return {
+        trade_points,
+        mcq_points,
+        total_points,
+        percentage,
+        pairs: pairs_results,
+        mcq_results: mcq_results,
+        dimensionScores,
+        coreCapabilityScores,
+        chordMatrix,
+        num_pairs_clarity,
+        num_pairs_internal_contradiction,
+        num_pairs_flexibility,
+        num_pairs_ambiguous,
+        num_mcq_correct: mcq_points,
+        num_mcq_incorrect: 133 - mcq_points,
+    };
+};
+
+/**
+ * Helper function to filter answers for specific questions
+ */
+const filterAnswers = (answers, questionNumbers) => {
+  const filtered = {};
+  questionNumbers.forEach(q => {
+    const key = `Q${q}`;
+    if (answers[key] !== undefined) {
+      filtered[key] = answers[key];
+    }
+  });
+  return filtered;
+};
+
+/**
+ * Helper function to call OpenAI API
+ */
+const callOpenAI = async (systemPrompt, userContent, responseFormat = null) => {
+  try {
+    const messages = [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: userContent }
+    ];
+    
+    const params = {
+      model: "gpt-4-turbo",
+      messages: messages,
+      temperature: 0.7,
+      max_tokens: 2000
+    };
+    
+    if (responseFormat) {
+      params.response_format = responseFormat;
+    }
+    
+    const completion = await openai.chat.completions.create(params);
+    return JSON.parse(completion.choices[0].message.content);
+  } catch (error) {
+    console.error("Error calling OpenAI API:", error);
+    throw error;
+  }
+};
+
+// --- 1. EXECUTIVE SUMMARY ---
+// In logic/marketing-ai-specialists.js, replace the old executive summary function
+
+// In logic/marketing-ai-specialists.js, replace the function with this corrected version
+
+const generateExecutiveSummary = async (scoredResults, answers) => {
+    console.log("Generating Executive Summary report (Corrected Signature)...");
+
+    const systemPrompt = `
+      You are an expert leadership analyst. You will be provided with the full scored results and the raw answers of a "Marketing Influence Quotient" assessment.
+      Your task is to generate the analysis for SIX distinct prompts.
+      You MUST return a single JSON object with the following exact keys: "prompt1Result", "prompt2Result", "prompt3Result", "prompt4Result", "prompt5Result", "prompt6Result".
+
+      - prompt1Result (Composite Score): Write a 2-3 sentence analysis of the candidate's overall score (${scoredResults.percentage.toFixed(1)}%). Explain what this score level generally indicates.
+      - prompt2Result (Top Three Strengths): Based on the entire dataset (scores and raw answers), identify the top 3 strengths and write a 2-3 sentence paragraph about them.
+      - prompt3Result (Top Three Development Priorities): Based on the entire dataset, identify the top 3 development priorities and write a 2-3 sentence paragraph about them.
+      - prompt4Result (Immediate Attention Flags): Based on the entire dataset, identify the most critical findings that require urgent focus and write a 2-3 sentence paragraph.
+      - prompt5Result (Recommended Next Step): Based on the results, recommend a clear, practical call to action (e.g., a targeted video course, a School of Leadership pathway, or coaching) in 1-2 sentences.
+      - prompt6Result (Career Impact Statement): Write a single, forward-looking sentence (25-35 words) that distills the candidate's results into a statement of career trajectory and leadership impact.
+      
+      The tone must be professional, direct, and diagnostic.
+    `;
+
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo",
+            response_format: { type: "json_object" },
+            messages: [
+                { role: "system", content: systemPrompt },
+                // This now correctly includes BOTH the scores and the raw answers
+                { role: "user", content: `Here is the full report data: ${JSON.stringify({ scoredResults, answers })}` }
+            ],
+            max_tokens: 1500,
+            temperature: 0.5,
+        });
+        console.log("Successfully received Executive Summary report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Executive Summary report:", error);
+        return {
+            prompt1Result: "Error generating analysis.", prompt2Result: "Error generating analysis.", prompt3Result: "Error generating analysis.",
+            prompt4Result: "Error generating analysis.", prompt5Result: "Error generating analysis.", prompt6Result: "Error generating analysis."
+        };
+    }
+};
+
+// --- 2. TRADE-OFF DIMENSIONS ---
+const generateStrategicJudgmentReport = async (scoredResults, answers) => {
+    console.log("Generating Strategic Judgment report...");
+
+    const yourScore = scoredResults?.dimensionScores?.['strategicJudgment'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Strategic Acumen']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Strategic Acumen']?.topPerformerScore;
+
+    // --- PASTE THE MASTER PROMPT AND CUSTOMIZE THE NAME ---
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Strategic Judgment**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    
+    const tradeoffsForContext = { 'Brand Building vs Performance Marketing': { qA: 1, qB: 2, answerA: answers[1], answerB: answers[2] }, 'Penetration vs Loyalty': { qA: 3, qB: 4, answerA: answers[3], answerB: answers[4] }, 'Differentiation vs Distinctiveness': { qA: 5, qB: 6, answerA: answers[5], answerB: answers[6] }, 'Standardization vs Localization': { qA: 7, qB: 8, answerA: answers[7], answerB: answers[8] }, 'Innovation vs Consistency': { qA: 9, qB: 10, answerA: answers[9], answerB: answers[10] } };
+
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: `Here is the data for this section. Use the trade-off names and the raw answers to identify blind spots, contradictions, or gaps in your analysis: ${JSON.stringify(tradeoffsForContext)}` }
+            ],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) { /* ... error handling ... */ }
+};
+
+const generateBrandCommAcumenReport = async (scoredResults, answers) => {
+    console.log("Generating Brand & Communication Acumen report...");
+
+    // --- THIS BLOCK WAS MISSING ---
+    const yourScore = scoredResults?.dimensionScores?.['brandCommAcumen'];
+    // Map this dimension to a relevant capability for benchmarks
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Brand Craft']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Brand Craft']?.topPerformerScore;
+    // ----------------------------
+
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Brand & Communication Acumen**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    
+    const tradeoffsForContext = {
+        'Control vs Authenticity': { qA: 11, qB: 12, answerA: answers[11], answerB: answers[12] },
+        'Message Consistency vs Channel Customization': { qA: 13, qB: 14, answerA: answers[13], answerB: answers[14] },
+        'Emotional Storytelling vs Rational Proof Points': { qA: 15, qB: 16, answerA: answers[15], answerB: answers[16] },
+        'Mass Awareness vs Niche Precision': { qA: 17, qB: 18, answerA: answers[17], answerB: answers[18] }
+    };
+
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo",
+            response_format: { type: "json_object" },
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: `Here is the data for this section: ${JSON.stringify(tradeoffsForContext)}` }
+            ],
+            max_tokens: 2000,
+            temperature: 0.5,
+        });
+        console.log("Successfully received Brand & Communication Acumen report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Brand & Communication Acumen report:", error);
+        return {
+            diagnosticReview: "Error generating analysis.",
+            benchmarkComparison: "Error generating benchmark comparison.",
+            careerImplications: "Error generating career implications."
+        };
+    }
+};
+
+const generateCommercialAcumenReport = async (scoredResults, answers) => {
+    console.log("Generating Commercial Acumen report...");
+
+    // This block of code defines the variables needed for the prompt
+    const yourScore = scoredResults?.dimensionScores?.['commercialAcumen'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Commercial Rigor']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Commercial Rigor']?.topPerformerScore;
+
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Commercial Acumen**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    
+    const tradeoffsForContext = {
+        'Value-based Pricing vs Affordability': { qA: 19, qB: 20, answerA: answers[19], answerB: answers[20] },
+        'Premiumization vs Mass-market Reach': { qA: 21, qB: 22, answerA: answers[21], answerB: answers[22] },
+        'Dynamic Pricing vs Trust Preservation': { qA: 23, qB: 24, answerA: answers[23], answerB: answers[24] },
+        'Price Promotions vs Equity Reinforcement': { qA: 25, qB: 26, answerA: answers[25], answerB: answers[26] },
+        'Marketing Investment vs Cost Efficiency': { qA: 27, qB: 28, answerA: answers[27], answerB: answers[28] }
+    };
+
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo",
+            response_format: { type: "json_object" },
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: `Here is the data for this section: ${JSON.stringify(tradeoffsForContext)}` }
+            ],
+            max_tokens: 2000,
+            temperature: 0.5,
+        });
+        console.log("Successfully received Commercial Acumen report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Commercial Acumen report:", error);
+        return {
+            diagnosticReview: "Error generating analysis.",
+            benchmarkComparison: "Error generating benchmark comparison.",
+            careerImplications: "Error generating career implications."
+        };
+    }
+};
+
+const generateLeadershipTeamOrientationReport = async (scoredResults, answers) => {
+    console.log("Generating Leadership & Team Orientation report...");
+
+    const yourScore = scoredResults?.dimensionScores?.['leadershipTeamOrientation'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Execution & Leadership']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Execution & Leadership']?.topPerformerScore;
+
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Leadership & Team Orientation**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    
+    const tradeoffsForContext = {
+    'Specialists vs Generalists': { qA: 29, qB: 30, answerA: answers[29], answerB: answers[30] },
+    'In-house vs Outsourced Talent': { qA: 31, qB: 32, answerA: answers[31], answerB: answers[32] },
+    'Speed vs Craft': { qA: 33, qB: 34, answerA: answers[33], answerB: answers[34] },
+    'Centralized vs Decentralized': { qA: 35, qB: 36, answerA: answers[35], answerB: answers[36] },
+    'Discipline vs Freedom': { qA: 37, qB: 38, answerA: answers[37], answerB: answers[38] },
+    'Retention vs Renewal': { qA: 39, qB: 40, answerA: answers[39], answerB: answers[40] },
+    'KPIs vs Development': { qA: 41, qB: 42, answerA: answers[41], answerB: answers[42] },
+    'Collaboration vs Accountability': { qA: 43, qB: 44, answerA: answers[43], answerB: answers[44] },
+    'Structure vs Agility': { qA: 45, qB: 46, answerA: answers[45], answerB: answers[46] },
+    'Recognition vs Resilience': { qA: 47, qB: 48, answerA: answers[47], answerB: answers[48] },
+    };
+
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: `Here is the data for this section: ${JSON.stringify(tradeoffsForContext)}` }
+            ],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) { /* ... error handling ... */ }
+};
+
+const generateResourceAllocationDisciplineReport = async (scoredResults, answers) => {
+    console.log("Generating Resource Allocation Discipline report...");
+
+    const yourScore = scoredResults?.dimensionScores?.['resourceAllocationDiscipline'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Commercial Rigor']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Commercial Rigor']?.topPerformerScore;
+
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Resource Allocation Discipline**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    
+    const tradeoffsForContext = {
+    'Brand vs Performance Spend': { qA: 49, qB: 50, answerA: answers[49], answerB: answers[50] },
+    'Acquisition vs Retention': { qA: 51, qB: 52, answerA: answers[51], answerB: answers[52] },
+    'Digital vs Traditional': { qA: 53, qB: 54, answerA: answers[53], answerB: answers[54] },
+    'Global vs Local': { qA: 55, qB: 56, answerA: answers[55], answerB: answers[56] },
+    'Proven vs Experiment': { qA: 57, qB: 58, answerA: answers[57], answerB: answers[58] },
+    'Paid vs Owned/Earned': { qA: 59, qB: 60, answerA: answers[59], answerB: answers[60] },
+    'Always-on vs Burst': { qA: 61, qB: 62, answerA: answers[61], answerB: answers[62] },
+    'Cost Cut vs Brand Defense': { qA: 63, qB: 64, answerA: answers[63], answerB: answers[64] },
+    'Incremental vs Zero-Based': { qA: 65, qB: 66, answerA: answers[65], answerB: answers[66] },
+    'Efficiency vs Effectiveness': { qA: 67, qB: 68, answerA: answers[67], answerB: answers[68] },
+    };
+
+    try {
+        const response = await openai.chat.completions.create({
+             model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: `Here is the data for this section: ${JSON.stringify(tradeoffsForContext)}` }
+            ],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) { /* ... error handling ... */ }
+};
+
+const generateCommercialGrowthOrientationReport = async (scoredResults, answers) => {
+    console.log("Generating Commercial Growth Orientation report...");
+
+    const yourScore = scoredResults?.dimensionScores?.['commercialGrowthOrientation'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Execution & Leadership']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Execution & Leadership']?.topPerformerScore;
+
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Commercial Growth Orientation**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    
+    const tradeoffsForContext = {
+    'Activation vs Brand Building': { qA: 69, qB: 70, answerA: answers[69], answerB: answers[70] },
+    'Targets vs CX': { qA: 71, qB: 72, answerA: answers[71], answerB: answers[72] },
+    'Sales Enable vs Market Dev': { qA: 73, qB: 74, answerA: answers[73], answerB: answers[74] },
+    'Quarterly vs Market Share': { qA: 75, qB: 76, answerA: answers[75], answerB: answers[76] },
+    'Sales vs Innovation': { qA: 77, qB: 78, answerA: answers[77], answerB: answers[78] },
+    'Conversion vs Trust': { qA: 79, qB: 80, answerA: answers[79], answerB: answers[80] },
+    };
+
+    try {
+        const response = await openai.chat.completions.create({
+             model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: `Here is the data for this section: ${JSON.stringify(tradeoffsForContext)}` }
+            ],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) { /* ... error handling ... */ }
+};
+
+// Replace the old, faulty function with this correct version.
+
+const generateFoundationsOfStrategyReport = async (scoredResults) => {
+    console.log("Generating Foundations of Strategy report...");
+
+    const yourScore = scoredResults?.dimensionScores?.['foundationsOfStrategy'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Strategic Acumen']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Strategic Acumen']?.topPerformerScore;
+
+    // --- PASTE THE MASTER PROMPT AND CUSTOMIZE THE NAME ---
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Foundations of Strategy**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    
+    const relevantData = {
+    mcq_results: scoredResults.mcq_results.filter(q => q.q >= 81 && q.q <= 96) // Correct range
+    };
+
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: `Here are the scored MCQ results for this section: ${JSON.stringify(relevantData)}` }
+            ],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("A critical error occurred in generateFoundationsOfStrategyReport. Re-throwing...");
+        throw error; // Re-throw the original error
+    }
+};
+
+// Replace the old, faulty function with this correct version.
+
+// In logic/marketing-ai-specialists.js, replace this entire function
+
+const generateBrandAndCommunicationsKnowledgeReport = async (scoredResults) => {
+    console.log("Generating Brand & Communications Knowledge report...");
+
+    const yourScore = scoredResults?.dimensionScores?.['brandAndCommunicationsKnowledge'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Brand Craft']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Brand Craft']?.topPerformerScore;
+
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Brand & Communications**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+
+    const relevantData = {
+        mcq_results: scoredResults.mcq_results.filter(q => q.q >= 97 && q.q <= 108)
+    };
+
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo",
+            response_format: { type: "json_object" },
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: `Here are the scored MCQ results for this section: ${JSON.stringify(relevantData)}` }
+            ],
+            max_tokens: 2000,
+            temperature: 0.5,
+        });
+        console.log("Successfully received Brand & Communications Knowledge report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Brand & Communications Knowledge report:", error);
+        return {
+            diagnosticReview: "Error generating analysis.",
+            benchmarkComparison: "Error generating benchmark comparison.",
+            careerImplications: "Error generating career implications."
+        };
+    }
+};
+
+// Paste this new function into logic/marketing-ai-specialists.js
+
+// Find this function in logic/marketing-ai-specialists.js
+const generatePricingAndChannelsKnowledgeReport = async (scoredResults) => {
+    console.log("Generating Pricing & Channels Knowledge report...");
+    const yourScore = scoredResults?.dimensionScores?.['pricingAndChannelsKnowledge'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Commercial Rigor']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Commercial Rigor']?.topPerformerScore;
+    
+    // <<< REPLACE THE OLD PROMPT WITH THIS CLEAN ONE >>>
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Pricing & Channels**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+
+    // Filter for only the relevant questions (Q109-Q114)
+    const relevantResults = scoredResults.mcq_results.filter(q => q.q >= 109 && q.q <= 114);
+
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo",
+            response_format: { type: "json_object" },
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: `Here are the scored results for this section: ${JSON.stringify(relevantResults)}` }
+            ],
+            max_tokens: 1000,
+            temperature: 0.5,
+        });
+        console.log("Successfully received Pricing & Channels Knowledge report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Pricing & Channels Knowledge report:", error);
+        return {
+            overallInference: "Error generating analysis.",
+            strengths: [],
+            improvements: [],
+            immediateAttention: "",
+            recommendations: ""
+        };
+    }
+};
+
+// Paste this new function into logic/marketing-ai-specialists.js
+
+const generatePaucityOfBudgetsKnowledgeReport = async (scoredResults) => {
+    console.log("Generating Analytics Knowledge report...");
+    const yourScore = scoredResults?.dimensionScores?.['paucityOfBudgetsKnowledge'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Commercial Rigor']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Commercial Rigor']?.topPerformerScore;
+
+    // --- PASTE THE MASTER PROMPT AND CUSTOMIZE THE NAME ---
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Budget & Scarcity Management**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    
+    const relevantData = {
+    mcq_results: scoredResults.mcq_results.filter(q => q.q >= 115 && q.q <= 118) // Correct range
+    };
+
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: `Here are the scored MCQ results for this section: ${JSON.stringify(relevantData)}` }
+            ],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Paucity of Budgets Knowledge report:", error);
+        return {
+            overallInference: "Error generating analysis.",
+            strengths: [],
+            improvements: [],
+            immediateAttention: "",
+            recommendations: ""
+        };
+    }
+};
+
+// --- DIGITAL & DATA KNOWLEDGE (Q119-124) ---
+const generateDigitalAndDataKnowledgeReport = async (scoredResults) => {
+    console.log("Generating Digital & Data Knowledge report...");
+    const yourScore = scoredResults?.dimensionScores?.['digitalAndDataKnowledge'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Digital & Global Fluency']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Digital & Global Fluency']?.topPerformerScore;
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Digital & Data**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    const relevantResults = scoredResults.mcq_results.filter(q => q.q >= 119 && q.q <= 124);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        console.log("Successfully received Digital & Data Knowledge report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Digital & Data Knowledge report:", error);
+        return { diagnosticReview: "Error generating analysis.", benchmarkComparison: "Error generating analysis.", careerImplications: "Error generating analysis." };
+    }
+};
+
+// --- GLOBAL & CULTURAL KNOWLEDGE (Q125-130) ---
+const generateGlobalAndCulturalKnowledgeReport = async (scoredResults) => {
+    console.log("Generating Global & Cultural Knowledge report...");
+    const yourScore = scoredResults?.dimensionScores?.['globalAndCulturalKnowledge'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Digital & Global Fluency']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Digital & Global Fluency']?.topPerformerScore;
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Global & Cultural Dimensions**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    const relevantResults = scoredResults.mcq_results.filter(q => q.q >= 125 && q.q <= 130);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        console.log("Successfully received Global & Cultural Knowledge report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Global & Cultural Knowledge report:", error);
+        return { diagnosticReview: "Error generating analysis.", benchmarkComparison: "Error generating analysis.", careerImplications: "Error generating analysis." };
+    }
+};
+
+// --- FUTURE & THOUGHT LEADERSHIP (Q131-132) ---
+const generateFutureAndThoughtLeadershipKnowledgeReport = async (scoredResults) => {
+    console.log("Generating Future & Thought Leadership report...");
+    const yourScore = scoredResults?.dimensionScores?.['futureAndThoughtLeadership'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Digital & Global Fluency']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Digital & Global Fluency']?.topPerformerScore;
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Future & Thought Leadership**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    const relevantResults = scoredResults.mcq_results.filter(q => q.q >= 131 && q.q <= 132);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        console.log("Successfully received Future & Thought Leadership report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Future & Thought Leadership report:", error);
+        return { diagnosticReview: "Error generating analysis.", benchmarkComparison: "Error generating analysis.", careerImplications: "Error generating analysis." };
+    }
+};
+
+// --- STRATEGY & POSITIONING APPLICATION (Q133-142) ---
+const generateStrategyAndPositioningApplicationReport = async (scoredResults) => {
+    console.log("Generating Strategy & Positioning Application report...");
+    const yourScore = scoredResults?.dimensionScores?.['strategyAndPositioningApplication'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Strategic Acumen']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Strategic Acumen']?.topPerformerScore;
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Strategy & Positioning**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    const relevantResults = scoredResults.mcq_results.filter(q => q.q >= 133 && q.q <= 142);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        console.log("Successfully received Strategy & Positioning Application report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Strategy & Positioning Application report:", error);
+        return { diagnosticReview: "Error generating analysis.", benchmarkComparison: "Error generating analysis.", careerImplications: "Error generating analysis." };
+    }
+};
+
+// --- BRAND & COMMUNICATION APPLICATION (Q143-152) ---
+const generateBrandAndCommunicationApplicationReport = async (scoredResults) => {
+    console.log("Generating Brand & Communication Application report...");
+    const yourScore = scoredResults?.dimensionScores?.['brandAndCommunicationApplication'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Brand Craft']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Brand Craft']?.topPerformerScore;
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Brand & Communication**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    const relevantResults = scoredResults.mcq_results.filter(q => q.q >= 143 && q.q <= 152);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        console.log("Successfully received Brand & Communication Application report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Brand & Communication Application report:", error);
+        return { diagnosticReview: "Error generating analysis.", benchmarkComparison: "Error generating analysis.", careerImplications: "Error generating analysis." };
+    }
+};
+
+// --- CUSTOMER & GROWTH APPLICATION (Q153-156) ---
+const generateCustomerAndGrowthApplicationReport = async (scoredResults) => {
+    console.log("Generating Customer & Growth Application report...");
+    const yourScore = scoredResults?.dimensionScores?.['customerAndGrowthApplication'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Execution & Leadership']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Execution & Leadership']?.topPerformerScore;
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Customer & Growth**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    const relevantResults = scoredResults.mcq_results.filter(q => q.q >= 153 && q.q <= 156);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        console.log("Successfully received Customer & Growth Application report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Customer & Growth Application report:", error);
+        return { diagnosticReview: "Error generating analysis.", benchmarkComparison: "Error generating analysis.", careerImplications: "Error generating analysis." };
+    }
+};
+
+// --- CHANNELS & DISTRIBUTION APPLICATION (Q157-168) ---
+const generateChannelsAndDistributionApplicationReport = async (scoredResults) => {
+    console.log("Generating Channels & Distribution Application report...");
+    const yourScore = scoredResults?.dimensionScores?.['channelsAndDistributionApplication'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Digital & Global Fluency']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Digital & Global Fluency']?.topPerformerScore;
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Channels & Distribution**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    const relevantResults = scoredResults.mcq_results.filter(q => q.q >= 157 && q.q <= 168);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        console.log("Successfully received Channels & Distribution Application report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Channels & Distribution Application report:", error);
+        return { diagnosticReview: "Error generating analysis.", benchmarkComparison: "Error generating analysis.", careerImplications: "Error generating analysis." };
+    }
+};
+
+// --- PRICING & MONETIZATION APPLICATION (Q169-178) ---
+const generatePricingAndMonetizationApplicationReport = async (scoredResults) => {
+    console.log("Generating Pricing & Monetization Application report...");
+    const yourScore = scoredResults?.dimensionScores?.['pricingAndMonetizationApplication'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Commercial Rigor']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Commercial Rigor']?.topPerformerScore;
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Pricing & Monetization**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    const relevantResults = scoredResults.mcq_results.filter(q => q.q >= 169 && q.q <= 178);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        console.log("Successfully received Pricing & Monetization Application report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Pricing & Monetization Application report:", error);
+        return { diagnosticReview: "Error generating analysis.", benchmarkComparison: "Error generating analysis.", careerImplications: "Error generating analysis." };
+    }
+};
+
+// --- MARKETING BUDGETS APPLICATION (Q179-182) ---
+const generateMarketingBudgetsApplicationReport = async (scoredResults) => {
+    console.log("Generating Marketing Budgets Application report...");
+    const yourScore = scoredResults?.dimensionScores?.['marketingBudgetsApplication'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Commercial Rigor']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Commercial Rigor']?.topPerformerScore;
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Marketing Budgets**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    const relevantResults = scoredResults.mcq_results.filter(q => q.q >= 179 && q.q <= 182);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        console.log("Successfully received Marketing Budgets Application report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Marketing Budgets Application report:", error);
+        return { diagnosticReview: "Error generating analysis.", benchmarkComparison: "Error generating analysis.", careerImplications: "Error generating analysis." };
+    }
+};
+
+// --- EXECUTION & PRIORITIZATION DISCIPLINE (Q183-187) ---
+const generateExecutionAndPrioritizationDisciplineReport = async (scoredResults) => {
+    console.log("Generating Execution & Prioritization Discipline report...");
+    const yourScore = scoredResults?.dimensionScores?.['executionAndPrioritizationDiscipline'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Execution & Leadership']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Execution & Leadership']?.topPerformerScore;
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Execution & Prioritization Discipline**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    const relevantResults = scoredResults.mcq_results.filter(q => q.q >= 183 && q.q <= 187);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        console.log("Successfully received Execution & Prioritization Discipline report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Execution & Prioritization Discipline report:", error);
+        return { diagnosticReview: "Error generating analysis.", benchmarkComparison: "Error generating analysis.", careerImplications: "Error generating analysis." };
+    }
+};
+
+// --- SELF-AWARENESS & REFLECTION (Q188-191) ---
+const generateSelfAwarenessAndReflectionReport = async (scoredResults) => {
+    console.log("Generating Self-Awareness & Reflection report...");
+    const yourScore = scoredResults?.dimensionScores?.['selfAwarenessAndReflection'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Execution & Leadership']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Execution & Leadership']?.topPerformerScore;
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Self-Awareness & Reflection**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    const relevantResults = scoredResults.mcq_results.filter(q => q.q >= 188 && q.q <= 191);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        console.log("Successfully received Self-Awareness & Reflection report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Self-Awareness & Reflection report:", error);
+        return { diagnosticReview: "Error generating analysis.", benchmarkComparison: "Error generating analysis.", careerImplications: "Error generating analysis." };
+    }
+};
+
+// --- CREATIVITY & NARRATIVE POWER (Q192-194) ---
+const generateCreativityAndNarrativePowerReport = async (scoredResults) => {
+    console.log("Generating Creativity & Narrative Power report...");
+    const yourScore = scoredResults?.dimensionScores?.['creativityAndNarrativePower'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Brand Craft']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Brand Craft']?.topPerformerScore;
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Creativity & Narrative Power**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    const relevantResults = scoredResults.mcq_results.filter(q => q.q >= 192 && q.q <= 194);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        console.log("Successfully received Creativity & Narrative Power report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Creativity & Narrative Power report:", error);
+        return { diagnosticReview: "Error generating analysis.", benchmarkComparison: "Error generating analysis.", careerImplications: "Error generating analysis." };
+    }
+};
+
+// --- ANALYTICS KNOWLEDGE (Q195-213) ---
+const generateAnalyticsKnowledgeReport = async (scoredResults) => {
+    console.log("Generating Analytics Knowledge report...");
+    const yourScore = scoredResults?.dimensionScores?.['analyticsKnowledge'];
+    const industryAverage = scoredResults?.coreCapabilityScores?.['Commercial Rigor']?.industryAverage;
+    const topPerformerScore = scoredResults?.coreCapabilityScores?.['Commercial Rigor']?.topPerformerScore;
+    const systemPrompt = `
+Think and write as a globally renowned marketing strategist and thought leader, with deep expertise across analytics, strategy, brand management, digital marketing, and leadership. Your task is to produce a comprehensive assessment narrative based on the candidate’s performance in the dimension: **Analytics**.
+
+The candidate's score was ${yourScore?.toFixed(1)}%.
+The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
+The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
+
+You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
+
+**Part 1: Diagnostic Review (500-600 words minimum)**
+Write a professional, detailed, and nuanced review of the candidate’s score. Cover the following:
+- What the score objectively shows about their current capability.
+- Where their answers (provided in the user message) reveal strong applied understanding.
+- Where blind spots, contradictions, or gaps are evident from their answers.
+- Why this dimension is critical for credibility and influence in modern marketing.
+*Tone: analytical yet supportive, with depth expected from a world-class assessor.*
+
+**Part 2: Benchmark Comparison (80-100 words)**
+Compare the candidate’s score to the two benchmarks. Highlight how the candidate fares in relation to both.
+*Framing: Frame this as an opportunity for growth and improvement - never in a judgmental or discouraging way.*
+
+**Part 3: Career Implications**
+Explain what career risks or credibility gaps emerge if the candidate does not strengthen this dimension. Connect the risk to real-world outcomes: boardroom discussions, cross-functional influence, team leadership, or ROI accountability.
+*Tone: Urgent but professional, showing why action is critical.*
+`;
+    const relevantResults = scoredResults.mcq_results.filter(q => q.q >= 195 && q.q <= 213);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 2000, temperature: 0.5,
+        });
+        console.log("Successfully received Analytics Knowledge report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Analytics Knowledge report:", error);
+        return { diagnosticReview: "Error generating analysis.", benchmarkComparison: "Error generating analysis.", careerImplications: "Error generating analysis." };
+    }
+};
+
+// Additional functions for other clusters would follow the same pattern
+
+module.exports = {
+  calculateScores,
+  generateExecutiveSummary,
+  generateStrategicJudgmentReport,
+  generateBrandCommAcumenReport,
+  generateCommercialAcumenReport,
+  generateLeadershipTeamOrientationReport,
+  generateResourceAllocationDisciplineReport,
+  generateCommercialGrowthOrientationReport,
+  generateFoundationsOfStrategyReport,
+  generateBrandAndCommunicationsKnowledgeReport,
+  generatePricingAndChannelsKnowledgeReport, // This was likely missing
+  generatePaucityOfBudgetsKnowledgeReport,
+  generateDigitalAndDataKnowledgeReport,
+  generateGlobalAndCulturalKnowledgeReport,
+  generateFutureAndThoughtLeadershipKnowledgeReport,
+  generateStrategyAndPositioningApplicationReport,
+  generateBrandAndCommunicationApplicationReport,
+  generateCustomerAndGrowthApplicationReport,
+  generateChannelsAndDistributionApplicationReport,
+  generatePricingAndMonetizationApplicationReport,
+  generateMarketingBudgetsApplicationReport,
+  generateExecutionAndPrioritizationDisciplineReport,
+  generateSelfAwarenessAndReflectionReport,
+  generateCreativityAndNarrativePowerReport,
+  generateAnalyticsKnowledgeReport
+};
+
+// At the VERY END of logic/marketing-ai-specialists.js

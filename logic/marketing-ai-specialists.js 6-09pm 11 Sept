@@ -1,0 +1,955 @@
+// marketing-ai-specialists.js
+
+const { OpenAI } = require('openai');
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+/**
+ * ## INSTRUCTIONS FOR: calculateScores ##
+ *
+ * This function must be pure JavaScript and should NOT call an AI.
+ * It calculates scores based on the rules from the "Marketing Influence Quotient" PDF.
+ */
+// Replace your old calculateScores function with this one.
+
+// In logic/marketing-ai-specialists.js, replace your entire calculateScores function with this one.
+
+// In logic/marketing-ai-specialists.js, replace your entire calculateScores function with this.
+
+const calculateScores = (answers, answerKey) => {
+  console.log("Calculating scores with chart data aggregation...");
+
+  // --- ADDED: Variable declarations were missing ---
+  let trade_points = 0;
+  let num_pairs_clarity = 0;
+  let num_pairs_internal_contradiction = 0;
+  let num_pairs_flexibility = 0;
+  let num_pairs_ambiguous = 0;
+  // ---------------------------------------------
+
+  const tradeOffPairs = [
+    [1,2],[3,4],[5,6],[7,8],[9,10],[11,12],[13,14],[15,16],[17,18],[19,20],
+    [21,22],[23,24],[25,26],[27,28],[29,30],[31,32],[33,34],[35,36],[37,38],[39,40],
+    [41,42],[43,44],[45,46],[47,48],[49,50],[51,52],[53,54],[55,56],[57,58],[59,60],
+    [61,62],[63,64],[65,66],[67,68],[69,70],[71,72],[73,74],[75,76],[77,78],[79,80]
+  ];
+
+  const pairs_results = tradeOffPairs.map(([qA, qB], index) => {
+    const rA = answers[qA];
+    const rB = answers[qB];
+    let pair_status = "ambiguous";
+    let points_awarded = 0;
+
+    if (!rA || !rB) {
+      pair_status = "missing";
+    } else if ((rA >= 5 && rB <= 2) || (rA <= 2 && rB >= 5)) {
+      pair_status = "clarity";
+      points_awarded = 2;
+      trade_points += 2;
+      num_pairs_clarity++;
+    } else if ((rA >= 5 && rB >= 5) || (rA <= 2 && rB <= 2)) {
+      pair_status = "internal_contradiction";
+      num_pairs_internal_contradiction++;
+    } else if ((rA >= 3 && rA <= 4 && rB >= 3 && rB <= 4) || Math.abs(rA - rB) === 1) {
+      pair_status = "flexibility";
+      num_pairs_flexibility++;
+    } else {
+      num_pairs_ambiguous++;
+    }
+    
+    return { pair_id: index + 1, qA, qB, rA, rB, pair_status, points_awarded };
+  });
+
+  const mcq_results = [];
+  for (let q = 81; q <= 213; q++) {
+    const is_correct = answers[q]?.toString().toLowerCase() === answerKey[q]?.toString().toLowerCase();
+    mcq_results.push({ q: q, is_correct, response: answers[q] || null });
+  }
+  const mcq_points = mcq_results.filter(r => r.is_correct).length;
+  const total_points = trade_points + mcq_points;
+  const percentage = (total_points / 213) * 100;
+
+  const dimensionScores = {};
+  const dimensionQuestionMap = {
+      strategicJudgment: { type: 'tradeoff', questions: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] },
+      brandCommAcumen: { type: 'tradeoff', questions: [11, 12, 13, 14, 15, 16, 17, 18] },
+      commercialAcumen: { type: 'tradeoff', questions: [19, 20, 21, 22, 23, 24, 25, 26, 27, 28] },
+      leadershipTeamOrientation: { type: 'tradeoff', questions: [29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48] },
+      resourceAllocationDiscipline: { type: 'tradeoff', questions: [49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68] },
+      commercialGrowthOrientation: { type: 'tradeoff', questions: [69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80] },
+      foundationsOfStrategy: { type: 'mcq', start: 81, end: 96 },
+      brandAndCommunicationsKnowledge: { type: 'mcq', start: 97, end: 108 },
+      analyticsKnowledge: { type: 'mcq', start: 195, end: 213 }
+  };
+
+  for (const [key, value] of Object.entries(dimensionQuestionMap)) {
+      let score = 0;
+      let maxScore = 0;
+      if (value.type === 'tradeoff') {
+          maxScore = value.questions.length;
+          const relevantPairs = pairs_results.filter(p => value.questions.includes(p.qA));
+          score = relevantPairs.reduce((sum, p) => sum + p.points_awarded, 0);
+      } else { 
+          maxScore = value.end - value.start + 1;
+          const relevantMcqs = mcq_results.filter(mcq => mcq.q >= value.start && mcq.q <= value.end);
+          score = relevantMcqs.filter(mcq => mcq.is_correct).length;
+      }
+      dimensionScores[key] = maxScore > 0 ? (score / maxScore) * 100 : 0;
+  }
+  
+  console.log(`Scoring complete. Total points: ${total_points}`);
+
+  return {
+    trade_points,
+    mcq_points,
+    total_points,
+    percentage,
+    pairs: pairs_results,
+    mcq_results: mcq_results,
+    dimensionScores,
+    num_pairs_clarity,
+    num_pairs_internal_contradiction,
+    num_pairs_flexibility,
+    num_pairs_ambiguous,
+    num_mcq_correct: mcq_points,
+    num_mcq_incorrect: 133 - mcq_points,
+  };
+};
+
+/**
+ * Helper function to filter answers for specific questions
+ */
+const filterAnswers = (answers, questionNumbers) => {
+  const filtered = {};
+  questionNumbers.forEach(q => {
+    const key = `Q${q}`;
+    if (answers[key] !== undefined) {
+      filtered[key] = answers[key];
+    }
+  });
+  return filtered;
+};
+
+/**
+ * Helper function to call OpenAI API
+ */
+const callOpenAI = async (systemPrompt, userContent, responseFormat = null) => {
+  try {
+    const messages = [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: userContent }
+    ];
+    
+    const params = {
+      model: "gpt-4-turbo",
+      messages: messages,
+      temperature: 0.7,
+      max_tokens: 2000
+    };
+    
+    if (responseFormat) {
+      params.response_format = responseFormat;
+    }
+    
+    const completion = await openai.chat.completions.create(params);
+    return JSON.parse(completion.choices[0].message.content);
+  } catch (error) {
+    console.error("Error calling OpenAI API:", error);
+    throw error;
+  }
+};
+
+// --- 1. EXECUTIVE SUMMARY ---
+// In logic/marketing-ai-specialists.js, replace the old executive summary function
+
+const generateExecutiveSummary = async (scoredResults, answers) => {
+    console.log("Generating Executive Summary report...");
+
+    // This is a new, more robust prompt to fix the blank sections
+    const systemPrompt = `
+      You are an expert leadership analyst. You will be provided with the full scored results of a "Marketing Influence Quotient" assessment.
+      Your task is to synthesize these results into a concise and impactful executive summary.
+      You MUST return a single JSON object with the following exact keys: "compositeScoreText", "strengthsText", "prioritiesText", "careerImpactStatement".
+
+      - For "compositeScoreText", write a 2-3 sentence analysis of the candidate's overall score (${scoredResults.percentage.toFixed(1)}%). Explain what this score level generally indicates in terms of readiness and capability.
+      - For "strengthsText", identify the top 3 strengths from the entire report and synthesize them into a 2-3 sentence paragraph.
+      - For "prioritiesText", identify the top 3 development priorities and synthesize them into a 2-3 sentence paragraph.
+      - For "careerImpactStatement", write a single, forward-looking sentence (25-35 words) that distills the candidate's results into a statement of career trajectory and leadership impact.
+      
+      The tone must be professional, direct, and diagnostic.
+    `;
+
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo",
+            response_format: { type: "json_object" },
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: `Here is the full scored report data: ${JSON.stringify({ scoredResults, answers })}` }
+            ],
+            max_tokens: 1000,
+            temperature: 0.5,
+        });
+        console.log("Successfully received Executive Summary report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Executive Summary report:", error);
+        return {
+            compositeScoreText: "An error occurred while analyzing the composite score.",
+            strengthsText: "Analysis of strengths could not be completed.",
+            prioritiesText: "Analysis of development priorities could not be completed.",
+            careerImpactStatement: "Analysis of career impact could not be completed."
+        };
+    }
+};
+
+// --- 2. TRADE-OFF DIMENSIONS ---
+const generateStrategicJudgmentReport = async (answers) => {
+  const systemPrompt = `Evaluate the respondent's handling of the dimension Strategic Judgment, which is assessed through five mirrored trade-offs: 
+  - Brand Building vs Performance Marketing (Q1, Q2)
+  - Penetration vs Loyalty (Q3, Q4)
+  - Differentiation vs Distinctiveness (Q5, Q6)
+  - Standardization vs Localization (Q7, Q8)
+  - Innovation vs Consistency (Q9, Q10)
+  
+  Each trade-off has two mirrored questions with Likert scale answers (1-6). Assess each pair using the following rules:
+  1. If one response is strongly agree/disagree (1-2 or 5-6) and the other is the opposite (5-6 or 1-2), classify this as consistent clarity.
+  2. If both responses are strongly in the same direction, classify as internal contradiction.
+  3. If both responses are mid-range, classify as situational flexibility.
+  
+  After evaluating, synthesize the results into an overall evaluation of Strategic Judgment. 
+  Write a 500-600 word inference that:
+  - States the respondent's dominant orientation across these trade-offs
+  - Explains how this orientation shows up in their approach to balancing long-term equity vs short-term ROI, penetration vs loyalty, etc.
+  - Highlights the strengths of their approach
+  - Flags the risks or blind spots this orientation creates
+  - Provides developmental advice
+  
+  Write in a professional, coaching-oriented tone. Return a JSON object with a single key "report" containing the analysis.`;
+
+  const userContent = JSON.stringify({
+    answers: filterAnswers(answers, [1,2,3,4,5,6,7,8,9,10])
+  });
+
+  return await callOpenAI(systemPrompt, userContent, { type: "json_object" });
+};
+
+const generateBrandCommAcumenReport = async (answers) => {
+  const systemPrompt = `Evaluate the respondent's handling of Brand & Communication Acumen through these mirrored trade-offs:
+  - Control vs Authenticity (Q11, Q12)
+  - Message Consistency vs Channel Customization (Q13, Q14)
+  - Emotional Storytelling vs Rational Proof Points (Q15, Q16)
+  - Mass Awareness vs Niche Precision (Q17, Q18)
+  
+  Use the same assessment rules as Strategic Judgment. Write a 500-600 word inference in professional, coaching-oriented tone.
+  Return a JSON object with a single key "report" containing the analysis.`;
+
+  const userContent = JSON.stringify({
+    answers: filterAnswers(answers, [11,12,13,14,15,16,17,18])
+  });
+
+  return await callOpenAI(systemPrompt, userContent, { type: "json_object" });
+};
+
+const generateCommercialAcumenReport = async (answers) => {
+  const systemPrompt = `Evaluate the respondent's handling of Commercial Acumen through these mirrored trade-offs:
+  - Value-based Pricing vs Affordability (Q19, Q20)
+  - Premiumization vs Mass-market Reach (Q21, Q22)
+  - Dynamic Pricing vs Trust Preservation (Q23, Q24)
+  - Price Promotions vs Equity Reinforcement (Q25, Q26)
+  - Marketing Investment vs Cost Efficiency (Q27, Q28)
+  
+  Use the same assessment rules. Write a 500-600 word inference in professional, coaching-oriented tone.
+  Return a JSON object with a single key "report" containing the analysis.`;
+
+  const userContent = JSON.stringify({
+    answers: filterAnswers(answers, [19,20,21,22,23,24,25,26,27,28])
+  });
+
+  return await callOpenAI(systemPrompt, userContent, { type: "json_object" });
+};
+
+const generateLeadershipTeamOrientationReport = async (answers) => {
+  const systemPrompt = `Evaluate the respondent's handling of Leadership & Team Orientation through these mirrored trade-offs:
+  - Specialists vs Generalists (Q29, Q30)
+  - In-house vs Outsourced Talent (Q31, Q32)
+  - Speed vs Craft (Q33, Q34)
+  - Centralized vs Decentralized Decision-Making (Q35, Q36)
+  - Creative Freedom vs Strategic Discipline (Q37, Q38)
+  - Retention vs Renewal (Q39, Q40)
+  - Short-term Targets vs Long-term Development (Q41, Q42)
+  - Collaboration vs Accountability (Q43, Q44)
+  - Structure vs Agility (Q45, Q46)
+  - Recognition vs Resilience (Q47, Q48)
+  
+  Use the same assessment rules. Write a 600-700 word inference in professional, coaching-oriented tone.
+  Return a JSON object with a single key "report" containing the analysis.`;
+
+  const userContent = JSON.stringify({
+    answers: filterAnswers(answers, Array.from({length: 20}, (_, i) => i + 29))
+  });
+
+  return await callOpenAI(systemPrompt, userContent, { type: "json_object" });
+};
+
+const generateResourceAllocationDisciplineReport = async (answers) => {
+  const systemPrompt = `Evaluate the respondent's handling of Resource Allocation Discipline through these mirrored trade-offs:
+  - Brand Investment vs Performance Spend (Q49, Q50)
+  - Acquisition vs Retention Spend (Q51, Q52)
+  - Traditional Media vs Digital Channels (Q53, Q54)
+  - Global Campaigns vs Local Adaptations (Q55, Q56)
+  - Experimentation vs Proven Channels (Q57, Q58)
+  - Paid Media vs Owned/Earned Media (Q59, Q60)
+  - Always-on vs Burst Campaigns (Q61, Q62)
+  - Short-term Cost Cutting vs Long-term Brand Defense (Q63, Q64)
+  - Zero-Based vs Incremental Budgeting (Q65, Q66)
+  - Efficiency vs Effectiveness (Q67, Q68)
+  
+  Use the same assessment rules. Write a 600-700 word inference in professional, coaching-oriented tone.
+  Return a JSON object with a single key "report" containing the analysis.`;
+
+  const userContent = JSON.stringify({
+    answers: filterAnswers(answers, Array.from({length: 20}, (_, i) => i + 49))
+  });
+
+  return await callOpenAI(systemPrompt, userContent, { type: "json_object" });
+};
+
+const generateCommercialGrowthOrientationReport = async (answers) => {
+  const systemPrompt = `Evaluate the respondent's handling of Commercial Growth Orientation through these mirrored trade-offs:
+  - Sales Activation vs Brand Building (Q69, Q70)
+  - Revenue Targets vs Customer Experience (Q71, Q72)
+  - Sales Enablement vs Market Development (Q73, Q74)
+  - Quarterly Targets vs Long-term Market Share (Q75, Q76)
+  - Sales Pressure vs Innovation Investment (Q77, Q78)
+  - Conversion at All Costs vs Trust Preservation (Q79, Q80)
+  
+  Use the same assessment rules. Write a 500-600 word inference in professional, coaching-oriented tone.
+  Return a JSON object with a single key "report" containing the analysis.`;
+
+  const userContent = JSON.stringify({
+    answers: filterAnswers(answers, Array.from({length: 12}, (_, i) => i + 69))
+  });
+
+  return await callOpenAI(systemPrompt, userContent, { type: "json_object" });
+};
+
+// Replace the old, faulty function with this correct version.
+
+const generateFoundationsOfStrategyReport = async (scoredMcqResults) => {
+    console.log("Generating Foundations of Strategy report...");
+    
+    // This prompt is from the PDF, page 109
+    const systemPrompt = `
+      Evaluate the candidate’s performance in Foundations of Strategy, covering Q81–96. This cluster assesses their mastery of core strategic frameworks like Consumer Behaviour Theories, STP, Jobs to be Done, competitive strategy, Blue Ocean, competitive moats, Brand Equity Models, and CLV/Unit Economics.
+      
+      Use the candidate’s responses (correct or incorrect for each question) to generate a professional diagnostic narrative with the following JSON structure:
+      {
+        "overallInference": "A 200-250 word holistic interpretation of their strategic marketing knowledge and its implications for their leadership potential.",
+        "strengths": ["A bullet list of 3-5 specific strengths revealed by correct answers."],
+        "improvements": ["A bullet list of 3-5 specific gaps implied by incorrect answers."],
+        "immediateAttention": "A 2-3 sentence summary of the single most critical gap that could undermine their influence.",
+        "recommendations": "A 150-200 word paragraph with tailored developmental suggestions."
+      }
+      The tone must be professional, constructive, and coaching-oriented.
+    `;
+
+    // Filter for only the relevant questions (Q81-Q96)
+    const relevantResults = scoredMcqResults.filter(q => q.q >= 81 && q.q <= 96);
+
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo",
+            response_format: { type: "json_object" },
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: `Here are the scored results for this section: ${JSON.stringify(relevantResults)}` }
+            ],
+            max_tokens: 1200,
+            temperature: 0.5,
+        });
+        console.log("Successfully received Foundations of Strategy report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("DETAILED ERROR in Foundations of Strategy:", JSON.stringify(error, null, 2));
+        return {
+            overallInference: "Error generating analysis for Foundations of Strategy.",
+            strengths: [],
+            improvements: [],
+            immediateAttention: "",
+            recommendations: ""
+        };
+    }
+};
+
+// Replace the old, faulty function with this correct version.
+
+const generateBrandAndCommunicationsKnowledgeReport = async (scoredMcqResults) => {
+    console.log("Generating Brand & Communications Knowledge report...");
+
+    // This prompt is from the PDF, page 111
+    const systemPrompt = `
+      Evaluate the candidate’s performance in Brand & Communications knowledge, covering Q97–108. This cluster assesses their understanding of storytelling, cultural branding, advertising models, distinctive assets, IMC, and crisis communication.
+
+      Use the candidate’s responses (correct or incorrect for each question) to generate a professional diagnostic narrative with the following JSON structure:
+      {
+        "overallInference": "A 200-250 word holistic interpretation of their command of brand and communication theory.",
+        "strengths": ["A bullet list of 3-5 specific strengths revealed by correct answers."],
+        "improvements": ["A bullet list of 3-5 specific gaps implied by incorrect answers."],
+        "immediateAttention": "A 2-3 sentence summary of the single most critical blind spot.",
+        "recommendations": "A 150-200 word paragraph with tailored developmental suggestions."
+      }
+      The tone must be professional, constructive, and coaching-oriented.
+    `;
+
+    // Filter for only the relevant questions (Q97-Q108)
+    const relevantResults = scoredMcqResults.filter(q => q.q >= 97 && q.q <= 108);
+
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo",
+            response_format: { type: "json_object" },
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: `Here are the scored results for this section: ${JSON.stringify(relevantResults)}` }
+            ],
+            max_tokens: 1200,
+            temperature: 0.5,
+        });
+        console.log("Successfully received Brand & Communications Knowledge report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Brand & Communications Knowledge report:", error);
+        return {
+            overallInference: "Error generating analysis for Brand & Communications.",
+            strengths: [],
+            improvements: [],
+            immediateAttention: "",
+            recommendations: ""
+        };
+    }
+};
+
+// Paste this new function into logic/marketing-ai-specialists.js
+
+// Find this function in logic/marketing-ai-specialists.js
+const generatePricingAndChannelsKnowledgeReport = async (scoredMcqResults) => {
+    console.log("Generating Pricing & Channels Knowledge report...");
+    
+    // <<< REPLACE THE OLD PROMPT WITH THIS CLEAN ONE >>>
+    const systemPrompt = `
+      Evaluate the candidate’s performance in Pricing & Channels, covering Q109–114. This 
+      cluster assesses their understanding of pricing strategies and channel dynamics in modern 
+      marketing including: Value-based, dynamic, freemium, and premium models; Retail, D2C, and e-commerce platform influence; and Omnichannel vs Multichannel marketing.
+
+      Use the candidate’s responses (correct or incorrect for each question) to generate a 
+      professional diagnostic narrative with the following JSON structure:
+      {
+        "overallInference": "A 200-250 word holistic interpretation of their command of pricing and channel strategy.",
+        "strengths": ["A bullet list of 2-4 specific strengths revealed by correct answers."],
+        "improvements": ["A bullet list of 2-4 specific gaps implied by incorrect answers."],
+        "immediateAttention": "A 2-3 sentence summary of the most critical blind spot.",
+        "recommendations": "A 150-200 word paragraph with tailored developmental suggestions referencing Leadership Accelerator resources."
+      }
+      The tone must be professional, constructive, and coaching-oriented.
+    `;
+
+    // Filter for only the relevant questions (Q109-Q114)
+    const relevantResults = scoredMcqResults.filter(q => q.q >= 109 && q.q <= 114);
+
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo",
+            response_format: { type: "json_object" },
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: `Here are the scored results for this section: ${JSON.stringify(relevantResults)}` }
+            ],
+            max_tokens: 1000,
+            temperature: 0.5,
+        });
+        console.log("Successfully received Pricing & Channels Knowledge report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Pricing & Channels Knowledge report:", error);
+        return {
+            overallInference: "Error generating analysis.",
+            strengths: [],
+            improvements: [],
+            immediateAttention: "",
+            recommendations: ""
+        };
+    }
+};
+
+// Paste this new function into logic/marketing-ai-specialists.js
+
+const generatePaucityOfBudgetsKnowledgeReport = async (scoredMcqResults) => {
+    console.log("Generating Paucity of Budgets Knowledge report...");
+    
+    // This prompt is based on the PDF outline for questions Q115-118
+    const systemPrompt = `
+      Evaluate the candidate’s performance in Paucity of Budgets, covering Q115–118. This 
+      cluster assesses their understanding of how to make effective strategic decisions under
+      conditions of budget scarcity, covering retail marketing and channel selection.
+
+      Use the candidate’s responses (correct or incorrect for each question) to generate a 
+      professional diagnostic narrative with the following JSON structure:
+      {
+        "overallInference": "A 200-250 word holistic interpretation of their ability to strategize with limited budgets.",
+        "strengths": ["A bullet list of 2-3 specific strengths revealed by correct answers."],
+        "improvements": ["A bullet list of 2-3 specific gaps implied by incorrect answers."],
+        "immediateAttention": "A 2-3 sentence summary of the most critical blind spot in their budget thinking.",
+        "recommendations": "A 150-200 word paragraph with tailored developmental suggestions referencing Leadership Accelerator resources."
+      }
+      The tone must be professional, constructive, and coaching-oriented.
+    `;
+
+    // Filter for only the relevant questions (Q115-Q118)
+    const relevantResults = scoredMcqResults.filter(q => q.q >= 115 && q.q <= 118);
+
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo",
+            response_format: { type: "json_object" },
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: `Here are the scored results for this section: ${JSON.stringify(relevantResults)}` }
+            ],
+            max_tokens: 1000,
+            temperature: 0.5,
+        });
+        console.log("Successfully received Paucity of Budgets Knowledge report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Paucity of Budgets Knowledge report:", error);
+        return {
+            overallInference: "Error generating analysis.",
+            strengths: [],
+            improvements: [],
+            immediateAttention: "",
+            recommendations: ""
+        };
+    }
+};
+
+// --- DIGITAL & DATA KNOWLEDGE (Q119-124) ---
+const generateDigitalAndDataKnowledgeReport = async (scoredMcqResults) => {
+    console.log("Generating Digital & Data Knowledge report...");
+    const systemPrompt = `
+      Evaluate the candidate’s performance in Digital & Data, covering Q119–124. This cluster assesses their ability to navigate frameworks for growth vs. brand marketing, automation/personalization, and attribution models.
+      Use the candidate’s responses to generate a professional diagnostic narrative with the following JSON structure:
+      {
+        "overallInference": "A 200-250 word interpretation of their ability to apply digital and data frameworks.",
+        "strengths": ["A bullet list of 2-3 specific strengths."],
+        "improvements": ["A bullet list of 2-3 specific gaps."],
+        "immediateAttention": "A 2-3 sentence summary of the most critical blind spot.",
+        "recommendations": "A 150-200 word paragraph with tailored developmental suggestions."
+      }
+      The tone must be professional, constructive, and coaching-oriented.
+    `;
+    const relevantResults = scoredMcqResults.filter(q => q.q >= 119 && q.q <= 124);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 1000, temperature: 0.5,
+        });
+        console.log("Successfully received Digital & Data Knowledge report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Digital & Data Knowledge report:", error);
+        return { overallInference: "Error generating analysis.", strengths: [], improvements: [], immediateAttention: "", recommendations: "" };
+    }
+};
+
+// --- GLOBAL & CULTURAL KNOWLEDGE (Q125-130) ---
+const generateGlobalAndCulturalKnowledgeReport = async (scoredMcqResults) => {
+    console.log("Generating Global & Cultural Knowledge report...");
+    const systemPrompt = `
+      Evaluate the candidate’s performance in Global & Cultural Dimensions, covering Q125–130. This cluster assesses their understanding of global branding vs. local adaptation, cross-cultural consumer behaviour, and emerging market strategies.
+      Use the candidate’s responses to generate a professional diagnostic narrative with the following JSON structure:
+      {
+        "overallInference": "A 200-250 word interpretation of their ability to work across global and cultural contexts.",
+        "strengths": ["A bullet list of 2-3 specific strengths."],
+        "improvements": ["A bullet list of 2-3 specific gaps."],
+        "immediateAttention": "A 2-3 sentence summary of the most critical blind spot.",
+        "recommendations": "A 150-200 word paragraph with tailored developmental suggestions."
+      }
+      The tone must be professional, constructive, and coaching-oriented.
+    `;
+    const relevantResults = scoredMcqResults.filter(q => q.q >= 125 && q.q <= 130);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 1000, temperature: 0.5,
+        });
+        console.log("Successfully received Global & Cultural Knowledge report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Global & Cultural Knowledge report:", error);
+        return { overallInference: "Error generating analysis.", strengths: [], improvements: [], immediateAttention: "", recommendations: "" };
+    }
+};
+
+// --- FUTURE & THOUGHT LEADERSHIP (Q131-132) ---
+const generateFutureAndThoughtLeadershipKnowledgeReport = async (scoredMcqResults) => {
+    console.log("Generating Future & Thought Leadership report...");
+    const systemPrompt = `
+      Evaluate the candidate’s performance in Future & Thought Leadership, covering Q131–132. This cluster assesses their awareness of the rise of influencer and creator-driven ecosystems and parasocial relationships.
+      Use the candidate’s responses to generate a professional diagnostic narrative with the following JSON structure:
+      {
+        "overallInference": "A 150-200 word interpretation of their grasp of emerging marketing trends.",
+        "strengths": ["A bullet list of 1-2 specific strengths."],
+        "improvements": ["A bullet list of 1-2 specific gaps."],
+        "immediateAttention": "A 2-3 sentence summary of the most pressing blind spot.",
+        "recommendations": "A 150-200 word paragraph with tailored developmental suggestions."
+      }
+      The tone must be professional and future-focused.
+    `;
+    const relevantResults = scoredMcqResults.filter(q => q.q >= 131 && q.q <= 132);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 1000, temperature: 0.5,
+        });
+        console.log("Successfully received Future & Thought Leadership report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Future & Thought Leadership report:", error);
+        return { overallInference: "Error generating analysis.", strengths: [], improvements: [], immediateAttention: "", recommendations: "" };
+    }
+};
+
+// --- STRATEGY & POSITIONING APPLICATION (Q133-142) ---
+const generateStrategyAndPositioningApplicationReport = async (scoredMcqResults) => {
+    console.log("Generating Strategy & Positioning Application report...");
+    const systemPrompt = `
+      Evaluate the candidate’s performance in Strategy & Positioning Application, covering Q133–142. This cluster assesses their ability to apply strategic frameworks to real-world scenarios like positioning in crowded categories, launching products, responding to disruptors, and building competitive moats.
+      Use the candidate’s responses to generate a professional diagnostic narrative with the following JSON structure:
+      {
+        "overallInference": "A 200-250 word interpretation of their ability to apply strategy in practice.",
+        "strengths": ["A bullet list of 2-4 specific strengths."],
+        "improvements": ["A bullet list of 2-4 specific gaps."],
+        "immediateAttention": "A 2-3 sentence summary of the most critical blind spot.",
+        "recommendations": "A 150-200 word paragraph with tailored developmental suggestions."
+      }
+      The tone must be professional and constructive.
+    `;
+    const relevantResults = scoredMcqResults.filter(q => q.q >= 133 && q.q <= 142);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 1000, temperature: 0.5,
+        });
+        console.log("Successfully received Strategy & Positioning Application report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Strategy & Positioning Application report:", error);
+        return { overallInference: "Error generating analysis.", strengths: [], improvements: [], immediateAttention: "", recommendations: "" };
+    }
+};
+
+// --- BRAND & COMMUNICATION APPLICATION (Q143-152) ---
+const generateBrandAndCommunicationApplicationReport = async (scoredMcqResults) => {
+    console.log("Generating Brand & Communication Application report...");
+    const systemPrompt = `
+      Evaluate the candidate’s performance in Brand & Communication Application, covering Q143–152. This cluster assesses their ability to apply communication frameworks in high-stakes contexts like crisis communication, balancing brand vs. performance, and managing influencer collaborations.
+      Use the candidate’s responses to generate a professional diagnostic narrative with the following JSON structure:
+      {
+        "overallInference": "A 200-250 word interpretation of their ability to apply communication frameworks.",
+        "strengths": ["A bullet list of 3-5 specific strengths."],
+        "improvements": ["A bullet list of 3-5 specific gaps."],
+        "immediateAttention": "A 2-3 sentence summary of the most critical blind spot.",
+        "recommendations": "A 150-200 word paragraph with tailored developmental suggestions."
+      }
+      The tone must be professional and constructive.
+    `;
+    const relevantResults = scoredMcqResults.filter(q => q.q >= 143 && q.q <= 152);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 1000, temperature: 0.5,
+        });
+        console.log("Successfully received Brand & Communication Application report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Brand & Communication Application report:", error);
+        return { overallInference: "Error generating analysis.", strengths: [], improvements: [], immediateAttention: "", recommendations: "" };
+    }
+};
+
+// --- CUSTOMER & GROWTH APPLICATION (Q153-156) ---
+const generateCustomerAndGrowthApplicationReport = async (scoredMcqResults) => {
+    console.log("Generating Customer & Growth Application report...");
+    const systemPrompt = `
+      Evaluate the candidate’s performance in Customer & Growth, covering Q153–156. This cluster assesses their ability to design strategies for reducing churn, increasing retention, and building loyalty programs that reinforce brand equity.
+      Use the candidate’s responses to generate a professional diagnostic narrative with the following JSON structure:
+      {
+        "overallInference": "A 200-250 word interpretation of their ability to connect retention and loyalty to brand value.",
+        "strengths": ["A bullet list of 2-3 specific strengths."],
+        "improvements": ["A bullet list of 2-3 specific gaps."],
+        "immediateAttention": "A 2-3 sentence summary of the most critical blind spot.",
+        "recommendations": "A 150-200 word paragraph with tailored developmental suggestions."
+      }
+      The tone must be professional and constructive.
+    `;
+    const relevantResults = scoredMcqResults.filter(q => q.q >= 153 && q.q <= 156);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 1000, temperature: 0.5,
+        });
+        console.log("Successfully received Customer & Growth Application report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Customer & Growth Application report:", error);
+        return { overallInference: "Error generating analysis.", strengths: [], improvements: [], immediateAttention: "", recommendations: "" };
+    }
+};
+
+// --- CHANNELS & DISTRIBUTION APPLICATION (Q157-168) ---
+const generateChannelsAndDistributionApplicationReport = async (scoredMcqResults) => {
+    console.log("Generating Channels & Distribution Application report...");
+    const systemPrompt = `
+      Evaluate the candidate’s performance in Channels & Distribution, covering Q157–168. This cluster assesses their ability to design and defend distribution strategies involving retail, D2C, omnichannel journeys, retail media, and aggregator platforms.
+      Use the candidate’s responses to generate a professional diagnostic narrative with the following JSON structure:
+      {
+        "overallInference": "A 200-250 word interpretation of their ability to manage distribution strategy.",
+        "strengths": ["A bullet list of 3-5 specific strengths."],
+        "improvements": ["A bullet list of 3-5 specific gaps."],
+        "immediateAttention": "A 2-3 sentence summary of the most critical blind spot.",
+        "recommendations": "A 150-200 word paragraph with tailored developmental suggestions."
+      }
+      The tone must be professional and constructive.
+    `;
+    const relevantResults = scoredMcqResults.filter(q => q.q >= 157 && q.q <= 168);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 1000, temperature: 0.5,
+        });
+        console.log("Successfully received Channels & Distribution Application report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Channels & Distribution Application report:", error);
+        return { overallInference: "Error generating analysis.", strengths: [], improvements: [], immediateAttention: "", recommendations: "" };
+    }
+};
+
+// --- PRICING & MONETIZATION APPLICATION (Q169-178) ---
+const generatePricingAndMonetizationApplicationReport = async (scoredMcqResults) => {
+    console.log("Generating Pricing & Monetization Application report...");
+    const systemPrompt = `
+      Evaluate the candidate’s performance in Pricing & Monetization, covering Q169–178. This cluster assesses their ability to design pricing strategies that balance profitability, brand positioning, and customer trust, including freemium/premium models, dynamic pricing, and managing price wars.
+      Use the candidate’s responses to generate a professional diagnostic narrative with the following JSON structure:
+      {
+        "overallInference": "A 200-250 word interpretation of their approach to pricing strategy.",
+        "strengths": ["A bullet list of 3-5 specific strengths."],
+        "improvements": ["A bullet list of 3-5 specific gaps."],
+        "immediateAttention": "A 2-3 sentence summary of the most critical blind spot.",
+        "recommendations": "A 150-200 word paragraph with tailored developmental suggestions."
+      }
+      The tone must be professional and commercially rigorous.
+    `;
+    const relevantResults = scoredMcqResults.filter(q => q.q >= 169 && q.q <= 178);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 1000, temperature: 0.5,
+        });
+        console.log("Successfully received Pricing & Monetization Application report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Pricing & Monetization Application report:", error);
+        return { overallInference: "Error generating analysis.", strengths: [], improvements: [], immediateAttention: "", recommendations: "" };
+    }
+};
+
+// --- MARKETING BUDGETS APPLICATION (Q179-182) ---
+const generateMarketingBudgetsApplicationReport = async (scoredMcqResults) => {
+    console.log("Generating Marketing Budgets Application report...");
+    const systemPrompt = `
+      Evaluate the candidate’s performance in Marketing Budgets, covering Q179–182. This cluster assesses their ability to make disciplined and persuasive decisions about reallocating budgets when attribution is unclear and defending marketing spend during downturns.
+      Use the candidate’s responses to generate a professional diagnostic narrative with the following JSON structure:
+      {
+        "overallInference": "A 200-250 word interpretation of their ability to manage and defend marketing investments.",
+        "strengths": ["A bullet list of 2-3 specific strengths."],
+        "improvements": ["A bullet list of 2-3 specific gaps."],
+        "immediateAttention": "A 2-3 sentence summary of the most critical blind spot.",
+        "recommendations": "A 150-200 word paragraph with tailored developmental suggestions."
+      }
+      The tone must be professional and boardroom-ready.
+    `;
+    const relevantResults = scoredMcqResults.filter(q => q.q >= 179 && q.q <= 182);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 1000, temperature: 0.5,
+        });
+        console.log("Successfully received Marketing Budgets Application report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Marketing Budgets Application report:", error);
+        return { overallInference: "Error generating analysis.", strengths: [], improvements: [], immediateAttention: "", recommendations: "" };
+    }
+};
+
+// --- EXECUTION & PRIORITIZATION DISCIPLINE (Q183-187) ---
+const generateExecutionAndPrioritizationDisciplineReport = async (scoredMcqResults) => {
+    console.log("Generating Execution & Prioritization Discipline report...");
+    const systemPrompt = `
+      Evaluate the candidate’s performance in Execution & Prioritization Discipline, covering Q183–187. This cluster assesses their ability to prioritize effectively and execute with discipline under constraints, including general marketing activities, content marketing, and crisis communication.
+      Use the candidate’s responses to generate a professional diagnostic narrative with the following JSON structure:
+      {
+        "overallInference": "A 200-250 word interpretation of their ability to prioritize and execute.",
+        "strengths": ["A bullet list of 2-3 specific strengths."],
+        "improvements": ["A bullet list of 2-3 specific gaps."],
+        "immediateAttention": "A 2-3 sentence summary of the most critical blind spot.",
+        "recommendations": "A 150-200 word paragraph with tailored developmental suggestions."
+      }
+      The tone must be professional and leadership-oriented.
+    `;
+    const relevantResults = scoredMcqResults.filter(q => q.q >= 183 && q.q <= 187);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 1000, temperature: 0.5,
+        });
+        console.log("Successfully received Execution & Prioritization Discipline report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Execution & Prioritization Discipline report:", error);
+        return { overallInference: "Error generating analysis.", strengths: [], improvements: [], immediateAttention: "", recommendations: "" };
+    }
+};
+
+// --- SELF-AWARENESS & REFLECTION (Q188-191) ---
+const generateSelfAwarenessAndReflectionReport = async (scoredMcqResults) => {
+    console.log("Generating Self-Awareness & Reflection report...");
+    const systemPrompt = `
+      Evaluate the candidate’s performance in Self-Awareness & Reflection, covering Q188–191. This cluster assesses their ability to reflect on setbacks, learn from experience, and demonstrate humility in leadership regarding failed campaigns, team issues, and budget shortfalls.
+      Use the candidate’s responses to generate a professional diagnostic narrative with the following JSON structure:
+      {
+        "overallInference": "A 200-250 word interpretation of their reflective capacity.",
+        "strengths": ["A bullet list of 2-3 specific strengths."],
+        "improvements": ["A bullet list of 2-3 specific gaps."],
+        "immediateAttention": "A 2-3 sentence summary of the most critical blind spot.",
+        "recommendations": "A 150-200 word paragraph with tailored developmental suggestions."
+      }
+      The tone must be professional and leadership-coaching focused.
+    `;
+    const relevantResults = scoredMcqResults.filter(q => q.q >= 188 && q.q <= 191);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 1000, temperature: 0.5,
+        });
+        console.log("Successfully received Self-Awareness & Reflection report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Self-Awareness & Reflection report:", error);
+        return { overallInference: "Error generating analysis.", strengths: [], improvements: [], immediateAttention: "", recommendations: "" };
+    }
+};
+
+// --- CREATIVITY & NARRATIVE POWER (Q192-194) ---
+const generateCreativityAndNarrativePowerReport = async (scoredMcqResults) => {
+    console.log("Generating Creativity & Narrative Power report...");
+    const systemPrompt = `
+      Evaluate the candidate’s performance in Creativity & Narrative Power, covering Q192–194. This cluster assesses their ability to harness creativity and storytelling to create emotional resonance and brand distinctiveness.
+      Use the candidate’s responses to generate a professional diagnostic narrative with the following JSON structure:
+      {
+        "overallInference": "A 200-250 word interpretation of their creative orientation and narrative judgment.",
+        "strengths": ["A bullet list of 2-3 specific strengths."],
+        "improvements": ["A bullet list of 2-3 specific gaps."],
+        "immediateAttention": "A 2-3 sentence summary of the most critical blind spot.",
+        "recommendations": "A 150-200 word paragraph with tailored developmental suggestions."
+      }
+      The tone must be professional and aspirational.
+    `;
+    const relevantResults = scoredMcqResults.filter(q => q.q >= 192 && q.q <= 194);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 1000, temperature: 0.5,
+        });
+        console.log("Successfully received Creativity & Narrative Power report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Creativity & Narrative Power report:", error);
+        return { overallInference: "Error generating analysis.", strengths: [], improvements: [], immediateAttention: "", recommendations: "" };
+    }
+};
+
+// --- ANALYTICS KNOWLEDGE (Q195-213) ---
+const generateAnalyticsKnowledgeReport = async (scoredMcqResults) => {
+    console.log("Generating Analytics Knowledge report...");
+    const systemPrompt = `
+      Evaluate the candidate’s performance in Analytics, covering Q195–213. This cluster assesses their mastery of the financial and analytical foundations of marketing, including customer economics (CLV, CAC), business metrics (ROI, ROMI), and market metrics (SOV, elasticity, NPS).
+      Use the candidate’s responses to generate a professional diagnostic narrative with the following JSON structure:
+      {
+        "overallInference": "A 250-300 word interpretation of their analytical maturity.",
+        "strengths": ["A bullet list of 3-5 specific strengths."],
+        "improvements": ["A bullet list of 3-5 specific gaps."],
+        "immediateAttention": "A 2-3 sentence summary of the most critical blind spot.",
+        "recommendations": "A 150-200 word paragraph with tailored developmental suggestions."
+      }
+      The tone must be professional and financially rigorous.
+    `;
+    const relevantResults = scoredMcqResults.filter(q => q.q >= 195 && q.q <= 213);
+    try {
+        const response = await openai.chat.completions.create({
+            model: "gpt-4-turbo", response_format: { type: "json_object" },
+            messages: [{ role: "system", content: systemPrompt },{ role: "user", content: `Scored results: ${JSON.stringify(relevantResults)}` }],
+            max_tokens: 1200, temperature: 0.5,
+        });
+        console.log("Successfully received Analytics Knowledge report.");
+        return JSON.parse(response.choices[0].message.content);
+    } catch (error) {
+        console.error("Error generating Analytics Knowledge report:", error);
+        return { overallInference: "Error generating analysis.", strengths: [], improvements: [], immediateAttention: "", recommendations: "" };
+    }
+};
+
+// Additional functions for other clusters would follow the same pattern
+
+module.exports = {
+  calculateScores,
+  generateExecutiveSummary,
+  generateStrategicJudgmentReport,
+  generateBrandCommAcumenReport,
+  generateCommercialAcumenReport,
+  generateLeadershipTeamOrientationReport,
+  generateResourceAllocationDisciplineReport,
+  generateCommercialGrowthOrientationReport,
+  generateFoundationsOfStrategyReport,
+  generateBrandAndCommunicationsKnowledgeReport,
+  generatePricingAndChannelsKnowledgeReport, // This was likely missing
+  generatePaucityOfBudgetsKnowledgeReport,
+  generateDigitalAndDataKnowledgeReport,
+  generateGlobalAndCulturalKnowledgeReport,
+  generateFutureAndThoughtLeadershipKnowledgeReport,
+  generateStrategyAndPositioningApplicationReport,
+  generateBrandAndCommunicationApplicationReport,
+  generateCustomerAndGrowthApplicationReport,
+  generateChannelsAndDistributionApplicationReport,
+  generatePricingAndMonetizationApplicationReport,
+  generateMarketingBudgetsApplicationReport,
+  generateExecutionAndPrioritizationDisciplineReport,
+  generateSelfAwarenessAndReflectionReport,
+  generateCreativityAndNarrativePowerReport,
+  generateAnalyticsKnowledgeReport
+};
+
+// At the VERY END of logic/marketing-ai-specialists.js

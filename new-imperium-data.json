@@ -1,0 +1,1500 @@
+[
+  {
+    "dimensionName": "People Development vs. Business Results",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "When under performance pressure, I focus on achieving business results even if it means delaying some team development activities I had committed to.",
+      "id": 1
+    },
+    "statementB": {
+      "text": "In high-pressure periods, I believe team development activities should remain a priority, even if it means results might take slightly longer to achieve.",
+      "id": 2
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Innovation vs. Stability",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "When new ideas challenge the current way of working, I encourage experimentation even when it risks unsettling a well-functioning system.",
+      "id": 3
+    },
+    "statementB": {
+      "text": "I prefer to protect well-functioning systems from disruption, even if it means we pass up on experimenting with new ideas.",
+      "id": 4
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Transparency vs. Discretion",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I believe in sharing difficult organizational news with my team early, even if it risks creating anxiety before I have all the answers.",
+      "id": 5
+    },
+    "statementB": {
+      "text": "I believe it’s best to shield my team from difficult organizational news until I have clear solutions, even if it means they feel left out of the loop.",
+      "id": 6
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Delegation vs. Direct Control",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "When a critical task arises, I prefer to delegate even if it means accepting outcomes that may not match my personal standards.",
+      "id": 7
+    },
+    "statementB": {
+      "text": "I prefer to retain direct control over critical tasks, even if it means stretching my own bandwidth.",
+      "id": 8
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Short-term Wins vs. Long-term Vision",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I sometimes pursue short-term wins to build momentum, even if it means deviating from long-term strategic plans temporarily.",
+      "id": 9
+    },
+    "statementB": {
+      "text": "I prefer sticking to long-term strategic plans, even if it means short-term wins take longer to materialize.",
+      "id": 10
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Speed of Execution vs. Thoughtful Planning",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "In fast-moving situations, I prefer to act quickly, even if that means planning happens along the way.",
+      "id": 11
+    },
+    "statementB": {
+      "text": "I prefer to take time for thoughtful planning, even if it means acting slower in fast-moving situations.",
+      "id": 12
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Risk-taking vs. Risk Mitigation",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I’m willing to take calculated risks to seize opportunities, even when it means exposing the team to potential setbacks.",
+      "id": 13
+    },
+    "statementB": {
+      "text": "I prefer to avoid risks that could expose my team to setbacks, even if it means missing some opportunities.",
+      "id": 14
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Customer Needs vs. Internal Priorities",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I prioritize meeting customer demands, even when it puts a strain on internal priorities or resources.",
+      "id": 15
+    },
+    "statementB": {
+      "text": "I focus on protecting internal priorities, even if it means we can’t meet every customer demand.",
+      "id": 16
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Inclusiveness in Decisions vs. Decisiveness under Pressure",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "Even in high-pressure situations, I seek input from my team, knowing it can slow decisions.",
+      "id": 17
+    },
+    "statementB": {
+      "text": "In high-pressure situations, I make quick decisions myself, even if it means involving the team less than usual.",
+      "id": 18
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Consistency vs. Flexibility in Policies",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I prefer to stay consistent with policies, even when individual situations tempt me to make exceptions.",
+      "id": 19
+    },
+    "statementB": {
+      "text": "I’m comfortable making exceptions to policies for individual situations, even if it means being less consistent overall.",
+      "id": 20
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Cost Efficiency vs. Value Creation Investments",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I focus on keeping costs down, even when that means delaying some investments that could create future value.",
+      "id": 21
+    },
+    "statementB": {
+      "text": "I prioritize making investments that could create future value, even when that means higher short-term costs.",
+      "id": 22
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Empathy for Individuals vs. Fairness to the Group",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I sometimes make exceptions for individuals out of empathy, even if it raises fairness concerns for the group.",
+      "id": 23
+    },
+    "statementB": {
+      "text": "I stick to what’s fair for the group, even if it means saying no to individual situations that deserve empathy.",
+      "id": 24
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Global Standards vs. Local Adaptation",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I prefer to stick to global standards, even when local conditions suggest we should adapt.",
+      "id": 25
+    },
+    "statementB": {
+      "text": "I prefer to adapt to local conditions, even if it means straying from global standards.",
+      "id": 26
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Work-Life Balance for Team vs. Business Demands",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I try to protect my team’s work-life balance, even when business demands make that difficult.",
+      "id": 27
+    },
+    "statementB": {
+      "text": "I focus on meeting business demands, even when it puts work-life balance pressures on the team.",
+      "id": 28
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Data-driven Decisions vs. Gut Feel / Intuition",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I rely on data to guide decisions, even when my intuition suggests a different path.",
+      "id": 29
+    },
+    "statementB": {
+      "text": "I trust my intuition, even when data points in a different direction.",
+      "id": 30
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Process Discipline vs. Creative Freedom",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I prefer to stick to processes, even when creative freedom might produce new solutions.",
+      "id": 31
+    },
+    "statementB": {
+      "text": "I’m comfortable giving people creative freedom, even if it means less process discipline.",
+      "id": 32
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Protecting Reputation vs. Taking Bold Stands",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I avoid bold public stands that could risk our reputation, even if I believe strongly in the issue.",
+      "id": 33
+    },
+    "statementB": {
+      "text": "I’m willing to take bold public stands, even when they could risk our reputation.",
+      "id": 34
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Empowering Others vs. Protecting from Failure",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I empower people to take ownership, even when I know it could lead to failures I could have prevented.",
+      "id": 35
+    },
+    "statementB": {
+      "text": "I step in to protect people from failure, even if it means they have less ownership.",
+      "id": 36
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Maintaining Morale vs. Driving Accountability",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I focus on maintaining morale, even when holding people accountable could lower it temporarily.",
+      "id": 37
+    },
+    "statementB": {
+      "text": "I focus on holding people accountable, even when it risks lowering morale temporarily.",
+      "id": 38
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Sticking to Commitments vs. Adjusting with New Information",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I stick to commitments I’ve made, even when new information suggests a change is needed.",
+      "id": 39
+    },
+    "statementB": {
+      "text": "I adjust course when new information emerges, even if it means going back on commitments.",
+      "id": 40
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Empowering Stars vs. Building the Whole Team",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I invest more time developing my top performers, even if it means the rest of the team receives less focus.",
+      "id": 41
+    },
+    "statementB": {
+      "text": "Even though my top performers could benefit from more attention, I choose to distribute my focus evenly across the team.",
+      "id": 42
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Emotional Authenticity vs. Emotional Control",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I show my genuine emotions, even when doing so may create discomfort or uncertainty in the team.",
+      "id": 43
+    },
+    "statementB": {
+      "text": "Even when I feel strongly, I choose to control my emotions to maintain stability for the team.",
+      "id": 44
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Emotional Authenticity vs. Emotional Control",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I express how I truly feel about difficult situations, even when it might unsettle people.",
+      "id": 45
+    },
+    "statementB": {
+      "text": "Even when I want to express my real emotions, I hold back so the team feels steady.",
+      "id": 46
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Big-picture Thinking vs. Operational Detail Focus",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I stay focused on the big picture, even when operational details could use more of my attention.",
+      "id": 47
+    },
+    "statementB": {
+      "text": "Even when I know the big picture matters, I find myself drawn into operational details to ensure things run smoothly.",
+      "id": 48
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Persistence vs. Knowing When to Pivot",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I push through challenges with persistence, even when signals suggest we might need a different approach.",
+      "id": 49
+    },
+    "statementB": {
+      "text": "Even when I believe persistence could pay off, I choose to pivot when evidence suggests the current path isn’t working.",
+      "id": 50
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Advocating for My Team vs. Aligning with Senior Leadership",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I champion my team’s needs, even if it puts me at odds with senior leadership priorities.",
+      "id": 51
+    },
+    "statementB": {
+      "text": "Even when my team would benefit from stronger advocacy, I prioritize alignment with senior leadership’s agenda.",
+      "id": 52
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Firm Standards vs. Adaptive Expectations",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I hold people to firm standards, even when external circumstances make things harder for them.",
+      "id": 53
+    },
+    "statementB": {
+      "text": "Even when firm standards could drive higher performance, I adjust my expectations based on the situation.",
+      "id": 54
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Driving Change vs. Respecting Legacy",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I drive change forward, even when it challenges longstanding traditions that people value.",
+      "id": 55
+    },
+    "statementB": {
+      "text": "Even when change could bring improvements, I choose to respect legacy practices that matter to people.",
+      "id": 56
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Centralized Direction vs. Shared Leadership",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I set the direction clearly myself, even if it limits others’ input into decisions.",
+      "id": 57
+    },
+    "statementB": {
+      "text": "Even when I could provide clearer direction, I prefer to co-create decisions with the team.",
+      "id": 58
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Being Accessible vs. Protecting Focus Time",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I make myself highly accessible, even when it interrupts my focus on strategic priorities.",
+      "id": 59
+    },
+    "statementB": {
+      "text": "Even when my team might benefit from more access to me, I protect time for deep, focused work.",
+      "id": 60
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Promoting Internal Talent vs. Bringing in External Freshness",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I promote internal talent, even when external candidates might bring in fresh ideas.",
+      "id": 61
+    },
+    "statementB": {
+      "text": "Even when internal talent is ready, I choose to bring in external candidates who offer new perspectives.",
+      "id": 62
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Optimism vs. Realism in Communication",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I emphasize optimism in my communication, even when it means softening difficult truths.",
+      "id": 63
+    },
+    "statementB": {
+      "text": "Even when optimism could inspire, I choose to speak plainly about the hard realities we face.",
+      "id": 64
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Competing Priorities vs. Singular Focus",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I balance competing priorities, even when it dilutes the team’s energy across multiple goals.",
+      "id": 65
+    },
+    "statementB": {
+      "text": "Even when there are other important needs, I focus the team’s energy on one major goal at a time.",
+      "id": 66
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Taking Responsibility vs. Sharing Responsibility",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I take personal responsibility for outcomes, even when sharing accountability could be healthier for the team.",
+      "id": 67
+    },
+    "statementB": {
+      "text": "Even when I could take charge, I prefer to distribute responsibility broadly across the team.",
+      "id": 68
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Being Hands-on vs. Creating Autonomy",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I get hands-on with work, even when stepping back would help build team autonomy.",
+      "id": 69
+    },
+    "statementB": {
+      "text": "Even when being more hands-on might improve results, I choose to step back and let the team own the work.",
+      "id": 70
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Rewarding Loyalty vs. Rewarding Results",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I reward loyalty and long-term commitment, even when newer high-performers contribute more.",
+      "id": 71
+    },
+    "statementB": {
+      "text": "Even when loyalty matters, I prioritize rewarding those who deliver the strongest results.",
+      "id": 72
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Fast Hiring vs. Careful Selection",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I hire quickly to fill gaps, even when a more deliberate process could yield a better fit.",
+      "id": 73
+    },
+    "statementB": {
+      "text": "Even when speed is needed, I prefer to take my time to ensure we select the right person.",
+      "id": 74
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Conflict Avoidance vs. Conflict Engagement",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I smooth tensions to keep the peace, even when unresolved issues linger beneath the surface.",
+      "id": 75
+    },
+    "statementB": {
+      "text": "Even when harmony is tempting, I choose to surface and engage with underlying conflicts.",
+      "id": 76
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Consistency of Communication vs. Tailoring to Audience",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I deliver consistent messages, even when adapting might land better with different groups.",
+      "id": 77
+    },
+    "statementB": {
+      "text": "Even when consistency would be simpler, I tailor my message for each audience to increase impact.",
+      "id": 78
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Encouraging Debate vs. Driving Alignment Quickly",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I encourage debate and different views, even when it slows down alignment.",
+      "id": 79
+    },
+    "statementB": {
+      "text": "Even when healthy debate could add value, I move quickly to drive team alignment.",
+      "id": 80
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Protecting Culture vs. Scaling Rapidly",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I protect our team culture carefully, even when it slows down our ability to scale.",
+      "id": 81
+    },
+    "statementB": {
+      "text": "Even when protecting culture is important, I prioritize scaling quickly to meet business demands.",
+      "id": 82
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Confidence vs. Humility",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I trust my capabilities and back myself in tough situations, even when I know I don’t have all the answers.",
+      "id": 83
+    },
+    "statementB": {
+      "text": "Even when I believe in my strengths, I make a point of acknowledging my limits and seeking others’ input first.",
+      "id": 84
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Ambition vs. Contentment",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I constantly look for the next big challenge to stretch myself, even when I could pause to appreciate what I’ve already achieved.",
+      "id": 85
+    },
+    "statementB": {
+      "text": "Even though I could chase bigger goals, I allow myself to feel satisfied with the milestones I’ve reached so far.",
+      "id": 86
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Risk-taking vs. Caution",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I’m willing to take bold steps and embrace uncertainty, even if the potential downside could create setbacks for me.",
+      "id": 87
+    },
+    "statementB": {
+      "text": "Even when bold action could lead to big gains, I prefer to stay cautious and protect myself from unnecessary risk.",
+      "id": 88
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Analytical Thinking vs. Intuitive Judgment",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I rely on logic and data to make my decisions, even when my gut is telling me to act differently.",
+      "id": 89
+    },
+    "statementB": {
+      "text": "Even when analysis could provide clearer answers, I’m comfortable going with what feels right in the moment.",
+      "id": 90
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Discipline vs. Flexibility",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I stick to my routines and plans, even when unexpected opportunities arise that could pull me off track.",
+      "id": 91
+    },
+    "statementB": {
+      "text": "Even when discipline would keep me focused, I allow myself to change course when something new or better comes up.",
+      "id": 92
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Patience vs. Sense of Urgency",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I let things unfold in their own time, even when it means holding back from pushing for faster progress.",
+      "id": 93
+    },
+    "statementB": {
+      "text": "Even when patience might serve me well, I often feel the need to act quickly to make things happen.",
+      "id": 94
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Self-reliance vs. Seeking Support",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I prefer to solve problems on my own, even when asking for help might save time or energy.",
+      "id": 95
+    },
+    "statementB": {
+      "text": "Even when I could probably handle things myself, I choose to reach out and involve others for support.",
+      "id": 96
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Focus on Strengths vs. Focus on Weaknesses",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I concentrate on building what I’m naturally good at, even if it means some of my weaker areas stay underdeveloped.",
+      "id": 97
+    },
+    "statementB": {
+      "text": "Even when playing to my strengths would feel easier, I focus my energy on improving where I’m weakest.",
+      "id": 98
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Action Orientation vs. Reflection Orientation",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I like to get moving on ideas as soon as possible, even if I haven’t fully thought through all the angles.",
+      "id": 99
+    },
+    "statementB": {
+      "text": "Even when quick action could create momentum, I prefer to pause and reflect carefully before I start.",
+      "id": 100
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Perfectionism vs. Pragmatism",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I strive to produce the highest quality work, even when it takes extra time or effort to get there.",
+      "id": 101
+    },
+    "statementB": {
+      "text": "Even when perfection might feel satisfying, I choose solutions that are good enough and move us forward efficiently.",
+      "id": 102
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Consistency vs. Adaptability of Values",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I hold firm to my core values across situations, even when adjusting them might make life easier.",
+      "id": 103
+    },
+    "statementB": {
+      "text": "Even when consistency in values would feel clearer, I adjust them to fit the situation or context when needed.",
+      "id": 104
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Long-term Vision vs. Short-term Results Drive",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I stay focused on the big picture, even if it means that immediate results sometimes take a back seat.",
+      "id": 105
+    },
+    "statementB": {
+      "text": "Even when keeping the long-term in mind would help, I focus my energy on delivering quick wins right now.",
+      "id": 106
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Curiosity vs. Decisiveness",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I keep exploring possibilities and asking questions, even when it delays making final decisions.",
+      "id": 107
+    },
+    "statementB": {
+      "text": "Even when curiosity could open up new options, I prefer to make decisions quickly and stick with them.",
+      "id": 108
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Resilience vs. Sensitivity to Setbacks",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I bounce back quickly when things don’t go my way, even when others might need more time to recover.",
+      "id": 109
+    },
+    "statementB": {
+      "text": "Even when resilience could help me move on, I find myself deeply affected by failures or disappointments.",
+      "id": 110
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Self-discipline vs. Spontaneity",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I prefer to stick to my plans and routines, even when unexpected opportunities tempt me to break from them.",
+      "id": 111
+    },
+    "statementB": {
+      "text": "Even when discipline would keep me on track, I sometimes follow my impulses in the moment.",
+      "id": 112
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Optimism vs. Realism",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I focus on the possibilities in every situation, even when others point out risks or challenges.",
+      "id": 113
+    },
+    "statementB": {
+      "text": "Even when optimism could inspire people, I focus on keeping expectations grounded in reality.",
+      "id": 114
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Inner Calm vs. Inner Drive",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I work to maintain a sense of inner peace, even when I feel pressure to keep pushing myself harder.",
+      "id": 115
+    },
+    "statementB": {
+      "text": "Even when calm would help me feel centred, I let my inner drive fuel constant action and progress.",
+      "id": 116
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Self-criticism vs. Self-compassion",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I hold myself to high standards and question my own performance, even when I’ve done well.",
+      "id": 117
+    },
+    "statementB": {
+      "text": "Even when I could be harder on myself, I choose to treat my mistakes with understanding and compassion.",
+      "id": 118
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Love of Mastery vs. Love of Variety",
+    "category": "GrowthCraft™",
+    "statementA": {
+      "text": "I prefer to go deep and master one subject or skill, even when it means missing out on other interests.",
+      "id": 119
+    },
+    "statementB": {
+      "text": "Even when mastery could build my expertise, I choose to explore a wide variety of topics and experiences.",
+      "id": 120
+    },
+    "arenaTitle": "GrowthCraft™ Balancing People and Performance",
+    "arenaDescription": "The GrowthCraft™ arena focuses on the trade-offs between nurturing team growth and delivering business outcomes, helping leaders navigate the balance between long-term people development and short-term performance pressures."
+  },
+  {
+    "dimensionName": "Taking quick changes vs. Observing the team first",
+    "category": "When I join a new team",
+    "statementA": {
+      "text": "When I join a new team, I drive quick changes I think are needed.",
+      "id": 233
+    },
+    "statementB": {
+      "text": "Even when understanding existing dynamics might give me useful insights, I drive quick changes so the team sees early action and direction.",
+      "id": 234
+    },
+    "arenaTitle": "When I join a new team: New Team Integration Trade-offs",
+    "arenaDescription": "This arena explores the trade-offs leaders face when joining a new team, including quick changes vs. observing, building relationships vs. authority, and observing quietly vs. making presence felt."
+  },
+  {
+    "dimensionName": "Building personal relationships vs. Establishing authority fast",
+    "category": "When I join a new team",
+    "statementA": {
+      "text": "In my early days with a new team, I prioritise building genuine personal relationships, even when that means my authority might not be immediately visible.",
+      "id": 235
+    },
+    "statementB": {
+      "text": "Even when building personal relationships could help long-term trust, I focus on establishing authority fast so expectations are clear from the start.",
+      "id": 236
+    },
+    "arenaTitle": "When I join a new team: New Team Integration Trade-offs",
+    "arenaDescription": "This arena explores the trade-offs leaders face when joining a new team, including quick changes vs. observing, building relationships vs. authority, and observing quietly vs. making presence felt."
+  },
+  {
+    "dimensionName": "Observing quietly vs. Making my presence felt",
+    "category": "When I join a new team",
+    "statementA": {
+      "text": "When I join a new team, I choose to observe quietly at first, even when I know making my presence felt might give people faster clarity about my leadership style.",
+      "id": 237
+    },
+    "statementB": {
+      "text": "Even when observing quietly might give me a better read on the team, I make my presence felt early so people know what to expect from me.",
+      "id": 238
+    },
+    "arenaTitle": "When I join a new team: New Team Integration Trade-offs",
+    "arenaDescription": "This arena explores the trade-offs leaders face when joining a new team, including quick changes vs. observing, building relationships vs. authority, and observing quietly vs. making presence felt."
+  },
+  {
+    "dimensionName": "Letting them find their rhythm vs. Setting clear expectations early",
+    "category": "When a new team member joins my team",
+    "statementA": {
+      "text": "When a new team member joins, I give them the space to find their rhythm and style, even when it means I hold back from setting strong expectations right away.",
+      "id": 239
+    },
+    "statementB": {
+      "text": "Even when letting them find their rhythm might help them settle in comfortably, I set clear expectations early so they know exactly what’s required.",
+      "id": 240
+    },
+    "arenaTitle": "When a new team member joins my team: Onboarding Trade-offs",
+    "arenaDescription": "This arena examines the trade-offs in onboarding new team members, balancing autonomy and guidance, questions and independence, and natural relationships and facilitated connections."
+  },
+  {
+    "dimensionName": "Encouraging them to ask questions vs. Expecting them to figure things out",
+    "category": "When a new team member joins my team",
+    "statementA": {
+      "text": "I actively encourage a new team member to ask questions, even when it slows decisions.",
+      "id": 241
+    },
+    "statementB": {
+      "text": "Even when encouraging questions might help them learn faster, I expect them to figure things out so they develop independence from the start.",
+      "id": 242
+    },
+    "arenaTitle": "When a new team member joins my team: Onboarding Trade-offs",
+    "arenaDescription": "This arena examines the trade-offs in onboarding new team members, balancing autonomy and guidance, questions and independence, and natural relationships and facilitated connections."
+  },
+  {
+    "dimensionName": "Letting them build relationships naturally vs. Facilitating key connections",
+    "category": "When a new team member joins my team",
+    "statementA": {
+      "text": "I let a new team member build relationships naturally over time, even when I know that proactively facilitating key connections could speed up their integration.",
+      "id": 243
+    },
+    "statementB": {
+      "text": "Even when letting them build relationships naturally might help authenticity, I facilitate key connections so they can integrate faster.",
+      "id": 244
+    },
+    "arenaTitle": "When a new team member joins my team: Onboarding Trade-offs",
+    "arenaDescription": "This arena examines the trade-offs in onboarding new team members, balancing autonomy and guidance, questions and independence, and natural relationships and facilitated connections."
+  },
+  {
+    "dimensionName": "Taking time to explore root causes vs. Acting fast on visible issues",
+    "category": "Problem Solving",
+    "statementA": {
+      "text": "When solving a problem, I take time to explore root causes thoroughly, even when that means delaying quick action on what’s immediately visible.",
+      "id": 245
+    },
+    "statementB": {
+      "text": "Even when exploring root causes might give deeper insight, I act fast on visible issues so we can show early progress and prevent escalation.",
+      "id": 246
+    },
+    "arenaTitle": "Problem Solving: The Invisible Fork in the Road",
+    "arenaDescription": "Solving problems isn't just about fixing what’s broken - it’s about choosing how you think when pressure is high and certainty is low. Every decision you make under those conditions becomes a clue to your deeper leadership code. Do you take the time to explore root causes, digging beneath symptoms to find the real fault lines, even when that means living with temporary disorder or stakeholder impatience? Or do you act fast on what’s visible, solving surface issues first to create early momentum - even if the deeper fault might still remain unaddressed? Do you actively involve diverse viewpoints, opening the floor to discomfort, contradiction, or slower consensus because you believe better answers live in friction? Or do you push for your own solution, trusting your clarity to cut through the noise and valuing speed and direction over complexity? Do you have the courage to experiment with unconventional ideas, risking confusion or criticism in the short-term for a shot at meaningful innovation? Or do you stick with proven methods, knowing that reliability matters more than novelty when the stakes are high? Problem-solving, at its core, reveals not just how you think - but how you trust: Do you trust depth over speed? People over control? Curiosity over certainty? Your answers show not just how you handle crises, but how you shape cultures that will either grow stale… or stay smart."
+  },
+  {
+    "dimensionName": "Involving diverse viewpoints vs. Driving towards my own solution",
+    "category": "Problem Solving",
+    "statementA": {
+      "text": "I actively involve diverse viewpoints when tackling tough problems, even when it complicates or slows down the decision-making process.",
+      "id": 247
+    },
+    "statementB": {
+      "text": "Even when involving diverse viewpoints might lead to richer ideas, I drive towards my own solution so we can move with clarity and speed.",
+      "id": 248
+    },
+    "arenaTitle": "Problem Solving: The Invisible Fork in the Road",
+    "arenaDescription": "Solving problems isn't just about fixing what’s broken - it’s about choosing how you think when pressure is high and certainty is low. Every decision you make under those conditions becomes a clue to your deeper leadership code. Do you take the time to explore root causes, digging beneath symptoms to find the real fault lines, even when that means living with temporary disorder or stakeholder impatience? Or do you act fast on what’s visible, solving surface issues first to create early momentum - even if the deeper fault might still remain unaddressed? Do you actively involve diverse viewpoints, opening the floor to discomfort, contradiction, or slower consensus because you believe better answers live in friction? Or do you push for your own solution, trusting your clarity to cut through the noise and valuing speed and direction over complexity? Do you have the courage to experiment with unconventional ideas, risking confusion or criticism in the short-term for a shot at meaningful innovation? Or do you stick with proven methods, knowing that reliability matters more than novelty when the stakes are high? Problem-solving, at its core, reveals not just how you think - but how you trust: Do you trust depth over speed? People over control? Curiosity over certainty? Your answers show not just how you handle crises, but how you shape cultures that will either grow stale… or stay smart."
+  },
+  {
+    "dimensionName": "Experimenting with unconventional approaches vs. Sticking with proven methods",
+    "category": "Problem Solving",
+    "statementA": {
+      "text": "When faced with difficult problems, I’m willing to experiment with unconventional approaches, even when it increases the risk of failure.",
+      "id": 249
+    },
+    "statementB": {
+      "text": "Even when experimenting might lead to breakthrough ideas, I stick with proven methods so we limit risk and stay on solid ground.",
+      "id": 250
+    },
+    "arenaTitle": "Problem Solving: The Invisible Fork in the Road",
+    "arenaDescription": "Solving problems isn't just about fixing what’s broken - it’s about choosing how you think when pressure is high and certainty is low. Every decision you make under those conditions becomes a clue to your deeper leadership code. Do you take the time to explore root causes, digging beneath symptoms to find the real fault lines, even when that means living with temporary disorder or stakeholder impatience? Or do you act fast on what’s visible, solving surface issues first to create early momentum - even if the deeper fault might still remain unaddressed? Do you actively involve diverse viewpoints, opening the floor to discomfort, contradiction, or slower consensus because you believe better answers live in friction? Or do you push for your own solution, trusting your clarity to cut through the noise and valuing speed and direction over complexity? Do you have the courage to experiment with unconventional approaches, risking confusion or criticism in the short-term for a shot at meaningful innovation? Or do you stick with proven methods, knowing that reliability matters more than novelty when the stakes are high? Problem-solving, at its core, reveals not just how you think - but how you trust: Do you trust depth over speed? People over control? Curiosity over certainty? Your answers show not just how you handle crises, but how you shape cultures that will either grow stale… or stay smart."
+  },
+  {
+    "dimensionName": "Pushing through challenges vs. Reassessing when persistence may no longer serve",
+    "category": "Grit",
+    "statementA": {
+      "text": "When I hit major obstacles, I push through and stay committed, even when reassessing the situation might reveal it’s wiser to pivot.",
+      "id": 251
+    },
+    "statementB": {
+      "text": "Even when pushing through might showcase resilience, I reassess when persistence may no longer serve so I can redirect my energy strategically.",
+      "id": 252
+    },
+    "arenaTitle": "Grit: The Inner Dialogue of Endurance",
+    "arenaDescription": "Grit isn’t just the power to endure. It’s the question you keep asking yourself when no one is watching: “Is this still the right mountain to climb?”"
+  },
+  {
+    "dimensionName": "Sticking with long-term goals vs. Adapting goals when conditions change",
+    "category": "Grit",
+    "statementA": {
+      "text": "I stick with my long-term goals despite setbacks, even when adapting them might seem more practical given changing conditions.",
+      "id": 253
+    },
+    "statementB": {
+      "text": "Even when sticking with long-term goals might demonstrate grit, I adapt goals when conditions change so I stay relevant and effective.",
+      "id": 254
+    },
+    "arenaTitle": "Grit: The Inner Dialogue of Endurance",
+    "arenaDescription": "Grit isn’t just the power to endure. It’s the question you keep asking yourself when no one is watching: “Is this still the right mountain to climb?”"
+  },
+  {
+    "dimensionName": "Continuing despite personal doubt vs. Pausing to reflect on my inner voice",
+    "category": "Grit",
+    "statementA": {
+      "text": "I keep going despite personal doubt, even when pausing to reflect on my inner voice might help me recalibrate.",
+      "id": 255
+    },
+    "statementB": {
+      "text": "Even when continuing despite doubt might show strength, I pause to reflect on my inner voice so I can act with greater clarity.",
+      "id": 256
+    },
+    "arenaTitle": "Grit: The Inner Dialogue of Endurance",
+    "arenaDescription": "Grit isn’t just the power to endure. It’s the question you keep asking yourself when no one is watching: “Is this still the right mountain to climb?”"
+  },
+  {
+    "dimensionName": "Prioritising individual customer needs vs. Protecting scalable systems",
+    "category": "Customer Centricity",
+    "statementA": {
+      "text": "I prioritise meeting individual customer needs, even when it means creating exceptions that might strain our scalable systems.",
+      "id": 257
+    },
+    "statementB": {
+      "text": "Even when prioritising individual customer needs could delight them, I protect scalable systems so we can serve all customers consistently and efficiently.",
+      "id": 258
+    },
+    "arenaTitle": "Customer Centricity: Balancing Individual Needs and System Efficiency",
+    "arenaDescription": "Description from PDF if available, otherwise generated."
+  },
+  {
+    "dimensionName": "Customising solutions vs. Encouraging customers to adapt",
+    "category": "Customer Centricity",
+    "statementA": {
+      "text": "I’m willing to customise solutions for customers, even when encouraging them to adapt to our standard offerings could make delivery smoother and faster.",
+      "id": 259
+    },
+    "statementB": {
+      "text": "Even when customising solutions could strengthen relationships, I encourage customers to adapt so we can maintain speed and consistency in delivery.",
+      "id": 260
+    },
+    "arenaTitle": "Customer Centricity: Balancing Individual Needs and System Efficiency",
+    "arenaDescription": "Description from PDF if available, otherwise generated."
+  },
+  {
+    "dimensionName": "Saying yes to ambitious customer demands vs. Managing expectations carefully",
+    "category": "Customer Centricity",
+    "statementA": {
+      "text": "I say yes to ambitious customer demands, even when managing expectations more carefully might help prevent over-promising and under-delivering.",
+      "id": 261
+    },
+    "statementB": {
+      "text": "Even when saying yes to ambitious customer demands could win short-term goodwill, I manage expectations carefully so we can deliver on what we promise.",
+      "id": 262
+    },
+    "arenaTitle": "Customer Centricity: Balancing Individual Needs and System Efficiency",
+    "arenaDescription": "Description from PDF if available, otherwise generated."
+  },
+  {
+    "dimensionName": "Pursuing flawless delivery vs. Prioritising speed over perfection",
+    "category": "Execution Excellence",
+    "statementA": {
+      "text": "I pursue flawless delivery in execution, even when prioritising speed over perfection might help us seize short-term opportunities.",
+      "id": 263
+    },
+    "statementB": {
+      "text": "Even when pursuing flawless delivery could strengthen our reputation, I prioritise speed over perfection so we can capture opportunities in the moment.",
+      "id": 264
+    },
+    "arenaTitle": "Execution Excellence: Balancing Quality and Speed",
+    "arenaDescription": "Description from PDF if available, otherwise generated."
+  },
+  {
+    "dimensionName": "Strictly following plans vs. Adapting on the fly to emerging realities",
+    "category": "Execution Excellence",
+    "statementA": {
+      "text": "I stick closely to execution plans we’ve designed, even when adapting on the fly might better address emerging realities or unexpected challenges.",
+      "id": 265
+    },
+    "statementB": {
+      "text": "Even when strictly following plans might provide consistency, I adapt on the fly so we can stay aligned with shifting ground realities.",
+      "id": 266
+    },
+    "arenaTitle": "Execution Excellence: Balancing Quality and Speed",
+    "arenaDescription": "Description from PDF if available, otherwise generated."
+  },
+  {
+    "dimensionName": "Focusing on cross-functional alignment vs. Prioritising quick wins within my scope",
+    "category": "Execution Excellence",
+    "statementA": {
+      "text": "I focus on cross-functional alignment to ensure seamless execution, even when prioritising quick wins within my own scope could show faster results.",
+      "id": 267
+    },
+    "statementB": {
+      "text": "Even when focusing on cross-functional alignment might help long-term execution, I prioritise quick wins within my scope so we can build early momentum.",
+      "id": 268
+    },
+    "arenaTitle": "Execution Excellence: Balancing Quality and Speed",
+    "arenaDescription": "Description from PDF if available, otherwise generated."
+  },
+  {
+    "dimensionName": "Setting exceptionally high standards vs. Prioritising team morale during tough phases",
+    "category": "Creating High Performance Teams",
+    "statementA": {
+      "text": "I set exceptionally high standards for my team, even when prioritising morale during tough phases might make people feel more supported.",
+      "id": 269
+    },
+    "statementB": {
+      "text": "Even when setting exceptionally high standards could push the team to greatness, I prioritise morale during tough phases so people stay motivated and resilient.",
+      "id": 270
+    },
+    "arenaTitle": "Creating High Performance Teams: Balancing Standards and Morale",
+    "arenaDescription": "Description from PDF if available, otherwise generated."
+  },
+  {
+    "dimensionName": "Encouraging internal competition vs. Focusing on collective collaboration",
+    "category": "Creating High Performance Teams",
+    "statementA": {
+      "text": "I encourage a healthy level of internal competition to fuel high performance, even when focusing on collective collaboration might create smoother dynamics.",
+      "id": 271
+    },
+    "statementB": {
+      "text": "Even when encouraging internal competition might drive sharper performance, I focus on collective collaboration so we grow together as one unit.",
+      "id": 272
+    },
+    "arenaTitle": "Creating High Performance Teams: Balancing Standards and Morale",
+    "arenaDescription": "Description from PDF if available, otherwise generated."
+  },
+  {
+    "dimensionName": "Rewarding star performers vs. Ensuring even contributors feel equally valued",
+    "category": "Creating High Performance Teams",
+    "statementA": {
+      "text": "I actively reward star performers, even when ensuring even contributors feel equally valued might build broader team loyalty.",
+      "id": 273
+    },
+    "statementB": {
+      "text": "Even when rewarding star performers could incentivise excellence, I ensure even contributors feel equally valued so no one feels left behind.",
+      "id": 274
+    },
+    "arenaTitle": "Creating High Performance Teams: Balancing Standards and Morale",
+    "arenaDescription": "Description from PDF if available, otherwise generated."
+  },
+  {
+    "dimensionName": "Seeing Yourself in Others",
+    "category": "Seeing Yourself in Others",
+    "statementA": {
+      "text": "I consciously try to recognise parts of my own strengths and struggles in my team members, even when it means I must confront qualities in them that I haven’t fully accepted in myself.",
+      "id": 275
+    },
+    "statementB": {
+      "text": "Rather than seeing reflections of myself in my team, I focus on understanding them as distinct individuals, even if it means missing shared patterns that could help me connect with them more deeply.",
+      "id": 276
+    },
+    "arenaTitle": "Seeing Yourself in Others: Balancing Reflection and Distinction",
+    "arenaDescription": "This arena explores the trade-offs in seeing oneself in others, balancing the recognition of shared traits with treating team members as unique individuals."
+  },
+  {
+    "dimensionName": "Seeing Yourself in Others",
+    "category": "Seeing Yourself in Others",
+    "statementA": {
+      "text": "I often spot my younger self in colleagues’ mistakes and ambitions, and I balance guiding them with allowing them to learn their own lessons even when my instinct is to protect them from what I once experienced.",
+      "id": 277
+    },
+    "statementB": {
+      "text": "Rather than interpreting my team’s actions through the lens of my own past, I prefer to observe and respond to their choices as they unfold, even when that means I might miss opportunities to mentor through shared experience.",
+      "id": 278
+    },
+    "arenaTitle": "Seeing Yourself in Others: Balancing Reflection and Distinction",
+    "arenaDescription": "This arena explores the trade-offs in seeing oneself in others, balancing the recognition of shared traits with treating team members as unique individuals."
+  },
+  {
+    "dimensionName": "Pushing Teams to Become Like You",
+    "category": "Pushing Teams to Become Like You",
+    "statementA": {
+      "text": "I consciously encourage my team to adopt my working style and decision-making approach, because I believe it drives results even though I know it may limit their opportunity to develop their own unique strengths.",
+      "id": 279
+    },
+    "statementB": {
+      "text": "Rather than shaping my team in my own image, I actively encourage them to find their own ways of working and deciding, even if it means results come more slowly or in unexpected forms.",
+      "id": 280
+    },
+    "arenaTitle": "Pushing Teams to Become Like You: Balancing Influence and Independence",
+    "arenaDescription": "This arena examines the trade-offs in influencing your team to adopt your style versus allowing them to develop their own."
+  },
+  {
+    "dimensionName": "Pushing Teams to Become Like You",
+    "category": "Pushing Teams to Become Like You",
+    "statementA": {
+      "text": "I often set my personal standards as the blueprint for how the team should operate, because I want to maintain consistency even if that reduces diversity of thought and innovation.",
+      "id": 281
+    },
+    "statementB": {
+      "text": "Instead of expecting my team to mirror my standards or style, I focus on enabling them to set their own benchmarks, even if that means navigating more complexity and inconsistency.",
+      "id": 282
+    },
+    "arenaTitle": "Pushing Teams to Become Like You: Balancing Influence and Independence",
+    "arenaDescription": "This arena examines the trade-offs in influencing your team to adopt your style versus allowing them to develop their own."
+  },
+  {
+    "dimensionName": "Empathy",
+    "category": "Empathy",
+    "statementA": {
+      "text": "When my team members struggle, I make it a point to truly feel what they are going through and offer emotional support, even though I sometimes worry this could soften the edge I need to drive hard results.",
+      "id": 283
+    },
+    "statementB": {
+      "text": "Rather than deeply engaging with my team’s emotions, I focus on keeping a certain distance to stay objective and decisive, even though it might make me seem less approachable in their times of need.",
+      "id": 284
+    },
+    "arenaTitle": "Empathy: Balancing Compassion and Objectivity",
+    "arenaDescription": "This arena explores the trade-offs in empathetic leadership, balancing emotional support with objectivity and commitment to results."
+  },
+  {
+    "dimensionName": "Empathy",
+    "category": "Empathy",
+    "statementA": {
+      "text": "I often adjust my expectations and timelines when I sense that someone on my team is overwhelmed, because I believe people matter more than deadlines even though it can create delivery pressures elsewhere.",
+      "id": 285
+    },
+    "statementB": {
+      "text": "Rather than modifying timelines or expectations based on how my team is feeling, I hold steady to our commitments, even if that means I’m perceived as less sensitive to individual stress.",
+      "id": 286
+    },
+    "arenaTitle": "Empathy: Balancing Compassion and Objectivity",
+    "arenaDescription": "This arena explores the trade-offs in empathetic leadership, balancing emotional support with objectivity and commitment to results."
+  },
+  {
+    "dimensionName": "The Visionary",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I often find myself speaking about what lies ahead, painting futures that others can’t yet see, even when I know the path there is still unclear and fragile.",
+      "id": 287
+    },
+    "statementB": {
+      "text": "I usually stay grounded in the realities of today, holding back bold possibilities until I can see a feasible path that others can reliably follow.",
+      "id": 288
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Strategist",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I feel most effective when I map out the terrain before I move, crafting structured responses even in chaos, knowing that my plans might be reshaped by events I can’t control.",
+      "id": 289
+    },
+    "statementB": {
+      "text": "I prefer to dive into problems without too much architecture, trusting that flexibility and sharp instincts will guide me more effectively than a rigid, pre-set blueprint.",
+      "id": 290
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Operator",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I often track, measure, and refine the small moving pieces, believing that consistent control of execution is what builds credibility - even if it means missing the bigger conversation.",
+      "id": 291
+    },
+    "statementB": {
+      "text": "I prefer to let the details flow organically, focusing instead on direction and influence, even if that means some operational loose ends might occasionally fray.",
+      "id": 292
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Builder",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I think long term, shaping systems that will outlast me - even when the pace is slow, or the outcome may not reflect my name directly.",
+      "id": 293
+    },
+    "statementB": {
+      "text": "I lean toward quick wins and visible results, believing the present impact matters more than building structures that others might benefit from when I’m gone.",
+      "id": 294
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Innovator",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I get restless with sameness and stability, often compelled to reinvent - even when others around me haven’t asked for change or feel unprepared to absorb it.",
+      "id": 295
+    },
+    "statementB": {
+      "text": "I’m more at peace refining proven approaches, favouring reliability over novelty, even if it means I might miss chances to spark fresh breakthroughs.",
+      "id": 296
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Coach",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I often spend extra time growing others, even when business urgency says I shouldn’t, trusting that people development is still the highest-return investment in the long run.",
+      "id": 297
+    },
+    "statementB": {
+      "text": "I usually focus on delivering outcomes first, believing that people grow best when pushed to meet real demands, rather than being shielded and nurtured continuously.",
+      "id": 298
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Connector",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I instinctively introduce people, ideas, or tools from different worlds, trusting that value will emerge from cross-pollination - even when others might not see the link immediately.",
+      "id": 299
+    },
+    "statementB": {
+      "text": "I prefer to keep circles focused and closed, trusting in proven networks and familiar methods, even if I occasionally miss unexpected combinations or synergies.",
+      "id": 300
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Challenger",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I often speak up when things feel off - even if the room isn’t ready, or harmony is lost - because I believe uncomfortable questions drive better outcomes.",
+      "id": 301
+    },
+    "statementB": {
+      "text": "I tend to hold back dissenting views when tension seems unproductive, believing that timing, tact, and group cohesion often matter more than always challenging the status quo.",
+      "id": 302
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Diplomat",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I’m naturally drawn to smoothing friction and creating shared space, often choosing unity over speed - even if it delays necessary decisions.",
+      "id": 303
+    },
+    "statementB": {
+      "text": "I move quickly through tough calls, even if some feel unheard or bruised - believing leadership sometimes requires sacrificing total inclusion for timely clarity.",
+      "id": 304
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Guardian",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I feel a deep duty to protect people, values, and integrity - even if that makes me resist changes that feel risky, fast, or loosely defined.",
+      "id": 305
+    },
+    "statementB": {
+      "text": "I’m more inclined to adapt or adjust what once mattered, believing that clinging to past values can sometimes block essential progress.",
+      "id": 306
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Catalyst",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I naturally light fires under stagnant systems, believing momentum is better than perfection - even if the disruption causes temporary discomfort or backlash.",
+      "id": 307
+    },
+    "statementB": {
+      "text": "I prefer to let shifts evolve organically, waiting for readiness to emerge, even if the system feels too slow or complacent at times.",
+      "id": 308
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Servant",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I often hold back my own agenda to support others’ needs and growth - even when it means I stay in the background or miss recognition.",
+      "id": 309
+    },
+    "statementB": {
+      "text": "I tend to prioritise my path and responsibilities, trusting that others are capable of managing themselves without needing ongoing personal support.",
+      "id": 310
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Disruptor",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I feel most alive when shaking up what’s accepted, poking holes in traditions - even when it unsettles those around me or threatens familiar success.",
+      "id": 311
+    },
+    "statementB": {
+      "text": "I often preserve existing ways of working, believing that disruption is sometimes a distraction, and that deep improvement comes from subtle, sustained shifts.",
+      "id": 312
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Pioneer",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I gravitate toward uncharted spaces, even without clear maps - trusting that the experience of exploration matters more than the guarantee of arriving.",
+      "id": 313
+    },
+    "statementB": {
+      "text": "I prefer well-worn roads with known markers, believing it’s wiser to follow dependable paths than to chase the romance of the unknown.",
+      "id": 314
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Integrator",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I instinctively synthesise diverse views into shared frameworks - even if it takes more time - because I believe coherence beats speed.",
+      "id": 315
+    },
+    "statementB": {
+      "text": "I push decisions through quickly by focusing on dominant perspectives, believing that consensus can sometimes dilute clarity and momentum.",
+      "id": 316
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Architect",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I tend to design mental models and frameworks that help others orient themselves - even if it means I spend more time explaining than doing.",
+      "id": 317
+    },
+    "statementB": {
+      "text": "I prefer moving straight to action without over-structuring, believing that frameworks can sometimes overcomplicate what should be intuitive or emergent.",
+      "id": 318
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Storyteller",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I often translate complexity into metaphor or narrative, believing people act when they feel the meaning - even if the facts alone would have sufficed.",
+      "id": 319
+    },
+    "statementB": {
+      "text": "I favour straightforward data and directness, believing that stories can sometimes cloud urgency or distort what actually matters most.",
+      "id": 320
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Reformer",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I notice what’s outdated and broken, constantly seeking to correct - even when others are content or resistant to yet another upgrade.",
+      "id": 321
+    },
+    "statementB": {
+      "text": "I often leave things as they are, believing that too much improvement can disrupt what people have grown to trust and rely on.",
+      "id": 322
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Protector",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I often step in to shield teams from harm or overload - even if it risks slowing down delivery or disappointing higher-ups.",
+      "id": 323
+    },
+    "statementB": {
+      "text": "I hold my teams accountable even under pressure, believing that learning and resilience are forged by facing real consequences and demands.",
+      "id": 324
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  },
+  {
+    "dimensionName": "The Rainmaker",
+    "category": "Leadership Archetype Diagnostic",
+    "statementA": {
+      "text": "I thrive in securing the next win, client, or opportunity - focusing on external growth even if internal systems lag behind.",
+      "id": 325
+    },
+    "statementB": {
+      "text": "I prefer to stabilise internal structures before seeking new business, believing that expansion without readiness is a recipe for collapse.",
+      "id": 326
+    },
+    "arenaTitle": "Leadership Archetype Diagnostic: Identifying Core Leadership Styles",
+    "arenaDescription": "This diagnostic arena helps identify your dominant leadership archetype through trade-off statements that reveal your instinctive style in various leadership contexts."
+  }
+]

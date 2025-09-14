@@ -1,0 +1,171 @@
+// routes/marketingRoutes.js
+
+const express = require('express');
+const router = express.Router();
+const crypto = require('crypto');
+
+// 1. Add this import at the top of the file
+const { mockReportData } = require('../logic/mockReportData');
+
+// 2. Add this switch at the top of the file
+const USE_MOCK_DATA = true; // Set to `false` to use the real OpenAI A
+
+// NOTE: You will need to create these data files from your master question file.
+// marketing-assessment-data.js should export the array of 213 question objects.
+// marketing-answer-key.js should export an object mapping questionId to the correct answer for MCQs.
+const { marketingQuestions } = require('../data/marketing-assessment-data.js');
+const { marketingAnswerKey } = require('../data/marketing-answer-key.js');
+
+// Import all the new specialist functions from the file created by DeepSeek
+const {
+  calculateScores,
+  generateExecutiveSummary,
+  generateStrategicJudgmentReport,
+  generateBrandCommAcumenReport,
+  generateCommercialAcumenReport,
+  generateLeadershipTeamOrientationReport,
+  generateResourceAllocationDisciplineReport,
+  generateCommercialGrowthOrientationReport,
+  generateFoundationsOfStrategyReport,
+  generateBrandAndCommunicationsKnowledgeReport,
+  generatePricingAndChannelsKnowledgeReport,
+  generatePaucityOfBudgetsKnowledgeReport,
+  generateDigitalAndDataKnowledgeReport,
+  generateGlobalAndCulturalKnowledgeReport,
+  generateFutureAndThoughtLeadershipKnowledgeReport,
+  generateStrategyAndPositioningApplicationReport,
+  generateBrandAndCommunicationApplicationReport,
+  generateCustomerAndGrowthApplicationReport,
+  generateChannelsAndDistributionApplicationReport,
+  generatePricingAndMonetizationApplicationReport,
+  generateMarketingBudgetsApplicationReport,
+  generateExecutionAndPrioritizationDisciplineReport,
+  generateSelfAwarenessAndReflectionReport,
+  generateCreativityAndNarrativePowerReport,
+  generateAnalyticsKnowledgeReport
+} = require('../logic/marketing-ai-specialists.js');
+
+// A single, shared, in-memory job store for this assessment
+const marketingReportJobs = {};
+
+// --- API ROUTES ---
+
+// Endpoint to serve the questions to the frontend
+router.get('/questions', (req, res) => {
+  try {
+    // In a real app, you might want to randomize the order of questions here
+    // before sending them to the client, as per the PDF's instructions.
+    res.json(marketingQuestions);
+  } catch (error) {
+    console.error("Error fetching Marketing Quotient questions:", error);
+    res.status(500).json({ error: 'Failed to fetch questions.' });
+  }
+});
+
+// Endpoint to submit answers and start the report generation
+router.post('/submit', async (req, res) => {
+  const { answers, userInfo } = req.body;
+  const jobId = crypto.randomUUID();
+
+  res.status(202).json({ jobId }); // Immediately respond so the frontend can poll
+
+  // --- Perform the full AI generation in the background ---
+  try {
+    console.log(`Starting Marketing Influence Quotient report generation for job: ${jobId}`);
+    marketingReportJobs[jobId] = { status: 'processing', report: null };
+
+    // STEP 1: Calculate base scores first. This is a synchronous, non-AI task.
+    const scoredResults = calculateScores(answers, marketingAnswerKey);
+
+    // STEP 2: Run all AI-powered narrative generation tasks in parallel.
+    console.log(`Kicking off all parallel AI analysis for job: ${jobId}`);
+    const reportPieces = await Promise.all([
+      // Executive Summary
+      generateExecutiveSummary(scoredResults, answers),
+      // Trade-Off Dimensions (Section A analysis)
+      generateStrategicJudgmentReport(answers),
+      generateBrandCommAcumenReport(answers),
+      generateCommercialAcumenReport(answers),
+      generateLeadershipTeamOrientationReport(answers),
+      generateResourceAllocationDisciplineReport(answers),
+      generateCommercialGrowthOrientationReport(answers),
+      // MCQ Cluster Analyses (Sections B, C, D, E analysis)
+      generateFoundationsOfStrategyReport(scoredResults.mcq_results),
+      generateBrandAndCommunicationsKnowledgeReport(scoredResults.mcq_results),
+      generatePricingAndChannelsKnowledgeReport(scoredResults.mcq_results),
+      generatePaucityOfBudgetsKnowledgeReport(scoredResults.mcq_results),
+      generateDigitalAndDataKnowledgeReport(scoredResults.mcq_results),
+      generateGlobalAndCulturalKnowledgeReport(scoredResults.mcq_results),
+      generateFutureAndThoughtLeadershipKnowledgeReport(scoredResults.mcq_results),
+      generateStrategyAndPositioningApplicationReport(scoredResults.mcq_results),
+      generateBrandAndCommunicationApplicationReport(scoredResults.mcq_results),
+      generateCustomerAndGrowthApplicationReport(scoredResults.mcq_results),
+      generateChannelsAndDistributionApplicationReport(scoredResults.mcq_results),
+      generatePricingAndMonetizationApplicationReport(scoredResults.mcq_results),
+      generateMarketingBudgetsApplicationReport(scoredResults.mcq_results),
+      generateExecutionAndPrioritizationDisciplineReport(scoredResults.mcq_results),
+      generateSelfAwarenessAndReflectionReport(scoredResults.mcq_results),
+      generateCreativityAndNarrativePowerReport(scoredResults.mcq_results),
+      generateAnalyticsKnowledgeReport(scoredResults.mcq_results)
+    ]);
+    console.log(`All parallel AI analyses completed for job: ${jobId}`);
+
+    // STEP 3: Assemble the final, comprehensive report object from the results.
+    const finalReport = {
+      userInfo: userInfo || {},
+      scoredResults,
+      executiveSummary: reportPieces[0],
+      detailedAnalysis: {
+        // Trade-Offs
+        strategicJudgment:                            reportPieces[1],
+        brandCommAcumen:                              reportPieces[2],
+        commercialAcumen:                             reportPieces[3],
+        leadershipTeamOrientation:                    reportPieces[4],
+        resourceAllocationDiscipline:                 reportPieces[5],
+        commercialGrowthOrientation:                  reportPieces[6],
+        // MCQ Clusters
+        foundationsOfStrategy:                        reportPieces[7],
+        brandAndCommunicationsKnowledge:              reportPieces[8],
+        pricingAndChannelsKnowledge:                  reportPieces[9],
+        paucityOfBudgetsKnowledge:                    reportPieces[10],
+        digitalAndDataKnowledge:                      reportPieces[11],
+        globalAndCulturalKnowledge:                   reportPieces[12],
+        futureAndThoughtLeadership:                   reportPieces[13],
+        strategyAndPositioningApplication:            reportPieces[14],
+        brandAndCommunicationApplication:             reportPieces[15],
+        customerAndGrowthApplication:                 reportPieces[16],
+        channelsAndDistributionApplication:           reportPieces[17],
+        pricingAndMonetizationApplication:            reportPieces[18],
+        marketingBudgetsApplication:                  reportPieces[19],
+        executionAndPrioritizationDiscipline:         reportPieces[20],
+        selfAwarenessAndReflection:                   reportPieces[21],
+        creativityAndNarrativePower:                  reportPieces[22],
+        analyticsKnowledge:                           reportPieces[23]
+      }
+    };
+
+// VVVV ADD THIS LINE RIGHT HERE VVVV
+    console.log("FINAL REPORT OBJECT being stored:", JSON.stringify(finalReport, null, 2));
+
+    // STEP 4: Update the job store with the completed report.
+    marketingReportJobs[jobId] = { status: 'completed', report: finalReport };
+    console.log(`Marketing Influence Quotient report COMPLETED for job: ${jobId}`);
+
+  } catch (error) {
+    console.error(`Error in background marketing report generation for job ${jobId}:`, error);
+    marketingReportJobs[jobId] = { status: 'failed', report: null };
+  }
+});
+
+// Endpoint for the frontend to poll for the report status
+router.get('/status/:jobId', (req, res) => {
+  const { jobId } = req.params;
+  const job = marketingReportJobs[jobId];
+
+  if (!job) {
+    return res.status(404).json({ error: 'Job not found' });
+  }
+  res.json({ status: job.status, report: job.report });
+});
+
+module.exports = router;
