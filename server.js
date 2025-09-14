@@ -34,8 +34,8 @@ const startServer = async () => {
         console.log('MongoDB Connected successfully.');
 
         // 2. ONLY after the connection is successful, start the HTTP server
-        app.listen(port, () => {
-            console.log(`Server listening on http://localhost:${port}`);
+        app.listen(port, '0.0.0.0', () => {
+        console.log(`> Server ready on http://0.0.0.0:${port}`);
         });
 
     } catch (error) {
