@@ -241,12 +241,6 @@ The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
 
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
-
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
 **Part 1: Diagnostic Review (500-600 words minimum)**
@@ -297,12 +291,6 @@ Think and write as a globally renowned marketing strategist and thought leader, 
 The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
-
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
 
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
@@ -368,12 +356,6 @@ The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
 
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
-
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
 **Part 1: Diagnostic Review (500-600 words minimum)**
@@ -438,12 +420,6 @@ The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
 
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
-
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
 **Part 1: Diagnostic Review (500-600 words minimum)**
@@ -502,12 +478,6 @@ Think and write as a globally renowned marketing strategist and thought leader, 
 The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
-
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
 
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
@@ -568,12 +538,6 @@ The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
 
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
-
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
 **Part 1: Diagnostic Review (500-600 words minimum)**
@@ -632,12 +596,6 @@ The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
 
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
-
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
 **Part 1: Diagnostic Review (500-600 words minimum)**
@@ -694,12 +652,6 @@ Think and write as a globally renowned marketing strategist and thought leader, 
 The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
-
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
 
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
@@ -764,12 +716,6 @@ The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
 
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
-
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
 **Part 1: Diagnostic Review (500-600 words minimum)**
@@ -833,12 +779,6 @@ The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
 
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
-
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
 **Part 1: Diagnostic Review (500-600 words minimum)**
@@ -897,12 +837,6 @@ The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
 
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
-
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
 **Part 1: Diagnostic Review (500-600 words minimum)**
@@ -948,12 +882,6 @@ Think and write as a globally renowned marketing strategist and thought leader, 
 The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
-
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
 
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
@@ -1001,12 +929,6 @@ The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
 
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
-
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
 **Part 1: Diagnostic Review (500-600 words minimum)**
@@ -1052,12 +974,6 @@ Think and write as a globally renowned marketing strategist and thought leader, 
 The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
-
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
 
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
@@ -1105,12 +1021,6 @@ The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
 
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
-
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
 **Part 1: Diagnostic Review (500-600 words minimum)**
@@ -1156,12 +1066,6 @@ Think and write as a globally renowned marketing strategist and thought leader, 
 The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
-
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
 
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
@@ -1209,12 +1113,6 @@ The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
 
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
-
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
 **Part 1: Diagnostic Review (500-600 words minimum)**
@@ -1260,12 +1158,6 @@ Think and write as a globally renowned marketing strategist and thought leader, 
 The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
-
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
 
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
@@ -1313,12 +1205,6 @@ The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
 
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
-
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
 **Part 1: Diagnostic Review (500-600 words minimum)**
@@ -1364,12 +1250,6 @@ Think and write as a globally renowned marketing strategist and thought leader, 
 The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
-
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
 
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
@@ -1417,12 +1297,6 @@ The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
 
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
-
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
 **Part 1: Diagnostic Review (500-600 words minimum)**
@@ -1469,12 +1343,6 @@ The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
 
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
-
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
 **Part 1: Diagnostic Review (500-600 words minimum)**
@@ -1520,12 +1388,6 @@ Think and write as a globally renowned marketing strategist and thought leader, 
 The candidate's score was ${yourScore?.toFixed(1)}%.
 The Industry Average for their peer group is around ${industryAverage?.toFixed(1)}%.
 The Top Performer score for this dimension is around ${topPerformerScore?.toFixed(1)}%.
-
-**CRITICAL INSTRUCTIONS FOR TONE AND FORMAT:**
-1.  **Use the Second Person:** Address the user directly and personally. Use "you" and "your" throughout the entire analysis (e.g., "Your score indicates..." instead of "The candidate's score indicates...").
-2.  **No Raw Data:** **DO NOT** include any raw answer data, scores, or choices in the text. Do not write text like \`(answer B at a score of 5 versus answer A at 3)\`.
-3.  **Interpret, Don't State:** Convert raw data from the user message into natural, insightful language. For example, instead of showing scores, describe the tendency it reveals: "Your responses suggest a stronger focus on immediate, measurable results over long-term brand equity."
-4.  **Paragraph Structure:** For longer sections like the 'Diagnostic Review', break the text into clear, readable paragraphs. **Each paragraph should be no more than 4-5 lines long.** Use "\\n\\n" to separate paragraphs.
 
 You MUST return a single JSON object with the exact keys: "diagnosticReview", "benchmarkComparison", and "careerImplications".
 
