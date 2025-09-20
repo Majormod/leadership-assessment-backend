@@ -1,4 +1,4 @@
-// server.js - The Main Server File
+// server.js - The Main Server File Edited to work with EC2
 
 const http = require('http');
 const express = require('express');
