@@ -3,7 +3,7 @@ const answerKey = require('../data/sales-answer-key');
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-// --- MAPPINGS FROM THE SALES PERFORMANCE INDEX PDF ---
+// --- MAPPINGS FROM THE SALES PERFORMANCE INDEX PDF --- ---
 
 // Maps each of the 40 traits to its corresponding question IDs.
 const questionMapping = {
