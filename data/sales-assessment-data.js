@@ -1,8 +1,8 @@
-// marketing-assessment-data.js
+// sales-assessment-data.js
 
-module.exports = { salesQuestions: [
   // --- Section A: Trade-Off Questions (Q1-Q80) ---
-  {
+  const questions = [
+    {
     id: 1,
     text: "A consumer electronics firm faces diverging channel signals: online B2C sales are rising but volatile, retail is flat yet still commands trust, distribution partners warn of thinning margins, and institutional B2B buyers are exploring bulk contracts. Management asks for your channel priority recommendation. Each choice involves risk—what should the sales lead emphasize?",
     options: [
@@ -1601,6 +1601,7 @@ module.exports = { salesQuestions: [
       { id: 'C', text: "Suddenly enforce strict boundaries without explanation." },
       { id: 'D', text: "Begin reducing service quality to manage the workload." }
     ]
-  }
+ }
 ];
-};
+
+module.exports = questions;
