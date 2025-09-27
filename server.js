@@ -26,11 +26,13 @@ app.use(express.urlencoded({ extended: true }));
 const caseStudyRoutes = require('./routes/caseStudyRoutes');
 const imperiumRoutes = require('./routes/imperiumRoutes');
 const marketingRoutes = require('./routes/marketingRoutes');
+const salesRoutes = require('./routes/salesRoutes');
 
 // --- Use Route Files ---
 app.use('/api', caseStudyRoutes);
 app.use('/api/imperium', imperiumRoutes); // This will now work correctly
 app.use('/api/marketing', marketingRoutes); // --- NEW LINE 2 ---
+app.use('/api/sales', salesRoutes);
 
 
 // --- NEW: SEQUENTIAL SERVER START LOGIC ---
