@@ -1,6 +1,6 @@
 // In: data/sales-answer-key.js
 
-const answerKey = {
+const salesAnswerKey = {
   1: 'D', 2: 'C', 3: 'A', 4: 'B', 5: 'C', 6: 'B', 7: 'A', 8: 'C', 9: 'C', 10: 'C',
   11: 'C', 12: 'C', 13: 'B', 14: 'B', 15: 'B', 16: 'B', 17: 'B', 18: 'B', 19: 'B', 20: 'B',
   21: 'B', 22: 'A', 23: 'B', 24: 'B', 25: 'B', 26: 'B', 27: 'A', 28: 'B', 29: 'A', 30: 'A',
@@ -19,5 +19,5 @@ const answerKey = {
   151: 'A', 152: 'A', 153: 'A', 154: 'A', 155: 'A', 156: 'A', 157: 'A', 158: 'A', 159: 'A', 160: 'A'
 };
 
-// This is the only line that should be at the end.
-module.exports = answerKey;
+// This is the critical fix for Next.js
+export default salesAnswerKey;
