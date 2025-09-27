@@ -20,4 +20,4 @@ const salesAnswerKey = {
 };
 
 // This is the critical fix for Next.js
-export default salesAnswerKey;
+module.exports = answerKey;
