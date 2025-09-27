@@ -1,4 +1,4 @@
-// data/sales-answer-key.js
+// In: data/sales-answer-key.js
 
 const answerKey = {
   1: 'D', 2: 'C', 3: 'A', 4: 'B', 5: 'C', 6: 'B', 7: 'A', 8: 'C', 9: 'C', 10: 'C',
@@ -19,6 +19,5 @@ const answerKey = {
   151: 'A', 152: 'A', 153: 'A', 154: 'A', 155: 'A', 156: 'A', 157: 'A', 158: 'A', 159: 'A', 160: 'A'
 };
 
-module.exports = {
-  salesAnswerKey
-};
+// This is the only line that should be at the end.
+module.exports = answerKey;
